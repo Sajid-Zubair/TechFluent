@@ -5,10 +5,10 @@ import image from '../assets/man.png'
 function LandingPage() {
   return (
     <div>
-      <div>
+      <div className="mt-2 p-2">
         <div
           id="home"
-          className="h-screen flex flex-col md:flex-row justify-between items-center px-8 md:px-16"
+          className="h-screen flex flex-col md:flex-row md:items-center justify-between items-center px-8 md:px-16"
         >
           <div className="text-center md:text-left max-w-xl">
             <h1 className="text-4xl md:text-6xl font-bold text-gray-800 leading-tight">
@@ -28,7 +28,7 @@ function LandingPage() {
             <img
               src={image}
               alt="Interview Preparation"
-              className="w-full max-w-xl ml-10 mb-5"
+              className="w-full max-w-8xl ml-20 mb-10"
             />
           </div>
         </div>
