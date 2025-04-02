@@ -12,7 +12,7 @@ function Navbar() {
                 <li className='hover:text-blue-500 cursor-pointer hover:translate-y-[-2px] transition duration-200 ease-in-out'>About</li>
                 <li className='hover:text-blue-500 cursor-pointer hover:translate-y-[-2px] transition duration-200 ease-in-out'>Resources</li>
             </ul>
-            <button className='bg-blue-500 text-white rounded-2xl px-6 py-3 hover:bg-blue-600 transition hover:shadow-lg shadow-blue-900/50 hover:translate-y-[-2px] transition duration-200 ease-in-out cursor-pointer'>Login</button>
+            <button className='bg-blue-500 text-white rounded-2xl px-6 py-3 hover:bg-blue-600 transition hover:shadow-lg shadow-blue-900/50 hover:translate-y-[-2px] duration-200 ease-in-out cursor-pointer'>Login</button>
         </div>
     </>
   )
