@@ -1,7 +1,7 @@
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import LandingPage from "./LandingPage";
-import Login from "./Login";
+import Signup from "./Signup";
 
 
-export { Navbar, Footer, LandingPage, Login };
+export { Navbar, Footer, LandingPage, Signup };

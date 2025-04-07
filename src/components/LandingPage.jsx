@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import image from "../assets/man.png";
 import interview from "../assets/9195075.png";
 import { FaUserPlus, FaListAlt, FaKeyboard, FaRobot, FaChartBar } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const steps = [
   {
@@ -33,6 +34,8 @@ const steps = [
   },
 ];
 function LandingPage() {
+  const navigate = useNavigate()
+
   return (
     <div>
       <div className="mt-2 p-2 overflow-x-hidden">
@@ -49,7 +52,7 @@ function LandingPage() {
               Enhance your technical and HR communication skills with real-time
               AI-driven feedback.
             </p>
-            <button className="mt-6 px-6 py-3 bg-blue-500 text-white rounded-lg shadow-lg hover:bg-blue-600 transition-all cursor-pointer">
+            <button onClick={() => navigate('/signup')} className="mt-6 px-6 py-3 bg-blue-500 text-white rounded-lg shadow-lg hover:bg-blue-600 transition-all cursor-pointer">
               Get Started
             </button>
           </div>
