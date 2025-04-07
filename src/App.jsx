@@ -1,4 +1,5 @@
 import  {Navbar,Footer,LandingPage} from './components/index.js'
+import './index.css'
 import { useState, useEffect } from 'react';
 function App() {
 
