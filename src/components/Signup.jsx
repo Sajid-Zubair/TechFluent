@@ -9,8 +9,8 @@ function Login() {
 
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex flex-col w-full">
-            <label className="mb-1 font-medium text-grey-700">Name</label>
-            <input type="text" placeholder="Enter your name" className="mb-4 p-3 border-2 border-grey-100 rounded-xl" />
+            <label className="mb-1 font-medium text-grey-700">Username</label>
+            <input type="text" placeholder="Enter your username" className="mb-4 p-3 border-2 border-grey-100 rounded-xl" />
           </div>
 
           <div className="flex flex-col w-full">
