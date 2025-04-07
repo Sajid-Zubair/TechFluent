@@ -19,7 +19,7 @@ const steps = [
   {
     title: "Answer Questions",
     icon: <FaKeyboard size={24} />,
-    description: "Use voice or text to respond to questions. No pressure, just practice.",
+    description: "Use voice to respond to questions. No pressure, just practice.",
   },
   {
     title: "Get AI Feedback",
@@ -97,7 +97,7 @@ function LandingPage() {
           className="min-h-screen flex flex-col justify-center items-center"
           id="resources"
         >
-          <section className="bg-white py-20 px-6 md:px-24" id="how-it-works">
+          <section className=" py-20 px-6 md:px-24" id="how-it-works">
             <h2 className="text-5xl font-bold text-center text-gray-800 mb-16">
               How It Works
             </h2>
