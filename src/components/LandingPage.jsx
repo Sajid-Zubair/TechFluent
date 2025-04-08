@@ -48,8 +48,8 @@ function LandingPage() {
           id="home"
           className="flex flex-col md:flex-row md:items-center justify-between items-center px-8 md:px-16"
         >
-          <div className="mt-2 md:mt-2xl md:mb-2xl text-center md:text-left max-w-xl">
-            <h1 className="text-4xl md:text-4xl font-bold text-gray-800 leading-tight">
+          <div className="mt-6 text-center md:text-left max-w-xl">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 leading-tight">
               Ace Your Interviews with
               <span className="text-blue-500"> AI-Powered Feedback</span>
             </h1>
@@ -78,11 +78,11 @@ function LandingPage() {
           className="min-h-screen flex flex-col md:flex-row-reverse md:items-center justify-between items-center px-8 md:px-16 mt-4 md:mt-2"
         >
           <div className="text-center md:text-left max-w-xl">
-            <h1 className="text-4xl md:text-4xl font-bold text-gray-800">
+            <h1 className="text-4xl lg:text-5xl font-bold text-gray-800">
               Struggling to express your thoughts during
               <span className="text-blue-500"> Interviews ?</span>
             </h1>
-            <p className="mt-5 md:text-lg md:mt-4 text-lg text-gray-600">
+            <p className="mt-5 text-lg text-gray-600">
               This platform is designed to help you practice and improve your
               communication skills for both technical and HR interviews. Whether
               you're preparing for campus placements or internships, our
@@ -94,7 +94,7 @@ function LandingPage() {
             <img
               src={interview}
               alt="Interview Preparation"
-              className="w-4/5 md:w-full max-w-md md:max-w-xl md:mr-6 md:h-full"
+              className="w-4/5 md:w-[400px] lg:w-[400px] max-w-full md:h-auto"
             />
           </div>
         </div>

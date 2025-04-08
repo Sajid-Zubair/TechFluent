@@ -1,19 +1,9 @@
-import  {Navbar,Footer,LandingPage, Signup, Login} from './components/index.js'
+import  {Navbar,Footer,LandingPage, Signup, Login, Dashboard, Profile} from './components/index.js'
 import './index.css'
 import { useState, useEffect } from 'react';
 import { BrowserRouter, createBrowserRouter, Routes } from 'react-router-dom'
 import { Route } from 'react-router-dom'; 
 
-// const routes = createBrowserRouter([
-//   {
-//     path : '/',
-//     element : <App/>
-//   },
-//   {
-//     path : '/signup',
-//     element : <Signup/>
-//   },
-// ])
 function App() {
 
   return (
@@ -33,6 +23,8 @@ function App() {
 
         </Route>
         <Route path="/login" element={<Login/>}></Route>
+        <Route path='/dashboard' element={<Dashboard/>}></Route>
+        <Route path='/profile' element={<Profile/>}></Route>
 
       </Routes> 
     </div>
