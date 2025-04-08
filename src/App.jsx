@@ -1,4 +1,4 @@
-import  {Navbar,Footer,LandingPage, Signup} from './components/index.js'
+import  {Navbar,Footer,LandingPage, Signup, Login} from './components/index.js'
 import './index.css'
 import { useState, useEffect } from 'react';
 import { BrowserRouter, createBrowserRouter, Routes } from 'react-router-dom'
@@ -17,7 +17,7 @@ import { Route } from 'react-router-dom';
 function App() {
 
   return (
-    <div className='overflow-x-hidden bg-gradient-to-br from-48cae4 to-90e0ef'> 
+    <div className='overflow-x-hidden'> 
       <Routes>
 
         <Route path="/" element={
@@ -32,6 +32,7 @@ function App() {
         <Route path="/signup" element={<Signup/>}>
 
         </Route>
+        <Route path="/login" element={<Login/>}></Route>
 
       </Routes> 
     </div>
