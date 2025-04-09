@@ -8,7 +8,7 @@ function Dashboard() {
     const [showDropdown, setShowDropdown] = useState(false);
     const [interviewType, setInterviewType] = useState(null);
     const handleOutsideClick = (e) => {
-        if(!e.target.closest('.button-container')) {
+        if(!e.target.closest('.button-container') && !e.target.closest('.dropdown-menu')  && !e.target.closest('.start-btn')) {
             setShowDropdown(false);
             setInterviewType(null);
         }
@@ -61,7 +61,7 @@ function Dashboard() {
 
                     </div>
                         {showDropdown && (
-                            <div className='mb-1 w-fit md:w-1/3'>
+                            <div className='dropdown-menu mb-1 w-fit md:w-1/3'>
                                 <label className='block text-lg font-medium text-gray-700 mb-2'>
                                     Select a Subject:
                                 </label>
@@ -79,7 +79,7 @@ function Dashboard() {
 
 
             <div className='mt-20 flex justify-center'>
-                <button className='py-4 px-8 bg-blue-600 rounded-2xl text-white hover:bg-blue-700 cursor-pointer'>Start Interview</button>
+                <button className='start-btn py-4 px-8 bg-blue-600 rounded-2xl text-white hover:bg-blue-700 cursor-pointer'>Start Interview</button>
             </div>
 
 

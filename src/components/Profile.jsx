@@ -1,6 +1,13 @@
 import React from "react";
 import Sidenav from "./Sidenav";
-import { FaUser, FaMedal } from "react-icons/fa";
+import { FaUser, FaMedal, FaFire, FaStar, FaMicrophone } from "react-icons/fa";
+import {
+  Radar,
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
+} from "recharts";
 
 function Profile() {
   const username = "Zubair420";
@@ -12,7 +19,7 @@ function Profile() {
       <div className="ml-64 flex justify-center items-center p-4">
         <div className="flex flex-row justify-center items-center p-4 gap-16">
           <div className="flex flex-col items-center">
-            <div className="w-20 h-20 rounded-full bg-gray-300 flex justify-center items-center text-gray-600 text-lg">
+            <div className="w-20 h-20 rounded-full bg-gray-300 flex justify-center items-center text-gray-600 text-4xl">
               {initials}
             </div>
             <p className="text-xl text-gray-600 mt-2">{username}</p>
@@ -34,6 +41,30 @@ function Profile() {
           </div>
         </div>
       </div>
+
+      <hr className="border-t border-gray-300 ml-64" />
+      <div className="ml-64 flex flex-row justify-between items-center p-4">
+        <div className=" p-4 rounded-lg flex flex-row items-center">
+          <div className="text-lg font-bold">Max Streak : 7</div>
+          <FaFire size={24} className="ml-4 text-orange-500" />
+        </div>
+        <div className=" p-4 rounded-lg flex flex-row items-center">
+          <div className="text-lg font-bold">Rating : 8.89</div>
+          <FaStar size={24} style={{ color: "FFD700" }} className="ml-4" />
+        </div>
+        <div className=" p-4 rounded-lg flex flex-row items-center">
+          <div className="text-lg font-bold">
+            Total Interviews Completed : 7
+          </div>
+          <FaMicrophone
+            style={{ color: "3498DB" }}
+            size={24}
+            className="ml-4"
+          />
+        </div>
+      </div>
+      <hr className="border-t border-gray-300 ml-64" />
+
 
       <div />
     </div>
