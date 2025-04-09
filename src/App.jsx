@@ -1,8 +1,6 @@
-import  {Navbar,Footer,LandingPage, Signup, Login, Dashboard, Profile} from './components/index.js'
+import  {Navbar,Footer,LandingPage, Signup, Login, Dashboard, Profile, Resources} from './components/index.js'
 import './index.css'
-import { useState, useEffect } from 'react';
-import { BrowserRouter, createBrowserRouter, Routes } from 'react-router-dom'
-import { Route } from 'react-router-dom'; 
+import { Routes, Route } from 'react-router-dom'
 
 function App() {
 
@@ -25,6 +23,8 @@ function App() {
         <Route path="/login" element={<Login/>}></Route>
         <Route path='/dashboard' element={<Dashboard/>}></Route>
         <Route path='/profile' element={<Profile/>}></Route>
+
+        <Route path='/resources' element={<Resources/>}></Route>
 
       </Routes> 
     </div>

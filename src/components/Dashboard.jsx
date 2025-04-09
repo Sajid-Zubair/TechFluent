@@ -1,23 +1,15 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import Sidenav from './Sidenav'
 
 function Dashboard() {
     const navigate = useNavigate()
     const [showDropdown, setShowDropdown] = useState(false);
+    const [interviewType, setInterviewType] = useState(null);
   return (
     <div>
-        <div className='w-64 bg-blue-600 text-white fixed h-full flex flex-col justify-start px-6 py-8 shadow-lg'>
-            <h2 className='text-3xl font-bold'>TechFluent</h2>
-
-            <div className='mt-6'>
-                <nav className="flex flex-col gap-6 text-lg font-medium">
-                <a href="/dashboard" className="hover:text-blue-600 bg-white rounded-2xl transition text-black px-4 py-2">Home</a>
-                <a href="/mock-interview" className="hover:text-blue-600 bg-white rounded-2xl transition text-black px-4 py-2">Mock Interview</a>
-                <a href="/profile" className="hover:text-blue-600 bg-white rounded-2xl transition text-black px-4 py-2">Profile</a>
-                </nav>
-            </div>
-        </div>
+        <Sidenav/>
 
         <div className='ml-64 p-6'>
             <div className='flex justify-between items-center'>
@@ -52,8 +44,9 @@ function Dashboard() {
 
                 <div className='flex flex-row items-center gap-6'>
                     <div className='flex flex-row gap-4'>
-                        <button onClick={() => setShowDropdown((prev) => !prev)} className='py-4 px-2 bg-blue-600 rounded-2xl text-white hover:bg-blue-700 cursor-pointer'>Technical Interviwe</button>
-                        <button onClick={() => setShowDropdown(false)} className='py-4 px-2 bg-blue-600 rounded-2xl text-white hover:bg-blue-700 cursor-pointer'>Behavioural Interview</button>
+                        <button onClick={() => {setShowDropdown((prev) => !prev); setInterviewType('Technical')}} className={`py-4 px-2 bg-blue-600 rounded-2xl text-white  cursor-pointer ${interviewType === 'Technical' ? 'bg-green-700' : ''}`}
+                        >Technical Interviwe</button>
+                        <button onClick={() => {setShowDropdown(false); setInterviewType('Behavioural')}} className={`py-4 px-2 bg-blue-600 rounded-2xl text-white  cursor-pointer ${interviewType === 'Behavioural' ? 'bg-green-700' : ''}`}>Behavioural Interview</button>
 
                     </div>
                         {showDropdown && (
