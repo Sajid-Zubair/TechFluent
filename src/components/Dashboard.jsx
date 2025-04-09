@@ -7,8 +7,14 @@ function Dashboard() {
     const navigate = useNavigate()
     const [showDropdown, setShowDropdown] = useState(false);
     const [interviewType, setInterviewType] = useState(null);
+    const handleOutsideClick = (e) => {
+        if(!e.target.closest('.button-container')) {
+            setShowDropdown(false);
+            setInterviewType(null);
+        }
+    }
   return (
-    <div>
+    <div onClick={handleOutsideClick}>
         <Sidenav/>
 
         <div className='ml-64 p-6'>
@@ -43,9 +49,14 @@ function Dashboard() {
 
 
                 <div className='flex flex-row items-center gap-6'>
-                    <div className='flex flex-row gap-4'>
-                        <button onClick={() => {setShowDropdown((prev) => !prev); setInterviewType('Technical')}} className={`py-4 px-2 bg-blue-600 rounded-2xl text-white  cursor-pointer ${interviewType === 'Technical' ? 'bg-green-700' : ''}`}
-                        >Technical Interviwe</button>
+                    <div className='button-container flex flex-row gap-4'>
+                        <button onClick={(e) => {
+                                setShowDropdown((prev) => !prev); 
+                                setInterviewType('Technical');
+                            }
+                        } 
+                        className={`py-4 px-2 bg-blue-600 rounded-2xl text-white  cursor-pointer ${interviewType === 'Technical' ? 'bg-green-700' : ''}`}
+                        >Technical Interview</button>
                         <button onClick={() => {setShowDropdown(false); setInterviewType('Behavioural')}} className={`py-4 px-2 bg-blue-600 rounded-2xl text-white  cursor-pointer ${interviewType === 'Behavioural' ? 'bg-green-700' : ''}`}>Behavioural Interview</button>
 
                     </div>
