@@ -19,7 +19,7 @@ function Dashboard() {
 
         <div className='ml-64 p-6'>
             <div className='flex justify-between items-center'>
-                <h1 className='text-3xl font-bold p-4'>Welcome User!</h1>
+                <h1 className='text-3xl font-bold p-4'>Welcome Zubair!</h1>
                 <button onClick={() => navigate('/')} className='mt-2 bg-blue-600 text-white rounded-2xl px-6 py-3 hover:bg-blue-700 transition hover:shadow-lg shadow-blue-900/50 hover:translate-y-[-2px] duration-200 ease-in-out cursor-pointer'>Logout</button>
             </div>
 
@@ -66,7 +66,7 @@ function Dashboard() {
                                     Select a Subject:
                                 </label>
                                 <select className='w-40 p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400'>
-                                    <option value="">-- Choose Subject --</option>
+                                    <option value="">Choose Subject</option>
                                     <option value="dsa">Data Structures</option>
                                     <option value="os">Operating Systems</option>
                                     <option value="dbms">DBMS</option>
