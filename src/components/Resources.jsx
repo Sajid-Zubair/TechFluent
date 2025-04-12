@@ -15,7 +15,7 @@ function Resources() {
               type="text"
               placeholder='What do you want to learn?'
             />
-            <button onClick={handleSearch}>
+            <button>
               <FaSearch size={24} className='text-gray-600 cursor-pointer' />
             </button>
           </div>
