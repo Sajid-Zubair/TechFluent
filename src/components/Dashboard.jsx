@@ -2,17 +2,34 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import Sidenav from './Sidenav'
+import Popup from './Popup'
 
 function Dashboard() {
     const navigate = useNavigate()
-    const [showDropdown, setShowDropdown] = useState(false);
+    const [showPopup, setShowPopup] = useState(false);
+    const [isTechnicalSelected, setIsTechnicalSelected] = useState(false);
+    const [technicalSubject, setTechnicalSubject] = useState('');
     const [interviewType, setInterviewType] = useState(null);
     const handleOutsideClick = (e) => {
         if(!e.target.closest('.button-container') && !e.target.closest('.dropdown-menu')  && !e.target.closest('.start-btn')) {
             setShowDropdown(false);
             setInterviewType(null);
+            setShowPopup(false)
         }
     }
+    const handleTech = () => {
+        setShowPopup(true)
+        setInterviewType('Technical'); 
+        setIsTechnicalSelected(!isTechnicalSelected)
+    }
+    const onclose = () =>{
+        setShowPopup(false)
+    }
+    const handleDoneClick = (selectedInterviewType) => {
+        setShowPopup(false);
+        setTechnicalSubject(selectedInterviewType)
+        setIsTechnicalSelected(true)
+    };
   return (
     <div onClick={handleOutsideClick}>
         <Sidenav/>
@@ -50,31 +67,18 @@ function Dashboard() {
 
                 <div className='flex flex-row items-center gap-6'>
                     <div className='button-container flex flex-row gap-4'>
-                        <button onClick={(e) => {
-                                setShowDropdown((prev) => !prev); 
-                                setInterviewType('Technical');
-                            }
-                        } 
+                        <button onClick={handleTech} 
                         className={`py-4 px-2 bg-blue-600 rounded-2xl text-white  cursor-pointer ${interviewType === 'Technical' ? 'bg-green-700' : ''}`}
                         >Technical Interview</button>
-                        <button onClick={() => {setShowDropdown(false); setInterviewType('Behavioural')}} className={`py-4 px-2 bg-blue-600 rounded-2xl text-white  cursor-pointer ${interviewType === 'Behavioural' ? 'bg-green-700' : ''}`}>Behavioural Interview</button>
+                        <button onClick={() => { 
+                            setInterviewType('Behavioural') 
+                            setTechnicalSubject('');
+                            setIsTechnicalSelected(false);
+                            } } className={`py-4 px-2 bg-blue-600 rounded-2xl text-white  cursor-pointer ${interviewType === 'Behavioural' ? 'bg-green-700' : ''}`}>Behavioural Interview</button>
+                    </div>
+                        
+                </div> 
 
-                    </div>
-                        {showDropdown && (
-                            <div className='dropdown-menu mb-1 w-fit md:w-1/3'>
-                                <label className='block text-lg font-medium text-gray-700 mb-2'>
-                                    Select a Subject:
-                                </label>
-                                <select className='w-40 p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400'>
-                                    <option value="">Choose Subject</option>
-                                    <option value="dsa">Data Structures</option>
-                                    <option value="os">Operating Systems</option>
-                                    <option value="dbms">DBMS</option>
-                                    <option value="networking">Computer Networks</option>
-                                </select>
-                            </div>
-                        )}
-                    </div>
             </div>
 
 
@@ -83,6 +87,8 @@ function Dashboard() {
             </div>
 
 
+            {showPopup && <Popup setShowPopup={setShowPopup} onclose={onclose} handleDoneClick={handleDoneClick}/>}
+        
         </div>
 
     </div>
