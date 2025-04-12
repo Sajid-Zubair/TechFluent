@@ -1,9 +1,6 @@
 import React from 'react'
 import Sidenav from './Sidenav'
 import { FaSearch } from 'react-icons/fa';
-import { fetchBookRecommendations } from '../utils/chatgpt';
-import { useState } from 'react';
-
 
 function Resources() {
   return (
@@ -17,8 +14,6 @@ function Resources() {
               className='p-2 border-2 border-gray-500 rounded-lg'
               type="text"
               placeholder='What do you want to learn?'
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
             />
             <button onClick={handleSearch}>
               <FaSearch size={24} className='text-gray-600 cursor-pointer' />
