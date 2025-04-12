@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "./Navbar";
 import { useState, useEffect } from "react";
 import image from "../assets/man.png";
-import interview from "../assets/9195075.png";
+import interview from "../assets/discussion.png";
 import { FaUserPlus, FaListAlt, FaKeyboard, FaRobot, FaChartBar } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
