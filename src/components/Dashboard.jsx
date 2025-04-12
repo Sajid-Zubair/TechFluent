@@ -83,7 +83,7 @@ function Dashboard() {
 
 
             <div className='mt-20 flex justify-center'>
-                <button className='start-btn py-4 px-8 bg-blue-600 rounded-2xl text-white hover:bg-blue-700 cursor-pointer'>Start Interview</button>
+                <button className='mt-2 bg-blue-600 text-white rounded-2xl px-6 py-3 hover:bg-blue-700 transition hover:shadow-lg shadow-blue-900/50 hover:translate-y-[-2px] duration-200 ease-in-out cursor-pointer'>Start Interview</button>
             </div>
 
 

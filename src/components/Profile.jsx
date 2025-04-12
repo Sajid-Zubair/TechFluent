@@ -63,6 +63,26 @@ function Profile() {
 
       <RadarP/>
 
+      <hr className="border-t border-gray-300 ml-64" />
+      
+
+
+      <div className="ml-64 p-4">
+        <div className="p-4 flex flex-col justify-center items-center gap-8">
+          <h1 className="text-3xl font-bold mb-8">Interview Feedback</h1>
+          <div className="p-4 bg-blue-200 rounded-lg">
+            <h2 className="text-2xl font-bold text-black-500 mb-6">Positives</h2>
+            <p className="text-lg">Your speech was well-paced and easy to follow, showcasing good fluency throughout. The transitions between ideas felt natural, and you maintained a steady tone, which helped keep the listener engaged. The structure of your response showed clear organization, with a logical flow from introduction to conclusion. Your use of vocabulary was generally strong, with some effective word choices that conveyed your message precisely. Additionally, your response showed a solid understanding of the topic, indicating a good level of accuracy in the content you shared.
+            </p>
+          </div>
+          <div className="p-4 bg-blue-200 rounded-lg">
+            <h2 className="text-2xl font-bold text-black-500 mb-6">Areas for Improvement</h2>
+            <p className="text-lg">While your fluency was good overall, there were a few instances where filler words such as "uh" or "like" were slightly overused, which could be minimized with more practice. In terms of structure, adding brief summaries or bullet-like cues within your response could make your arguments more impactful. Regarding vocabulary, though most word choices were appropriate, incorporating more domain-specific or expressive terms could elevate your answer. Finally, while your content was mostly accurate, there were a couple of points that lacked clarity or depth, so ensuring each statement is backed by reasoning or examples can further enhance your response.             
+            </p>
+          </div>
+        </div>
+      </div>
+
       <div />
     </div>
   );
