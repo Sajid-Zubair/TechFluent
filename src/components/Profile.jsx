@@ -1,13 +1,8 @@
 import React from "react";
 import Sidenav from "./Sidenav";
 import { FaUser, FaMedal, FaFire, FaStar, FaMicrophone } from "react-icons/fa";
-import {
-  Radar,
-  RadarChart,
-  PolarGrid,
-  PolarAngleAxis,
-  PolarRadiusAxis,
-} from "recharts";
+import RadarP from './RadarP'
+
 
 function Profile() {
   const username = "Zubair420";
@@ -65,6 +60,8 @@ function Profile() {
       </div>
       <hr className="border-t border-gray-300 ml-64" />
 
+
+      <RadarP/>
 
       <div />
     </div>
