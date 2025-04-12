@@ -6,21 +6,6 @@ import { useState } from 'react';
 
 
 function Resources() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [results, setResults] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const handleSearch = async () => {
-    setLoading(true);
-    try {
-      const recommendation = await fetchBookRecommendations(searchQuery);
-      setResults(recommendation);
-    } catch (error) {
-      setResults("Error fetching recommendations.");
-    } finally {
-      setLoading(false);
-    }
-  };
   return (
     <div>
       <Sidenav />
@@ -41,13 +26,7 @@ function Resources() {
           </div>
         </div>
 
-        <div className='w-full max-w-4xl px-6'>
-          {loading ? (
-            <p>Fetching suggestions...</p>
-          ) : (
-            <pre className='whitespace-pre-wrap text-lg'>{results}</pre>
-          )}
-        </div>
+        
       </div>
     </div>
   )
