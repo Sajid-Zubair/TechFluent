@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidenav from "./Sidenav";
 import { FaUser, FaMedal, FaFire, FaStar, FaMicrophone } from "react-icons/fa";
 import RadarP from './RadarP'
+import { useNavigate } from "react-router-dom";
+import EditProfile from "./EditProfile";
 
 
 function Profile() {
+  const [setEditP, setShowEditP] = useState(false); 
+  const navigate = useNavigate();
   const username = "Zubair420";
   const initials = username.charAt(0).toUpperCase();
+
+  function handleEdit() {
+    setShowEditP(true);
+  }
   return (
     <div>
       <Sidenav />
@@ -30,7 +38,7 @@ function Profile() {
           </div>
 
           <div className="flex flex-row items-center">
-            <button className="px-6 py-3 bg-blue-500 text-white text-sm whitespace-nowrap rounded-lg shadow-lg hover:bg-blue-600 transition-all cursor-pointer">
+            <button onClick={handleEdit} className="px-6 py-3 bg-blue-500 text-white text-sm whitespace-nowrap rounded-lg shadow-lg hover:bg-blue-600 transition-all cursor-pointer">
               Edit Profile
             </button>
           </div>
@@ -82,6 +90,8 @@ function Profile() {
           </div>
         </div>
       </div>
+
+      {setEditP && <EditProfile setShowEditP={setShowEditP}/>}
 
       <div />
     </div>
