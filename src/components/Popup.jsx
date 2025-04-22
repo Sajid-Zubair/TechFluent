@@ -23,10 +23,14 @@ function Popup({setShowPopup, onclose, handleDoneClick}) {
                                     onChange={handleSelectChange}
                                  className='w-45 p-2 rounded-lg border border-black-300 focus:outline-none focus:ring-2 focus:ring-blue-800'>
                                     <option value="">Choose Subject</option>
-                                    <option value="dsa">Data Structures</option>
-                                    <option value="os">Operating Systems</option>
-                                    <option value="dbms">DBMS</option>
-                                    <option value="networking">Computer Networks</option>
+                                    <option value="DSA">Data Structures</option>
+                                    <option value="Operating Systems">Operating Systems</option>
+                                    <option value="Database and Management">DBMS</option>
+                                    <option value="Computer Networks">Computer Networks</option>
+                                    <option value="Machine Learning">Machine Learning</option>
+                                    <option value="Software Engineering">Software Engineering</option>
+                                    <option value="Object Oriented Programming">Object Oriented Programming</option>
+                                    <option value="Computer Organisation and Architecture">Computer Organisation and Architecture</option>
                                 </select>
                 </div>
                 <div>
