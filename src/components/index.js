@@ -6,6 +6,7 @@ import Login from "./Login";
 import Dashboard from "./Dashboard";
 import Profile from "./Profile";
 import Resources from "./Resources";
+import Interview from "./Interview";
 
 
-export { Navbar, Footer, LandingPage, Signup, Login, Dashboard, Profile, Resources };
+export { Navbar, Footer, LandingPage, Signup, Login, Dashboard, Profile, Resources, Interview };

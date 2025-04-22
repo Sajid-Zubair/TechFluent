@@ -1,4 +1,4 @@
-import  {Navbar,Footer,LandingPage, Signup, Login, Dashboard, Profile, Resources} from './components/index.js'
+import  {Navbar,Footer,LandingPage, Signup, Login, Dashboard, Profile, Resources, Interview} from './components/index.js'
 import './index.css'
 import { Routes, Route } from 'react-router-dom'
 
@@ -25,6 +25,8 @@ function App() {
         <Route path='/profile' element={<Profile/>}></Route>
 
         <Route path='/resources' element={<Resources/>}></Route>
+
+        <Route path="/interview" element={<Interview />} />
 
       </Routes> 
     </div>
