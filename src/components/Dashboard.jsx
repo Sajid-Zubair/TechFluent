@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { use } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import Sidenav from './Sidenav'
@@ -10,8 +10,11 @@ function Dashboard() {
     const [isTechnicalSelected, setIsTechnicalSelected] = useState(false);
     const [technicalSubject, setTechnicalSubject] = useState('');
     const [interviewType, setInterviewType] = useState(null);
-
     const handleStart = () => {
+        if(!interviewType) {
+            alert('Please select an interview type first!');
+            return;
+        }
         if (interviewType === 'Technical' && !technicalSubject) {
             alert('Please select a technical subject first!');
             return;
