@@ -55,10 +55,19 @@ function Interview() {
         }
     }, [type, subject]);
 
+    
+
 
     
     
-    
+    const handleRetry = () => {
+        setTranscription('');
+        setFeedback('');
+        setRating('');
+        setStatus('');
+        setRecording(false);
+        chunksRef.current = [];
+    }
 
     const handleRecord = async () => {
         if (!recording) {
@@ -153,6 +162,9 @@ function Interview() {
                 </ul>
                 </p>
             </div>
+            {transcription && feedback && (
+                <button onClick={handleRetry} className='mt-8 bg-blue-600 text-white rounded-2xl px-6 py-3 hover:bg-blue-700 transition hover:shadow-lg shadow-blue-900/50 hover:translate-y-[-2px] duration-200 ease-in-out cursor-pointer'>Retry</button>
+            )}
         </div>
     );
 }
