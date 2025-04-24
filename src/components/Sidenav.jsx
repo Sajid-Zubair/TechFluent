@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function Sidenav() {
   return (
@@ -7,9 +8,9 @@ function Sidenav() {
 
             <div className='mt-6'>
                 <nav className="flex flex-col gap-6 text-lg font-medium">
-                <a href="/dashboard" className="hover:text-blue-600 bg-white rounded-2xl transition text-black px-4 py-2">Home</a>
-                <a href="/resources" className="hover:text-blue-600 bg-white rounded-2xl transition text-black px-4 py-2">Resources</a>
-                <a href="/profile" className="hover:text-blue-600 bg-white rounded-2xl transition text-black px-4 py-2">Profile</a>
+                <Link to={"/dashboard"} className="hover:text-blue-600 bg-white rounded-2xl transition text-black px-4 py-2">Home</Link>
+                <Link to={"/resources"} className="hover:text-blue-600 bg-white rounded-2xl transition text-black px-4 py-2">Resources</Link>
+                <Link to={"/profile"} className="hover:text-blue-600 bg-white rounded-2xl transition text-black px-4 py-2">Profile</Link>
                 </nav>
             </div>
     </div>
