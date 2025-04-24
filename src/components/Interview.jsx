@@ -11,6 +11,7 @@ function Interview() {
     const [feedback, setFeedback] = useState('');
     const [question, setQuestion] = useState('');
     const [rating, setRating] = useState('');
+    const [prevRating, SetPrevRating] = useState(null);
     const mediaRecorderRef = useRef(null);
     const chunksRef = useRef([]);
 
@@ -55,12 +56,35 @@ function Interview() {
         }
     }, [type, subject]);
 
+
+    useEffect(() => {
+        if (prevRating && rating) {
+            const prevAvg = averageRating(prevRating);
+            const currAvg = averageRating(rating);
+    
+            if (currAvg > prevAvg) {
+                setStatus('Great! You improved 👏');
+            } else if (currAvg < prevAvg) {
+                setStatus('You did slightly worse. Try again!');
+            } else {
+                setStatus('Consistent performance! Lets push for better.');
+            }
+        }
+    }, [rating]);
+    
+    const averageRating = (ratingObj) => {
+        const values = Object.values(ratingObj).map(val => parseFloat(val));
+        const validValues = values.filter(val => !isNaN(val));
+        return validValues.reduce((a, b) => a + b, 0) / validValues.length;
+    };
+
     
 
 
     
     
     const handleRetry = () => {
+        SetPrevRating(rating);
         setTranscription('');
         setFeedback('');
         setRating('');
