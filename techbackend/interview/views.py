@@ -42,10 +42,22 @@ def get_question(request):
         )
         # question = response.choices[0].message.content.strip()
 
+        # const match = fullText.match(/\*\*Question:\*\*(.*?\?)/)?.[1]?.trim();
         import re
+        # raw_question = response.choices[0].message.content.strip()
+        # match = re.search(r'"(.*?)"', raw_question)
+        # question = match.group(1) if match else raw_question
         raw_question = response.choices[0].message.content.strip()
-        match = re.search(r'"(.*?)"', raw_question)
-        question = match.group(1) if match else raw_question
+
+        # Try to match **Question:** ...?
+        match_question = re.search(r'\*\*Question:\*\*\s*(.*?\?)', raw_question)
+
+        # If not found, try to match text inside double quotes
+        if match_question:
+            question = match_question.group(1).strip()
+        else:
+            match_quote = re.search(r'"(.*?)"', raw_question)
+            question = match_quote.group(1).strip() if match_quote else raw_question
         
         print(f"Generated question: {question[:50]}...")
         return Response({"question": question})

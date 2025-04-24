@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 function Interview() {
     const { state } = useLocation();
     const { type, subject } = state || {};  // Destructure the type and subject from state
@@ -12,6 +12,7 @@ function Interview() {
     const [question, setQuestion] = useState('');
     const [rating, setRating] = useState('');
     const [prevRating, SetPrevRating] = useState(null);
+    const [statusColor, setStatusColor] = useState(null)
     const mediaRecorderRef = useRef(null);
     const chunksRef = useRef([]);
 
@@ -64,10 +65,13 @@ function Interview() {
     
             if (currAvg > prevAvg) {
                 setStatus('Great! You improved 👏');
+                setStatusColor('green')
             } else if (currAvg < prevAvg) {
                 setStatus('You did slightly worse. Try again!');
+                setStatusColor('red')
             } else {
                 setStatus('Consistent performance! Lets push for better.');
+                setStatusColor('blue')
             }
         }
     }, [rating]);
@@ -78,11 +82,6 @@ function Interview() {
         return validValues.reduce((a, b) => a + b, 0) / validValues.length;
     };
 
-    
-
-
-    
-    
     const handleRetry = () => {
         SetPrevRating(rating);
         setTranscription('');
@@ -111,7 +110,7 @@ function Interview() {
                 formData.append('subject', subject || '');
             
                 setStatus('Transcribing...');
-            
+                setStatusColor('black')
                 try {
                     const res = await fetch('http://localhost:8000/api/process_audio/', {
                         method: 'POST',
@@ -140,10 +139,12 @@ function Interview() {
             mediaRecorder.start();
             setRecording(true);
             setStatus('Recording...');
+            setStatusColor('black')
         } else {
             mediaRecorderRef.current.stop();
             setRecording(false);
             setStatus('Stopped.');
+            setStatus('black')
         }
     };
 
@@ -168,7 +169,7 @@ function Interview() {
                 </button>
             )}
 
-            <p className="mt-4 text-gray-600">{status}</p>
+            <p style={{color : statusColor}} className="mt-4 text-gray-600">{status}</p>
 
             <div className="mt-6 bg-white shadow-md rounded-xl p-4 w-full max-w-2xl">
                 <p className="font-semibold">Transcription:</p>
@@ -186,9 +187,17 @@ function Interview() {
                 </ul>
                 </p>
             </div>
+
             {transcription && feedback && (
-                <button onClick={handleRetry} className='mt-8 bg-blue-600 text-white rounded-2xl px-6 py-3 hover:bg-blue-700 transition hover:shadow-lg shadow-blue-900/50 hover:translate-y-[-2px] duration-200 ease-in-out cursor-pointer'>Retry</button>
+                <div className='flex flex-row justify-between items-center gap-6'>
+                    
+                        <button onClick={handleRetry} className='mt-8 bg-blue-600 text-white rounded-2xl px-6 py-3 hover:bg-blue-700 transition hover:shadow-lg shadow-blue-900/50 hover:translate-y-[-2px] duration-200 ease-in-out cursor-pointer'>Retry</button>
+                        <Link to={'/dashboard'} className='mt-8 bg-blue-600 text-white rounded-2xl px-6 py-3 hover:bg-blue-700 transition hover:shadow-lg shadow-blue-900/50 hover:translate-y-[-2px] duration-200 ease-in-out cursor-pointer'>Done</Link>
+                    
+                </div>
             )}
+
+
         </div>
     );
 }
