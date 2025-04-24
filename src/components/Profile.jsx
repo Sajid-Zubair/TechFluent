@@ -12,6 +12,9 @@ function Profile() {
   const username = "Zubair420";
   const initials = username.charAt(0).toUpperCase();
 
+  function handlePrint(){
+    window.print();
+  }
   function handleEdit() {
     setShowEditP(true);
   }
@@ -33,7 +36,7 @@ function Profile() {
             </h1>
             <div className="flex flex-row gap-4 mt-4 items-center">
               <FaMedal size={28} className="text-yellow-500" />
-              <h3 className="text-2xl font-bold">Rank : 56</h3>
+              <h3 className="text-2xl font-bold">Rank : 56 / 100</h3>
             </div>
           </div>
 
@@ -94,6 +97,10 @@ function Profile() {
       {setEditP && <EditProfile setShowEditP={setShowEditP}/>}
 
       <div />
+
+      <div className="ml-64 p-4 flex flex-col justify-between items-center">
+        <button onClick={handlePrint} className="px-6 py-3 bg-blue-500 text-white text-sm whitespace-nowrap rounded-lg shadow-lg hover:bg-blue-600 transition-all cursor-pointer">🖨️ Print</button>
+      </div>
     </div>
   );
 }

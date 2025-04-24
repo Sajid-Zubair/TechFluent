@@ -41,6 +41,11 @@ function RadarP() {
               {
                 scales: {
                   r:{
+                    min:0,
+                    max:10,
+                    ticks : {
+                      stepSize: 1
+                    },
                     pointLabels: {
                       font: {
                         size: 14
