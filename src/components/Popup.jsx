@@ -31,6 +31,9 @@ function Popup({setShowPopup, onclose, handleDoneClick}) {
                                     <option value="Software Engineering">Software Engineering</option>
                                     <option value="Object Oriented Programming">Object Oriented Programming</option>
                                     <option value="Computer Organisation and Architecture">Computer Organisation and Architecture</option>
+                                    <option value="Compiler Design">Compiler Design</option>
+                                    <option value="Web Technologies">Web Technologies</option>
+                                    <option value="Cloud Computing">Cloud Computing</option>
                                 </select>
                 </div>
                 <div>
