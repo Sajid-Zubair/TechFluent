@@ -5,6 +5,7 @@ import os
 from groq import Groq
 import subprocess
 from dotenv import load_dotenv 
+import json
 
 load_dotenv()
 
@@ -40,13 +41,7 @@ def get_question(request):
             model="llama3-8b-8192",
             messages=[{"role": "user", "content": prompt}]
         )
-        # question = response.choices[0].message.content.strip()
-
-        # const match = fullText.match(/\*\*Question:\*\*(.*?\?)/)?.[1]?.trim();
         import re
-        # raw_question = response.choices[0].message.content.strip()
-        # match = re.search(r'"(.*?)"', raw_question)
-        # question = match.group(1) if match else raw_question
         raw_question = response.choices[0].message.content.strip()
 
         # Try to match **Question:** ...?
@@ -104,13 +99,7 @@ def process_audio(request):
     )
     rating = response.choices[0].message.content.strip()
 
-    # Parse the rating response to extract individual ratings
-    # ratings = {}
-    # for line in rating.splitlines():
-    #     if ":" in line:
-    #         key, value = line.split(":", 1)
-    #         ratings[key.strip()] = value.strip().split(" ")[0]
-    # Extract ratings using regex to handle different formats like bold, markdown, or text
+    
     import re
     pattern = r"(Coherence|Relevance|Fluency|Content Structure|Vocabulary|Accuracy)\s*[:\-–]\s*(\d{1,2}/10)"
     matches = re.findall(pattern, rating, flags=re.IGNORECASE)
@@ -135,3 +124,35 @@ def process_audio(request):
         "feedback": feedback,
         "rating": rating
     })
+
+
+
+@api_view(['POST'])
+def get_answer(request):
+    try:
+        body = json.loads(request.body)
+        query = body.get('query', '')
+
+        if not query:
+            return Response({"error": "Query field is missing."}, status=400)
+
+        prompt = f"You are a helpful assistant. Answer this: {query}"
+
+        response = client.chat.completions.create(
+            model="llama3-70b-8192",
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": query}
+            ]
+        )
+
+        answer = response.choices[0].message.content.strip()
+
+        return Response({"answer": answer})
+
+    except Exception as e:
+        return Response({
+            "answer": "An error occurred while generating the answer.",
+            "error": str(e)
+        }, status=500)
+    
