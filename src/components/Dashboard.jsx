@@ -10,6 +10,7 @@ function Dashboard() {
     const [isTechnicalSelected, setIsTechnicalSelected] = useState(false);
     const [technicalSubject, setTechnicalSubject] = useState('');
     const [interviewType, setInterviewType] = useState(null);
+    const [showDropdown, setShowDropdown] = useState(false);
     const handleStart = () => {
         if(!interviewType) {
             alert('Please select an interview type first!');
