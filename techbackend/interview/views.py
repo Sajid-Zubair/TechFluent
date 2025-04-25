@@ -136,7 +136,7 @@ def get_answer(request):
         if not query:
             return Response({"error": "Query field is missing."}, status=400)
 
-        prompt = f"You are a helpful assistant. Answer this: {query}"
+        prompt = f"You are a helpful assistant. Answer this: {query} and provide clickable links if needed"
 
         response = client.chat.completions.create(
             model="llama3-70b-8192",
