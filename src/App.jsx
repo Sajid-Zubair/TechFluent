@@ -1,4 +1,4 @@
-import  {Navbar,Footer,LandingPage, Signup, Login, Dashboard, Profile, Resources, Interview, EditProfile} from './components/index.js'
+import  {Navbar,Footer,LandingPage, Signup, Login, Dashboard, Profile, Resources, Interview, EditProfile, ErrorPop} from './components/index.js'
 import './index.css'
 import { Routes, Route } from 'react-router-dom'
 

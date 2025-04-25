@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import Sidenav from './Sidenav'
 import Popup from './Popup'
+import ErrorPop from './ErrorPop'
 
 function Dashboard() {
     const navigate = useNavigate()
@@ -11,9 +12,11 @@ function Dashboard() {
     const [technicalSubject, setTechnicalSubject] = useState('');
     const [interviewType, setInterviewType] = useState(null);
     const [showDropdown, setShowDropdown] = useState(false);
+    const [showError, setshowError] = useState(false);
     const handleStart = () => {
         if(!interviewType) {
-            alert('Please select an interview type first!');
+            // alert('Please select an interview type first!');
+            setshowError(true)
             return;
         }
         if (interviewType === 'Technical' && !technicalSubject) {
@@ -106,7 +109,8 @@ function Dashboard() {
 
 
             {showPopup && <Popup setShowPopup={setShowPopup} onclose={onclose} handleDoneClick={handleDoneClick}/>}
-        
+                            
+            {showError && <ErrorPop />}
         </div>
 
     </div>
