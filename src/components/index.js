@@ -8,6 +8,7 @@ import Profile from "./Profile";
 import Resources from "./Resources";
 import Interview from "./Interview";
 import EditProfile from "./EditProfile";
+import ErrorPop from "./ErrorPop";
 
 
-export { Navbar, Footer, LandingPage, Signup, Login, Dashboard, Profile, Resources, Interview, EditProfile };
+export { Navbar, Footer, LandingPage, Signup, Login, Dashboard, Profile, Resources, Interview, EditProfile, ErrorPop };
