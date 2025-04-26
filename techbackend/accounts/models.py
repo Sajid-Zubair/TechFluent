@@ -3,21 +3,27 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 class CustomUser(AbstractUser):
-    # Extra fields
-    college_name = models.CharField(max_length=100)
-    year_of_joining = models.CharField(max_length=100)
-
-    # Interview tracking
-    technical_interviews = models.PositiveIntegerField(default=0)
-    behavioral_interviews = models.PositiveIntegerField(default=0)
-    total_interviews = models.PositiveIntegerField(default=0)
-    overall_rating = models.FloatField(default=0.0)
-
-    # Individual ratings
-    fluency = models.FloatField(default=0.0)
-    coherence = models.FloatField(default=0.0)
-    accuracy = models.FloatField(default=0.0)
-    grammar = models.FloatField(default=0.0)
+    email = models.EmailField(unique=True)
+    college_name = models.CharField(max_length=255)
 
     def __str__(self):
         return self.username
+    
+
+class InterviewAttempt(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="interview_attempts")
+    interview_type = models.CharField(max_length=10, choices=[('Technical', 'Technical'), ('HR', 'HR')])
+    date = models.DateTimeField(auto_now_add=True)
+
+    # Six Metrics
+    fluency = models.IntegerField()
+    content_structure = models.IntegerField()
+    accuracy = models.IntegerField()
+    grammar = models.IntegerField()
+    vocabulary = models.IntegerField()
+    coherence = models.IntegerField()
+
+    overall_rating = models.FloatField()
+
+    def __str__(self):
+        return f"{self.user.username} - {self.date}"
