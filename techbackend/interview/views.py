@@ -130,7 +130,8 @@ def process_audio(request):
 @api_view(['POST'])
 def get_answer(request):
     try:
-        body = json.loads(request.body)
+        # body = json.loads(request.body)
+        body = request.data
         query = body.get('query', '')
 
         if not query:
