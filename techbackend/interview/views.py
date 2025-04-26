@@ -108,7 +108,7 @@ def process_audio(request):
     rating = {key.capitalize(): value for key, value in matches}
 
     # Feedback from Groq
-    prompt = f"How would I improve this interview answer: {transcription}"
+    prompt = f"How would I improve this interview answer: {transcription}?"
     
     response = client.chat.completions.create(
         model="llama3-70b-8192",
