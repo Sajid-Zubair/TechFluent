@@ -17,8 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
+from accounts.views import RegisterView, LoginView,ProfileView, UserInfoAPIView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("interview.urls")),
+    path("api/register/", RegisterView.as_view()),
+    path("api/login/", LoginView.as_view()),
+    path("api/profile/", ProfileView.as_view()),
+    path("api/logout/", LoginView.as_view()),
+    path("api/user/",UserInfoAPIView.as_view())
 ]

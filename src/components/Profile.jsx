@@ -4,13 +4,49 @@ import { FaUser, FaMedal, FaFire, FaStar, FaMicrophone } from "react-icons/fa";
 import RadarP from './RadarP'
 import { useNavigate } from "react-router-dom";
 import EditProfile from "./EditProfile";
+import axios from "axios";
+import { useEffect } from "react";
 
 
 function Profile() {
   const [setEditP, setShowEditP] = useState(false); 
   const navigate = useNavigate();
-  const username = "Zubair420";
+  // const username = "Zubair420";
+  const [username, setUsername] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const initials = username.charAt(0).toUpperCase();
+
+
+    useEffect(() => {
+        const checkLogin = async () => {
+            try {
+                const token = localStorage.getItem('access_token');
+                console.log("Retrieved token:", token); 
+                if(token){
+                    const config = {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            "Content-Type": "application/json"
+                        },
+                    }
+                    const response = await axios.get('http://localhost:8000/api/user/', config);
+                    setIsLoggedIn(true);
+                    setUsername(response.data.username);
+                }
+                else{
+                    console.log("No token found")
+                    setIsLoggedIn(false);
+                    setUsername("")
+                }
+            } catch (error) {
+                console.error("API Error:", error.response?.data);  // 🚨 Enhanced logging
+                setIsLoggedIn(false);
+                setUsername("");
+            }
+        };
+        checkLogin();
+    
+    }, [])
 
   function handlePrint(){
     window.print();
