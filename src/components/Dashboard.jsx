@@ -1,9 +1,12 @@
 import React, { use } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Sidenav from './Sidenav'
 import Popup from './Popup'
 import ErrorPop from './ErrorPop'
+import axios from 'axios'
+
+
 
 function Dashboard() {
     const navigate = useNavigate()
@@ -13,6 +16,65 @@ function Dashboard() {
     const [interviewType, setInterviewType] = useState(null);
     const [showDropdown, setShowDropdown] = useState(false);
     const [showError, setshowError] = useState(false);
+    const [username, setUsername] = useState('');
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const checkLogin = async () => {
+            try {
+                const token = localStorage.getItem('access_token');
+                console.log("Retrieved token:", token); 
+                if(token){
+                    const config = {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            "Content-Type": "application/json"
+                        },
+                    }
+                    const response = await axios.get('http://localhost:8000/api/user/', config);
+                    setIsLoggedIn(true);
+                    setUsername(response.data.username);
+                }
+                else{
+                    console.log("No token found")
+                    setIsLoggedIn(false);
+                    setUsername("")
+                }
+            } catch (error) {
+                console.error("API Error:", error.response?.data);  // 🚨 Enhanced logging
+                setIsLoggedIn(false);
+                setUsername("");
+            }
+        };
+        checkLogin();
+    
+    }, [])
+
+    const handleLogout = async () => {
+        try {
+          const refreshToken = localStorage.getItem("refresh_token");
+      
+          if (refreshToken) {
+            await axios.post(
+              'http://localhost:8000/api/logout/',
+              { "refresh": refreshToken },
+              { headers: { "Content-Type": "application/json" } }
+            );
+          }
+        } catch (error) {
+          console.error("Failed to logout:", error.response?.data || error.message);
+        } finally {
+          // Always run this part, whether logout API success or fail
+          localStorage.removeItem("access_token");
+          localStorage.removeItem("refresh_token");
+          setIsLoggedIn(false);
+          setUsername("");
+          console.log("Log out successful!");
+          navigate('/');
+        }
+      };
+
+    
     const handleStart = () => {
         if(!interviewType) {
             // alert('Please select an interview type first!');
@@ -57,8 +119,8 @@ function Dashboard() {
 
         <div className='ml-64 p-6'>
             <div className='flex justify-between items-center'>
-                <h1 className='text-3xl font-bold p-4'>Welcome Zubair!</h1>
-                <button onClick={() => navigate('/')} className='mt-2 bg-blue-600 text-white rounded-2xl px-6 py-3 hover:bg-blue-700 transition hover:shadow-lg shadow-blue-900/50 hover:translate-y-[-2px] duration-200 ease-in-out cursor-pointer'>Logout</button>
+                <h1 className='text-3xl font-bold p-4'>Welcome {username}!</h1>
+                <button onClick={handleLogout} className='mt-2 bg-blue-600 text-white rounded-2xl px-6 py-3 hover:bg-blue-700 transition hover:shadow-lg shadow-blue-900/50 hover:translate-y-[-2px] duration-200 ease-in-out cursor-pointer'>Logout</button>
             </div>
 
 
