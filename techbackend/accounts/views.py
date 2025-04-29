@@ -9,6 +9,7 @@ from django.contrib.auth import get_user_model
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.generics import RetrieveAPIView
+from .models import InterviewAttempt
 User = get_user_model()
 class RegisterView(APIView):
     def post(self, request):
@@ -52,21 +53,37 @@ class ProfileView(APIView):
     
 
 class LogoutView(APIView):
+    permission_classes = [IsAuthenticated]
     def post(self, request):
-        print("requested_data",request.data)
+        print("Request headers:", request.headers)
+        print("Request body:", request.body)
+        print("Requested data:", request.data)
+        
         try:
             refresh_token = request.data.get("refresh")
+            print("Extracted refresh token:", refresh_token)
+            
             if not refresh_token:
                 return Response({"message": "Refresh token not provided"}, status=status.HTTP_400_BAD_REQUEST)
-            token = RefreshToken(refresh_token)
-            token.blacklist()
-            return Response(status=status.HTTP_205_RESET_CONTENT)
+            
+            # Try to validate the token before blacklisting
+            try:
+                # Add token validation check here if possible
+                print("About to blacklist token...")
+                token = RefreshToken(refresh_token)
+                token.blacklist()
+                print("Token successfully blacklisted")
+                return Response(status=status.HTTP_205_RESET_CONTENT)
+            except Exception as e:
+                print(f"Token processing error: {str(e)}")
+                raise e
+                
         except TokenError as e:
-            print(f"Logout error: {str(e)}")
-            return Response({"message": "Invalid or expired token"}, status=status.HTTP_400_BAD_REQUEST)
+            print(f"Logout TokenError: {str(e)}")
+            return Response({"message": f"Invalid or expired token: {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             print(f"Logout error: {str(e)}")
-            return Response({"message": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"message": f"Invalid credentials: {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
     
 
 class UserSerializer(serializers.ModelSerializer):
@@ -81,4 +98,8 @@ class UserInfoAPIView(RetrieveAPIView):
     
     def get_object(self):
         return self.request.user
-        
+    
+
+
+
+

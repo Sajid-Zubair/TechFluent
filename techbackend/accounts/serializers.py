@@ -2,6 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 
+
 User = get_user_model()
 
 class RegisterSerializer(serializers.Serializer):
@@ -45,3 +46,4 @@ class RegisterSerializer(serializers.Serializer):
             'college_name': instance.college_name,
             'year_of_joining': instance.year_of_joining
         }
+    
