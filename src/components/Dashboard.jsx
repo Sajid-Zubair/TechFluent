@@ -53,13 +53,24 @@ function Dashboard() {
     const handleLogout = async () => {
         try {
           const refreshToken = localStorage.getItem("refresh_token");
-      
+          console.log("Refresh token:", refreshToken);  
+          if (!refreshToken || refreshToken === "undefined" || refreshToken === "null") {
+            console.log("Invalid refresh token detected");
+            return; // Skip the API call if token is invalid
+          }
           if (refreshToken) {
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value;
             await axios.post(
-              'http://localhost:8000/api/logout/',
-              { "refresh": refreshToken },
-              { headers: { "Content-Type": "application/json" } }
-            );
+                'http://localhost:8000/api/logout/',
+                { refresh: refreshToken }, // Try explicitly stringifying
+                { 
+                  headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem("access_token")}`,
+                    "X-CSRFToken": csrfToken,
+                  } 
+                }
+              );
           }
         } catch (error) {
           console.error("Failed to logout:", error.response?.data || error.message);
@@ -73,6 +84,8 @@ function Dashboard() {
           navigate('/');
         }
       };
+
+    
 
     
     const handleStart = () => {
