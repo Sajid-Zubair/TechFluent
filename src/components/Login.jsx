@@ -46,14 +46,9 @@ function Login() {
     }catch (error) {
       console.log("Full error:", error.response?.data);
       if(error.response && error.response.data){
-        Object.keys(error.response.data).forEach((key) => {
-           const errorMessages = error.response.data[key];
-           if(errorMessages && errorMessages.length > 0){
-            setError(errorMessages[0])
-           }
-        })
+        setError(error.response.data.message)
         //alert("Error: " + JSON.stringify(err.response.data, null, 2));
-    }
+      }
   }
     finally{
       setIsLoading(false)
@@ -62,9 +57,9 @@ function Login() {
 
   return (
     <div className="flex justify-center items-center h-screen">
-    <div className="flex flex-col border-2 border-black max-w-2xl p-8 shadow-2xl rounded-2xl bg-white">
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+    <div className="flex flex-col border-2 border-black max-w-2xl p-8 shadow-2xl rounded-2xl bg-white sm:p-12 m-4">
       <form onSubmit={handleSubmit}>
+      {error && <p className='text-red-600 text-center mb-4 font-semibold'>{error}</p>}
       <h1 className="text-3xl font-bold text-center mb-6">Login</h1>
       <p className="text-gray-500 text-center mb-6">Login to view your interview progress and leaderboard rank!</p>
 
@@ -82,7 +77,9 @@ function Login() {
         </div>
       </div>
 
-      <button type="submit" className='mt-2 bg-blue-500 text-white rounded-2xl px-6 py-3 hover:bg-blue-600 transition hover:shadow-lg shadow-blue-900/50 hover:translate-y-[-2px] duration-200 ease-in-out cursor-pointer'>Login</button>
+      <div className='flex justify-center items-center'>
+        <button type="submit" className='mt-2 bg-blue-500 text-white rounded-2xl px-6 py-3 hover:bg-blue-600 transition hover:shadow-lg shadow-blue-900/50 hover:translate-y-[-2px] duration-200 ease-in-out cursor-pointer'>Login</button>
+      </div>
       <p className="mt-4 text-center text-gray-600">
           Dont have an account?{" "}
           <a href="/signup" className="text-blue-500 transition-all duration-200 hover:text-blue-700">
