@@ -60,65 +60,76 @@ function Signup() {
       setIsLoading(false)
     }
   }
-
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="flex flex-col border-2 border-black max-w-2xl p-8 shadow-2xl rounded-2xl bg-white">
-      {error && <div className="text-red-500 text-center mb-4">{error}</div>}
-      {success && <div className="text-green-500 text-center mb-4">{success}</div>}
-        <h1 className="text-3xl font-bold text-center mb-6">Sign-Up</h1>
+    <div className="flex justify-center items-center min-h-screen px-4 py-8 bg-gray-100">
+      <div className="w-full max-w-md md:max-w-xl lg:max-w-2xl bg-white border-2  border-black p-8 rounded-2xl shadow-xl">
+        {error && <div className="text-red-500 text-center mb-4">{error}</div>}
+        {success && <div className="text-green-500 text-center mb-4">{success}</div>}
+        <h1 className="text-3xl font-bold text-center mb-2">Sign-Up</h1>
         <p className="text-gray-500 text-center mb-6">Create an account to join your college leaderboard!</p>
 
-        <form onSubmit={handleSubmit} action="">
+        <form onSubmit={handleSubmit}>
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex flex-col w-full">
-              <label className="mb-1 font-medium text-grey-700">Username</label>
-              <input name='username' value={formData.username} onChange={handleChange} type="text" placeholder="Enter your username" className="mb-4 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-200" />
+              <label className="mb-1 font-medium text-gray-700">Username</label>
+              <input name='username' value={formData.username} onChange={handleChange} type="text" placeholder="Enter your username" className="mb-4 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
             </div>
-
             <div className="flex flex-col w-full">
               <label className="mb-1 font-medium text-gray-700">Email</label>
-              <input name='email' value={formData.email} onChange={handleChange} type="email" placeholder="Enter your email" className="mb-4 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-200" />
+              <input name='email' value={formData.email} onChange={handleChange} type="email" placeholder="Enter your email" className="mb-4 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
             </div>
           </div>
 
-          <label className="mb-1 font-medium text-gray-700">College</label>
-          <input name='college_name' value={formData.college_name} onChange={handleChange} type="text" placeholder="Enter college name" className="w-full mb-4 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-200" />
+          <div className="flex flex-col mb-4">
+            <label className="mb-1 font-medium text-gray-700">College</label>
+            <select name='college_name' value={formData.college_name} onChange={handleChange} className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="">Select College</option>
+              <option value="Anurag University">Anurag University</option>
+              <option value="Chaitanya Bharathi Institute of Technology">Chaitanya Bharathi Institute of Technology</option>
+              <option value="Gokaraju Rangaraju Institute of Technology">Gokaraju Rangaraju Institute of Technology</option>
+              <option value="Keshav Memorial Institute of Technology">Keshav Memorial Institute of Technology</option>
+              <option value="Muffakham Jah College of Engineering & Technology">Muffakham Jah College of Engineering & Technology</option>
+              <option value="Vallurupalli Nageswara Rao Vignana Jyothi Institute of Engineering & Technology">Vallurupalli Nageswara Rao Vignana Jyothi Institute of Engineering & Technology</option>
+              <option value="Vasavi College of Engineering">Vasavi College of Engineering</option>
+            </select>
+          </div>
 
-          <label className="block mb-1 font-medium">Year of Joining</label>
-          <select name='year_of_joining' value={formData.year_of_joining} onChange={handleChange} id='' className="w-full mb-4 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-200">
-            <option value="">Select year</option>
-            <option value="2021">2021</option>
-            <option value="2022">2022</option>
-            <option value="2023">2023</option>
-            <option value="2024">2024</option>
-          </select>
-
+          <div className="flex flex-col mb-4">
+            <label className="mb-1 font-medium text-gray-700">Year of Joining</label>
+            <select name='year_of_joining' value={formData.year_of_joining} onChange={handleChange} className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="">Select Year</option>
+              <option value="2021">2021</option>
+              <option value="2022">2022</option>
+              <option value="2023">2023</option>
+              <option value="2024">2024</option>
+            </select>
+          </div>
 
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex flex-col w-full">
               <label className="mb-1 font-medium text-gray-700">Password</label>
-              <input name='password' value={formData.password} onChange={handleChange} type="password" placeholder="Enter Password" className="mb-4 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-200" />
+              <input name='password' value={formData.password} onChange={handleChange} type="password" placeholder="Enter Password" className="mb-4 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
             </div>
-
             <div className="flex flex-col w-full">
               <label className="mb-1 font-medium text-gray-700">Re-Enter Password</label>
-              <input name='re_password' value={formData.re_password} onChange={handleChange} type="password" placeholder="Re-Enter your Password" className="mb-4 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-200" />
+              <input name='re_password' value={formData.re_password} onChange={handleChange} type="password" placeholder="Re-Enter Password" className="mb-4 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
             </div>
           </div>
 
-          <button onClick={handleSubmit} disabled={isLoading} type='submit' className='mt-2 bg-blue-500 text-white rounded-2xl px-6 py-3 hover:bg-blue-600 transition hover:shadow-lg shadow-blue-900/50 hover:translate-y-[-2px] duration-200 ease-in-out cursor-pointer'>Sign Up</button>
-
+          <div className="flex justify-center mt-4">
+            <button disabled={isLoading} type='submit' className='w-full md:w-auto bg-blue-500 text-white rounded-2xl px-6 py-3 hover:bg-blue-600 transition hover:shadow-lg shadow-blue-900/50 hover:translate-y-[-2px] duration-200 ease-in-out'>
+              {isLoading ? "Registering..." : "Sign Up"}
+            </button>
+          </div>
         </form>
-        <p className="mt-4 text-center text-gray-600">
-            Already have an account?{" "}
-            <a href="/login" className="text-blue-500 transition-all duration-200 hover:text-blue-700">
-              Login
-            </a>
+
+        <p className="mt-6 text-center text-gray-600">
+          Already have an account?{" "}
+          <a href="/login" className="text-blue-500 hover:text-blue-700 transition">Login</a>
         </p>
       </div>
     </div>
-  )
+  );
 }
 
 
