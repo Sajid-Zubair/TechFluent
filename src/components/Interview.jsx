@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
 function Interview() {
     const { state } = useLocation();
     const { type, subject } = state || {};  // Destructure the type and subject from state
@@ -180,7 +181,11 @@ function Interview() {
                 <p className="font-semibold">Transcription:</p>
                 <p className="text-gray-800">{transcription}</p>
                 <p className="font-semibold mt-4">Feedback:</p>
-                <p className="text-gray-800">{feedback}</p>
+                {/* <p className="text-gray-800">{feedback}</p> */}
+                <div className="my-markdown-wrapper text-gray-800">
+                <ReactMarkdown>{feedback}</ReactMarkdown>
+                </div>
+
                 <p className="font-semibold mt-4">Ratings:</p>
                 <p className="text-gray-800">
                 <ul>
