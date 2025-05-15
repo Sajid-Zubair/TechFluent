@@ -17,46 +17,41 @@ function Interview() {
     const mediaRecorderRef = useRef(null);
     const chunksRef = useRef([]);
 
-
-
-    useEffect(() => {
-        const fetchQuestion = async () => {
-            setStatus('Fetching question...');
-            try {
-                let url = `http://localhost:8000/api/get_question?type=${type}`;
-                if (type === 'Technical') {
-                    url += `&subject=${subject}`;
-                }
-    
-                const response = await fetch(url);
-    
-                if (!response.ok) {
-                    console.error(`Server error: ${response.status}`);
-                    setStatus(`Failed to fetch question. Server error: ${response.status}`);
-                    return;
-                }
-    
-                const data = await response.json();
-                console.log('Fetched Question:', data);
-    
-                if (data.question) {
-                    setQuestion(data.question);
-                    setStatus('');
-                } else {
-                    setStatus('No question received from server');
-                }
-            } catch (err) {
-                console.error('Error fetching question:', err);
-                setStatus(`Error: ${err.message}`);
-            }
-        };
-    
-        if (type === 'Technical' && subject) {
-            fetchQuestion();
-        } else if (type === 'Behavioural') {
-            fetchQuestion();
+    const fetchQuestion = async () => {
+    setStatus('Fetching question...');
+    setStatusColor('black');
+    try {
+        let url = `http://localhost:8000/api/get_question?type=${type}`;
+        if (type === 'Technical') {
+            url += `&subject=${subject}`;
         }
-    }, [type, subject]);
+
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            console.error(`Server error: ${response.status}`);
+            setStatus(`Failed to fetch question. Server error: ${response.status}`);
+            return;
+        }
+
+        const data = await response.json();
+        console.log('Fetched Question:', data);
+
+        if (data.question) {
+            setQuestion(data.question);
+            setStatus('');
+        } else {
+            setStatus('No question received from server');
+        }
+    } catch (err) {
+        console.error('Error fetching question:', err);
+        setStatus(`Error: ${err.message}`);
+    }
+};
+
+useEffect(() => {
+    fetchQuestion();
+}, [type, subject]);
 
 
     useEffect(() => {
@@ -92,6 +87,16 @@ function Interview() {
         setRecording(false);
         chunksRef.current = [];
     }
+    const handleNext = () => {
+    SetPrevRating(rating);
+    setTranscription('');
+    setFeedback('');
+    setRating('');
+    setStatus('');
+    setRecording(false);
+    chunksRef.current = [];
+    fetchQuestion();
+};
 
     const handleRecord = async () => {
         if (!recording) {
@@ -203,6 +208,7 @@ function Interview() {
                     
                         <button onClick={handleRetry} className='mt-8 bg-blue-600 text-white rounded-2xl px-6 py-3 hover:bg-blue-700 transition hover:shadow-lg shadow-blue-900/50 hover:translate-y-[-2px] duration-200 ease-in-out cursor-pointer'>Retry</button>
                         <Link to={'/dashboard'} className='mt-8 bg-blue-600 text-white rounded-2xl px-6 py-3 hover:bg-blue-700 transition hover:shadow-lg shadow-blue-900/50 hover:translate-y-[-2px] duration-200 ease-in-out cursor-pointer'>Done</Link>  
+                        <button onClick={handleNext} className='mt-8 bg-blue-600 text-white rounded-2xl px-6 py-3 hover:bg-blue-700 transition hover:shadow-lg shadow-blue-900/50 hover:translate-y-[-2px] duration-200 ease-in-out cursor-pointer'>Next</button>
                 </div>
             )}
 
