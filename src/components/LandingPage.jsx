@@ -74,7 +74,7 @@ function LandingPage() {
         <hr className="my-8 border-gray-300 w-full" />
 
         <div
-          id="home"
+          id="aboutSection"
           className="min-h-screen flex flex-col md:flex-row-reverse md:items-center justify-between items-center px-8 md:px-16 mt-4 md:mt-2"
         >
           <div className="text-center md:text-left max-w-xl">
@@ -106,7 +106,7 @@ function LandingPage() {
           id="resources"
         >
           <section className=" py-20 px-6 md:px-18" id="how-it-works">
-            <h2 className="text-5xl font-bold text-center text-gray-800 mb-16">
+            <h2 id="resourcesSection" className="text-5xl font-bold text-center text-gray-800 mb-16">
               How It Works
             </h2>
 
