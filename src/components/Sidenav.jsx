@@ -1,8 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
+
 
 function Sidenav() {
   return (
+    <>
     <div className='w-64 bg-blue-600 text-white fixed h-full flex flex-col justify-start px-6 py-8 shadow-lg'>
             <h2 className='text-3xl font-bold'>TechFluent</h2>
 
@@ -14,7 +17,12 @@ function Sidenav() {
                 </nav>
             </div>
     </div>
+    </>
   )
+
 }
 
 export default Sidenav
+
+
+
