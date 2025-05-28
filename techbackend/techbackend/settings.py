@@ -90,7 +90,7 @@ WSGI_APPLICATION = "techbackend.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'interview_db',
+        'NAME': 'techdb',
         'USER': 'adminuser',
         'PASSWORD': 'kidshot123',
         'HOST': 'localhost',
