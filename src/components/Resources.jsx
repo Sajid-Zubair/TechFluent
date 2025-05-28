@@ -2,6 +2,7 @@ import React from 'react'
 import Sidenav from './Sidenav'
 import { FaSearch } from 'react-icons/fa';
 import { useState } from 'react';
+import ReactMarkdown from 'react-markdown';
 
 
 
@@ -62,7 +63,10 @@ function Resources() {
             answer && (
               <div className="mr-64 mt-6 p-4 border border-gray-300 rounded-lg shadow-md max-w-xl bg-white">
                 <h3 className="text-lg font-semibold mb-2">Answer:</h3>
-                <p className="text-gray-800 whitespace-pre-line">{answer}</p>
+                {/* <p className="text-gray-800 whitespace-pre-line">{answer}</p> */}
+                <div className='text-gray-800 whitespace-pre-line'>
+                  <ReactMarkdown>{answer}</ReactMarkdown>
+                </div>
               </div>
             )
           )}
