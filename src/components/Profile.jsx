@@ -6,15 +6,17 @@ import { useNavigate } from "react-router-dom";
 import EditProfile from "./EditProfile";
 import axios from "axios";
 import { useEffect } from "react";
+import { Radar } from "react-chartjs-2";
 
 
 function Profile() {
-  const [setEditP, setShowEditP] = useState(false); 
+  const [editP, setEditP] = useState(false);
   const navigate = useNavigate();
   // const username = "Zubair420";
   const [username, setUsername] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const initials = username.charAt(0).toUpperCase();
+  const [ratings, setRatings] = useState(null)
 
 
     useEffect(() => {
@@ -32,6 +34,17 @@ function Profile() {
                     const response = await axios.get('http://localhost:8000/api/user/', config);
                     setIsLoggedIn(true);
                     setUsername(response.data.username);
+
+                    const attemptResponse = await axios.get('http://localhost:8000/api/latest_attempt/', config);
+                    setRatings({
+                      fluency: attemptResponse.data.fluency,
+                      content_structure: attemptResponse.data.content_structure,
+                      accuracy: attemptResponse.data.accuracy,
+                      grammar: attemptResponse.data.grammar,
+                      vocabulary: attemptResponse.data.vocabulary,
+                      coherence: attemptResponse.data.coherence,
+                      overall_rating: attemptResponse.data.overall_rating
+                    });
                 }
                 else{
                     console.log("No token found")
@@ -91,7 +104,7 @@ function Profile() {
           <FaFire size={24} className="ml-4 text-orange-500" />
         </div>
         <div className=" p-4 rounded-lg flex flex-row items-center">
-          <div className="text-lg font-bold">Rating : 8.89</div>
+          <div className="text-lg font-bold">Rating : {ratings && ratings.overall_rating}</div>
           <FaStar size={24} style={{ color: "FFD700" }} className="ml-4" />
         </div>
         <div className=" p-4 rounded-lg flex flex-row items-center">
@@ -108,7 +121,8 @@ function Profile() {
       <hr className="border-t border-gray-300 ml-64" />
 
 
-      <RadarP/>
+      {/* <RadarP/> */}
+      { ratings && <RadarP ratings={ratings} /> }
 
       <hr className="border-t border-gray-300 ml-64" />
       
@@ -130,7 +144,7 @@ function Profile() {
         </div>
       </div>
 
-      {setEditP && <EditProfile setShowEditP={setShowEditP}/>}
+      {editP && <EditProfile setShowEditP={setEditP} />}
 
       <div />
 
