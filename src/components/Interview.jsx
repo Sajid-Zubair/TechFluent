@@ -186,7 +186,6 @@ useEffect(() => {
                 <p className="font-semibold">Transcription:</p>
                 <p className="text-gray-800">{transcription}</p>
                 <p className="font-semibold mt-4">Feedback:</p>
-                {/* <p className="text-gray-800">{feedback}</p> */}
                 <div className="my-markdown-wrapper text-gray-800">
                 <ReactMarkdown>{feedback}</ReactMarkdown>
                 </div>
