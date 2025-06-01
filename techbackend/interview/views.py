@@ -83,12 +83,12 @@ def process_audio(request):
     Metric: Score/10
 
     Metrics:
-    1. Coherence
-    2. Relevance
-    3. Fluency
-    4. Content Structure
-    5. Vocabulary
-    6. Accuracy
+    1. Coherence 
+    2. Relevance 
+    3. Fluency 
+    4. Content Structure 
+    5. Vocabulary 
+    6. Accuracy 
 
     Interview Answer:
     {transcription}
