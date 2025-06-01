@@ -11,7 +11,7 @@ class CustomUser(AbstractUser):
 
 class InterviewAttempt(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="interview_attempts")
-    interview_type = models.CharField(max_length=10, choices=[('Technical', 'Technical'), ('HR', 'HR')])
+    interview_type = models.CharField(max_length=100, choices=[('Technical', 'Technical'), ('HR', 'HR')])
     date = models.DateTimeField(auto_now_add=True)
 
     # Six Metrics

@@ -10,6 +10,17 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.generics import RetrieveAPIView
 from .models import InterviewAttempt
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.decorators import authentication_classes
+
+import json
 User = get_user_model()
 class RegisterView(APIView):
     def post(self, request):
@@ -98,6 +109,66 @@ class UserInfoAPIView(RetrieveAPIView):
     
     def get_object(self):
         return self.request.user
+    
+
+@api_view(['POST'])
+@authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticated])
+def save_rating(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            user = request.user
+            interview_type = data.get('interview_type')
+
+            normalized = data.get('normalized_ratings', {})
+            overall = data.get('overall_rating')
+
+            # Validate all required metrics are present
+            required_metrics = ['fluency', 'content_structure', 'accuracy', 'grammar', 'vocabulary', 'coherence']
+            for metric in required_metrics:
+                if metric not in normalized:
+                    return JsonResponse({'error': f'Missing metric: {metric}'}, status=400)
+
+            attempt = InterviewAttempt.objects.create(
+                user=user,
+                interview_type=interview_type,
+                fluency=int(round(normalized['fluency'])),
+                content_structure=int(round(normalized['content_structure'])),
+                accuracy=int(round(normalized['accuracy'])),
+                grammar=int(round(normalized['grammar'])),
+                vocabulary=int(round(normalized['vocabulary'])),
+                coherence=int(round(normalized['coherence'])),
+                overall_rating=float(overall)
+            )
+            return JsonResponse({'status': 'success', 'id': attempt.id})
+
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+
+    return JsonResponse({'error': 'Invalid method'}, status=405)
+
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def latest_attempt(request):
+    user = request.user
+    latest = InterviewAttempt.objects.filter(user=user).order_by('-date').first()
+    
+    if latest:
+        data = {
+            "fluency": latest.fluency,
+            "content_structure": latest.content_structure,
+            "accuracy": latest.accuracy,
+            "grammar": latest.grammar,
+            "vocabulary": latest.vocabulary,
+            "coherence": latest.coherence,
+            "overall_rating": latest.overall_rating,
+        }
+        return Response(data)
+    else:
+        return Response({"message": "No interview attempts found."}, status=404)
     
 
 

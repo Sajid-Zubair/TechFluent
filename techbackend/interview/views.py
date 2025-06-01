@@ -83,12 +83,12 @@ def process_audio(request):
     Metric: Score/10
 
     Metrics:
-    1. Coherence 
-    2. Relevance 
-    3. Fluency 
-    4. Content Structure 
+    1. Fluency 
+    2. Content Structure
+    3. Accuracy 
+    4. Grammar
     5. Vocabulary 
-    6. Accuracy 
+    6. Coherence 
 
     Interview Answer:
     {transcription}
@@ -101,11 +101,18 @@ def process_audio(request):
 
     
     import re
-    pattern = r"(Coherence|Relevance|Fluency|Content Structure|Vocabulary|Accuracy)\s*[:\-–]\s*(\d{1,2}/10)"
+    pattern = r"(Fluency|Content Structure|Accuracy|Grammar|Vocabulary|Coherence)\s*[:\-–]\s*(\d{1,2}/10)"
     matches = re.findall(pattern, rating, flags=re.IGNORECASE)
 
     # Normalize keys and store in dictionary
-    rating = {key.capitalize(): value for key, value in matches}
+    # rating = {key.capitalize(): value for key, value in matches}
+    rating_dict = {}
+    for key, value in matches:
+        try:
+            score = int(value.strip().split('/')[0])
+            rating_dict[key.strip().lower().replace(" ", "_")] = score
+        except:
+            rating_dict[key.strip().lower().replace(" ", "_")] = 0
 
     # Feedback from Groq
     prompt = f"Tell me all the positive and negative aspects of this interview answer.How would I improve this interview answer: {transcription}? and dont include any stars and give pointwise feedback."
@@ -122,7 +129,7 @@ def process_audio(request):
     return Response({
         "transcription": transcription,
         "feedback": feedback,
-        "rating": rating
+        "rating": rating_dict
     })
 
 

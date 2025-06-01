@@ -2,10 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
+import { useNavigate } from 'react-router-dom';
 function Interview() {
     const { state } = useLocation();
     const { type, subject } = state || {};  // Destructure the type and subject from state
-    
+    const navigate = useNavigate();
     const [recording, setRecording] = useState(false);
     const [status, setStatus] = useState('');
     const [transcription, setTranscription] = useState('');
@@ -154,7 +155,77 @@ useEffect(() => {
         }
     };
 
-   
+   const normalizeRatings = (currentRating, prevRating, alpha = 0.2) => {
+  const normalized = {};
+  const maxScore = 10;  // max rating value before normalization
+
+  ['fluency', 'content_structure', 'accuracy', 'grammar', 'vocabulary', 'coherence'].forEach(metric => {
+    const curr = parseFloat(currentRating[metric]) || 0;
+    const prev = prevRating ? (parseFloat(prevRating[metric]) || 0) : 0;
+
+    const norm = ((curr + alpha * prev) / (1 + alpha)) * (10 / maxScore);
+    normalized[metric] = Math.round(norm * 100) / 100; // round to 2 decimals
+  });
+
+  const overall = Object.values(normalized).reduce((a, b) => a + b, 0) / Object.values(normalized).length;
+
+  return { normalized, overall: Math.round(overall * 100) / 100 };
+};
+
+const handleSaveAndProceed = async (action) => {
+  if (rating) {
+    const { normalized, overall } = normalizeRatings(rating, prevRating);
+
+    const payload = {
+      interview_type: type,
+      normalized_ratings: normalized,
+      overall_rating: overall,
+    };
+
+    console.log('Payload to save:', payload);
+
+    try {
+      const token = localStorage.getItem('access_token'); // Assuming you store JWT in localStorage
+      console.log('JWT Token:', token);
+      if (!token) {
+        setStatus('You must be logged in to save ratings.');
+        return;
+    }
+      const res = await fetch('http://localhost:8000/api/save_rating/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`, // if you use token auth
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(`Server error: ${res.status} - ${text}`);
+      }
+
+      const responseData = await res.json();
+      console.log('Backend response:', responseData);
+
+    } catch (err) {
+      console.error('Failed to save rating:', err);
+    }
+  }
+
+  if (action === 'next') {
+    setPrevRating(rating);
+    setTranscription('');
+    setFeedback('');
+    setRating('');
+    setStatus('');
+    setRecording(false);
+    chunksRef.current = [];
+    fetchQuestion();
+  } else if (action === 'done') {
+    navigate('/dashboard');
+  }
+};
 
 
     
@@ -206,7 +277,13 @@ useEffect(() => {
                 <div className='flex flex-row justify-between items-center gap-6'>
                     
                         <button onClick={handleRetry} className='mt-8 bg-blue-600 text-white rounded-2xl px-6 py-3 hover:bg-blue-700 transition hover:shadow-lg shadow-blue-900/50 hover:translate-y-[-2px] duration-200 ease-in-out cursor-pointer'>Retry</button>
-                        <Link to={'/dashboard'} className='mt-8 bg-blue-600 text-white rounded-2xl px-6 py-3 hover:bg-blue-700 transition hover:shadow-lg shadow-blue-900/50 hover:translate-y-[-2px] duration-200 ease-in-out cursor-pointer'>Done</Link>  
+                        {/* <Link onClick={handleSaveAndProceed} to={'/dashboard'} className='mt-8 bg-blue-600 text-white rounded-2xl px-6 py-3 hover:bg-blue-700 transition hover:shadow-lg shadow-blue-900/50 hover:translate-y-[-2px] duration-200 ease-in-out cursor-pointer'>Done</Link>   */}
+                        <button
+                        onClick={() => handleSaveAndProceed('done')}
+                        className="mt-8 bg-blue-600 text-white rounded-2xl px-6 py-3 hover:bg-blue-700 transition hover:shadow-lg shadow-blue-900/50 hover:translate-y-[-2px] duration-200 ease-in-out cursor-pointer"
+                        >
+                        Done
+                        </button>
                         <button onClick={handleNext} className='mt-8 bg-blue-600 text-white rounded-2xl px-6 py-3 hover:bg-blue-700 transition hover:shadow-lg shadow-blue-900/50 hover:translate-y-[-2px] duration-200 ease-in-out cursor-pointer'>Next</button>
                 </div>
             )}

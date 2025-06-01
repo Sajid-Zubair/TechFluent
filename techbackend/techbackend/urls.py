@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
 from accounts.views import RegisterView, LoginView,ProfileView, UserInfoAPIView,LogoutView
+from accounts.views import save_rating
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -27,4 +28,5 @@ urlpatterns = [
     path("api/profile/", ProfileView.as_view()),
     path("api/logout/", LogoutView.as_view()),
     path("api/user/",UserInfoAPIView.as_view()),
+    path("api/", include("accounts.urls")),
 ]
