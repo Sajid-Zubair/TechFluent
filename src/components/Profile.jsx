@@ -34,7 +34,7 @@ function Profile() {
                     const response = await axios.get('http://localhost:8000/api/user/', config);
                     setIsLoggedIn(true);
                     setUsername(response.data.username);
-
+                    console.log("Fetched username:", response.data.username);  // 🚨 Enhanced logging
                     const attemptResponse = await axios.get('http://localhost:8000/api/latest_attempt/', config);
                     setRatings({
                       fluency: attemptResponse.data.fluency,
@@ -123,6 +123,13 @@ function Profile() {
 
       {/* <RadarP/> */}
       { ratings && <RadarP ratings={ratings} /> }
+
+      {!ratings && (
+        <div className="ml-64 flex flex-col justify-center items-center p-4">
+          <h1 className="text-2xl font-bold mb-4">No Ratings Available</h1>
+          <p className="text-lg text-gray-600">Please complete an interview to see your ratings.</p>
+        </div>
+      )}
 
       <hr className="border-t border-gray-300 ml-64" />
       
