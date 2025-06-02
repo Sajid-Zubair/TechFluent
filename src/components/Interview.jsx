@@ -155,7 +155,7 @@ useEffect(() => {
         }
     };
 
-   const normalizeRatings = (currentRating, prevRating, alpha = 0.2) => {
+   const normalizeRatings = (currentRating, prevRating, alpha = 0.4) => {
   const normalized = {};
   const maxScore = 10;  // max rating value before normalization
 
@@ -163,7 +163,7 @@ useEffect(() => {
     const curr = parseFloat(currentRating[metric]) || 0;
     const prev = prevRating ? (parseFloat(prevRating[metric]) || 0) : 0;
 
-    const norm = ((curr + alpha * prev) / (1 + alpha)) * (10 / maxScore);
+    const norm = ((curr + alpha * prev) / (1 + alpha));
     normalized[metric] = Math.round(norm * 100) / 100; // round to 2 decimals
   });
 
