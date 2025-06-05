@@ -72,11 +72,11 @@ function Signup() {
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex flex-col w-full">
               <label className="mb-1 font-medium text-gray-700">Username</label>
-              <input name='username' value={formData.username} onChange={handleChange} type="text" placeholder="Enter your username" className="mb-4 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+              <input required name='username' value={formData.username} onChange={handleChange} type="text" placeholder="Enter your username" className="mb-4 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
             </div>
             <div className="flex flex-col w-full">
               <label className="mb-1 font-medium text-gray-700">Email</label>
-              <input name='email' value={formData.email} onChange={handleChange} type="email" placeholder="Enter your email" className="mb-4 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+              <input required name='email' value={formData.email} onChange={handleChange} type="email" placeholder="Enter your email" className="mb-4 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
             </div>
           </div>
 
@@ -108,11 +108,11 @@ function Signup() {
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex flex-col w-full">
               <label className="mb-1 font-medium text-gray-700">Password</label>
-              <input name='password' value={formData.password} onChange={handleChange} type="password" placeholder="Enter Password" className="mb-4 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+              <input required name='password' value={formData.password} onChange={handleChange} type="password" placeholder="Enter Password" className="mb-4 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
             </div>
             <div className="flex flex-col w-full">
               <label className="mb-1 font-medium text-gray-700">Re-Enter Password</label>
-              <input name='re_password' value={formData.re_password} onChange={handleChange} type="password" placeholder="Re-Enter Password" className="mb-4 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+              <input required name='re_password' value={formData.re_password} onChange={handleChange} type="password" placeholder="Re-Enter Password" className="mb-4 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
             </div>
           </div>
 
