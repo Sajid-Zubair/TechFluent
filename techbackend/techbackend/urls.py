@@ -27,6 +27,6 @@ urlpatterns = [
     path("api/login/", LoginView.as_view()),
     path("api/profile/", ProfileView.as_view()),
     path("api/logout/", LogoutView.as_view()),
-    path("api/user/",UserInfoAPIView.as_view()),
+    path("api/user/",ProfileView.as_view()),
     path("api/", include("accounts.urls")),
 ]

@@ -15,10 +15,10 @@ function Profile() {
   // const username = "Zubair420";
   const [username, setUsername] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const initials = username.charAt(0).toUpperCase();
+  const initials = username ? username.charAt(0).toUpperCase() : "";
   const [ratings, setRatings] = useState(null)
-
-
+  const [rankInfo, setRankInfo] = useState(0);
+  const [collegeName, setCollegeName] = useState('');
     useEffect(() => {
         const checkLogin = async () => {
             try {
@@ -34,6 +34,8 @@ function Profile() {
                     const response = await axios.get('http://localhost:8000/api/user/', config);
                     setIsLoggedIn(true);
                     setUsername(response.data.username);
+                    setCollegeName(response.data.college_name);
+                    console.log("Fetched college name:", response.data.college_name);  // 🚨 Enhanced logging
                     console.log("Fetched username:", response.data.username);  // 🚨 Enhanced logging
                     const attemptResponse = await axios.get('http://localhost:8000/api/latest_attempt/', config);
                     setRatings({
@@ -45,6 +47,9 @@ function Profile() {
                       coherence: attemptResponse.data.coherence,
                       overall_rating: attemptResponse.data.overall_rating
                     });
+
+                    const rankResponse = await axios.get('http://localhost:8000/api/user_rank/', config);
+                    setRankInfo(rankResponse.data);
                 }
                 else{
                     console.log("No token found")
@@ -65,7 +70,7 @@ function Profile() {
     window.print();
   }
   function handleEdit() {
-    setShowEditP(true);
+    setEditP(true);
   }
   return (
     <div>
@@ -81,11 +86,17 @@ function Profile() {
           </div>
           <div className="ml-4 flex flex-col mb-4">
             <h1 className="text-2xl font-bold">
-              Gokaraju Rangaraju Institute of Engineering and Technology
+              {collegeName ? collegeName : "College Name Not Available"}
             </h1>
             <div className="flex flex-row gap-4 mt-4 items-center">
               <FaMedal size={28} className="text-yellow-500" />
-              <h3 className="text-2xl font-bold">Rank : 56 / 100</h3>
+              {/* <h3 className="text-2xl font-bold">Rank : {rankInfo.rank || rankInfo.total_users} / {rankInfo.total_users}</h3> */}
+              { rankInfo.rank && (
+                <span className="text-2xl font-bold">Rank : {rankInfo.rank} / {rankInfo.total_users}</span>
+              )}
+              { !rankInfo.rank && (
+                <span className="text-2xl font-bold text-gray-500">Rank : Not Ranked Yet</span>
+              )}
             </div>
           </div>
 

@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken, TokenError
 from django.contrib.auth.models import User
-from .serializers import RegisterSerializer
+from .serializers import RegisterSerializer, UserSerializer
 from rest_framework import status
 from django.contrib.auth import get_user_model
 from rest_framework.permissions import IsAuthenticated
@@ -19,6 +19,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.decorators import authentication_classes
+from .utils import get_user_rank
 
 import json
 User = get_user_model()
@@ -42,7 +43,6 @@ class LoginView(APIView):
         data = request.data
         username = data.get('username')
         password = data.get('password')
-        
         user = User.objects.filter(username=username).first()
         if user and user.check_password(password):
             refresh = RefreshToken.for_user(user)
@@ -59,7 +59,10 @@ class ProfileView(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request):
         user = request.user
-        serializer = RegisterSerializer(user)
+        print("User from request:", user)
+        print("College Name:", user.college_name)
+        serializer = UserSerializer(user)
+        print("Serialized data:", serializer.data)
         return Response(serializer.data)
     
 
@@ -144,6 +147,7 @@ def save_rating(request):
             return JsonResponse({'status': 'success', 'id': attempt.id})
 
         except Exception as e:
+            print("Error saving rating:", str(e))
             return JsonResponse({'error': str(e)}, status=400)
 
     return JsonResponse({'error': 'Invalid method'}, status=405)
@@ -173,4 +177,8 @@ def latest_attempt(request):
 
 
 
-
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def user_rank_view(request):
+    rank_info = get_user_rank(request.user)
+    return Response(rank_info)
