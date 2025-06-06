@@ -1,33 +1,35 @@
-from django.db.models import Avg, Window, F
+from django.db.models import OuterRef, Subquery
 from django.db.models.functions import Rank
+from django.db.models import F, Window
 from .models import CustomUser, InterviewAttempt
 
 def get_user_rank(user):
-    # Step 1: Filter all users in the same college
-    college_users = CustomUser.objects.filter(college_name=user.college_name)
+    latest_attempt_subquery = InterviewAttempt.objects.filter(
+        user=OuterRef('pk')
+    ).order_by('-id')  # Using 'id' to get latest attempt
 
-    # Step 2: Annotate each user with their average interview rating
-    college_users_with_avg = college_users.annotate(
-        avg_rating=Avg('interview_attempts__overall_rating')
-    ).annotate(
+    college_users = CustomUser.objects.filter(college_name=user.college_name).annotate(
+        latest_overall_rating=Subquery(latest_attempt_subquery.values('overall_rating')[:1])
+    )
+
+    college_users_with_rank = college_users.annotate(
         rank=Window(
             expression=Rank(),
-            order_by=F('avg_rating').desc()
+            order_by=F('latest_overall_rating').desc(nulls_last=True)
         )
     )
 
-    # Step 3: Find and return the current user's rank
-    for u in college_users_with_avg:
+    for u in college_users_with_rank:
         if u.id == user.id:
             return {
                 "rank": u.rank,
-                "average_rating": round(u.avg_rating or 0, 2),
+                "latest_rating": round(u.latest_overall_rating or 0, 2),
                 "college": u.college_name,
                 "total_users": college_users.count(),
             }
 
     return {
         "rank": None,
-        "average_rating": 0,
+        "latest_rating": 0,
         "college": user.college_name,
     }
