@@ -103,7 +103,7 @@ class LogoutView(APIView):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['username', 'email']  # Add other fields you need
+        fields = ['username', 'email','college_name']  # Add other fields you need
 
 # views.py
 class UserInfoAPIView(RetrieveAPIView):
