@@ -5,6 +5,12 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
+class UserSerializer(serializers.ModelSerializer):
+    college_name = serializers.CharField(read_only=True)
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'college_name']
+
 class RegisterSerializer(serializers.Serializer):
     username = serializers.CharField(required=True)
     email = serializers.EmailField(required=True)
@@ -47,3 +53,6 @@ class RegisterSerializer(serializers.Serializer):
             'year_of_joining': instance.year_of_joining
         }
     
+
+# User = get_user_model()
+
