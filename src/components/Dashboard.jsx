@@ -18,6 +18,8 @@ function Dashboard() {
     const [showError, setshowError] = useState(false);
     const [username, setUsername] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [technicalCount, setTechnicalCount] = useState(0);
+    const [behaviouralCount, setBehaviouralCount] = useState(0);
 
     useEffect(() => {
         const checkLogin = async () => {
@@ -34,6 +36,9 @@ function Dashboard() {
                     const response = await axios.get('http://localhost:8000/api/user/', config);
                     setIsLoggedIn(true);
                     setUsername(response.data.username);
+
+                    setTechnicalCount(response.data.technical_count || 0);
+                    setBehaviouralCount(response.data.behavioural_count || 0);
                 }
                 else{
                     console.log("No token found")
@@ -146,12 +151,12 @@ function Dashboard() {
                 <div className='mt-4 p-4 flex flex-col md:flex-row justify-between items-center bg-gray-100 rounded-lg'>
                     <div className='flex flex-row md:flex-row justify-between items-center gap-6'>
                         <h2 className='text-lg font-semibold'>Number of Technical Interviews Completed : </h2>
-                        <span className='text-3xl font-bold text-blue-600'>5</span>
+                        <span className='text-3xl font-bold text-blue-600'>{technicalCount}</span>
                     </div>
                     <hr />
                     <div className='flex flex-row md:flex-row justify-between items-center gap-6'>
                         <h2 className='text-lg font-semibold'>Number of Behavioural Interviews Completed : </h2>
-                        <span className='text-3xl font-bold text-blue-600'>2</span>
+                        <span className='text-3xl font-bold text-blue-600'>{behaviouralCount}</span>
                     </div>
                 </div>
             </div>
