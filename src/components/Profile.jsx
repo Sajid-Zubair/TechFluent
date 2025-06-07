@@ -19,6 +19,8 @@ function Profile() {
   const [ratings, setRatings] = useState(null)
   const [rankInfo, setRankInfo] = useState(0);
   const [collegeName, setCollegeName] = useState('');
+  const [technicalCount, setTechnicalCount] = useState(0);
+  const [behaviouralCount, setBehaviouralCount] = useState(0);
     useEffect(() => {
         const checkLogin = async () => {
             try {
@@ -35,6 +37,8 @@ function Profile() {
                     setIsLoggedIn(true);
                     setUsername(response.data.username);
                     setCollegeName(response.data.college_name);
+                    setTechnicalCount(response.data.technical_count || 0);
+                    setBehaviouralCount(response.data.behavioural_count || 0);
                     console.log("Fetched college name:", response.data.college_name);  // 🚨 Enhanced logging
                     console.log("Fetched username:", response.data.username);  // 🚨 Enhanced logging
                     const attemptResponse = await axios.get('http://localhost:8000/api/latest_attempt/', config);
@@ -120,7 +124,7 @@ function Profile() {
         </div>
         <div className=" p-4 rounded-lg flex flex-row items-center">
           <div className="text-lg font-bold">
-            Total Interviews Completed : 7
+            Total Interviews Completed : {technicalCount + behaviouralCount}
           </div>
           <FaMicrophone
             style={{ color: "3498DB" }}
