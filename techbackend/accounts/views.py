@@ -101,9 +101,21 @@ class LogoutView(APIView):
     
 
 class UserSerializer(serializers.ModelSerializer):
+    technical_count = serializers.SerializerMethodField()
+    behavioural_count = serializers.SerializerMethodField()
     class Meta:
         model = User
-        fields = ['username', 'email','college_name']  # Add other fields you need
+        fields = ['username', 'email','college_name','technical_count', 'behavioural_count']  # Add other fields you need
+
+    def get_technical_count(self, obj):
+        count = InterviewAttempt.objects.filter(user=obj, interview_type='Technical').count()
+        print(f"Technical count for {obj.username}: {count}")
+        return count
+
+    def get_behavioural_count(self, obj):
+        count = InterviewAttempt.objects.filter(user=obj, interview_type='Behavioural').count()
+        print(f"HR count for {obj.username}: {count}")
+        return count
 
 # views.py
 class UserInfoAPIView(RetrieveAPIView):

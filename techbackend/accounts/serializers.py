@@ -1,15 +1,29 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
-
+from .models import CustomUser, InterviewAttempt
 
 User = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
     college_name = serializers.CharField(read_only=True)
+    technical_count = serializers.SerializerMethodField()
+    behavioural_count = serializers.SerializerMethodField()
+
     class Meta:
         model = User
-        fields = ['username', 'email', 'college_name']
+        fields = ['username', 'email', 'college_name','technical_count', 'behavioural_count']
+
+    def get_technical_count(self, obj):
+        count = InterviewAttempt.objects.filter(user=obj, interview_type='Technical').count()
+        print(f"Technical count for {obj.username}: {count}")
+        return count
+
+    def get_behavioural_count(self, obj):
+        count = InterviewAttempt.objects.filter(user=obj, interview_type='Behavioural').count()
+        print(f"HR count for {obj.username}: {count}")
+        return count
+
 
 class RegisterSerializer(serializers.Serializer):
     username = serializers.CharField(required=True)
