@@ -115,8 +115,29 @@ def process_audio(request):
             rating_dict[key.strip().lower().replace(" ", "_")] = 0
 
     # Feedback from Groq
-    prompt = f"Tell me all the positive and negative aspects of this interview answer.How would I improve this interview answer: {transcription}? and dont include any stars and give pointwise feedback. Make sure you provide a correct and concise feedback according to the question."
-    
+    #prompt = f"Tell me all the positive and negative aspects of this interview answer.How would I improve this interview answer: {transcription}? and dont include any stars and give pointwise feedback. Make sure you provide a correct answer to the question if {transcription} is wrong."
+    prompt = f"""
+                The following is a technical interview answer given by a candidate. Please:
+
+                1. First, provide the correct and complete answer to the question **if** the candidate's answer is incorrect or incomplete and **if** the question is a technical question.
+                2. Then, list all **positive** and **negative** aspects of the given answer.
+                3. Finally, rewrite the answer in a more refined, well-structured, and professional way, suitable for a spoken technical interview.
+                Provide the feedback in a detailed and pointwise manner.
+                Candidate's Answer:
+                {transcription}
+
+                Format your response as:
+                Correct Answer (if applicable):
+                <your answer here>
+
+                Positive Points:
+                - ...
+                Negative Points:
+                - ...
+
+                Improved Answer:
+                <refined version here>
+                """
     response = client.chat.completions.create(
         model="llama3-70b-8192",
         messages=[{"role": "user", "content": prompt}]
