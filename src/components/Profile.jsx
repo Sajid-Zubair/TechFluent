@@ -7,6 +7,7 @@ import EditProfile from "./EditProfile";
 import axios from "axios";
 import { useEffect } from "react";
 import { Radar } from "react-chartjs-2";
+import ProgressChart from "./ProgressChart";
 
 
 function Profile() {
@@ -134,7 +135,10 @@ function Profile() {
         </div>
       </div>
       <hr className="border-t border-gray-300 ml-64" />
+      
+      <ProgressChart className="mb-8" />
 
+      <hr className="border-t border-gray-300 ml-64 mt-12" />
 
       {/* <RadarP/> */}
       { ratings && <RadarP ratings={ratings} /> }

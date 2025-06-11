@@ -194,3 +194,26 @@ def latest_attempt(request):
 def user_rank_view(request):
     rank_info = get_user_rank(request.user)
     return Response(rank_info)
+
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_interview_progress(request):
+    user = request.user
+    attempts = InterviewAttempt.objects.filter(user=user).order_by('date')
+
+    history = [
+        {
+            "date": attempt.date.strftime("%Y-%m-%d"),
+            "fluency": attempt.fluency,
+            "content_structure": attempt.content_structure,
+            "accuracy": attempt.accuracy,
+            "grammar": attempt.grammar,
+            "vocabulary": attempt.vocabulary,
+            "coherence": attempt.coherence,
+            "overall": attempt.overall_rating
+        }
+        for attempt in attempts
+    ]
+    return Response(history)
