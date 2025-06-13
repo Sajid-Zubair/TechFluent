@@ -1,28 +1,46 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { useState } from 'react'
 
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { FaHome, FaBook, FaUser } from 'react-icons/fa';
 
 function Sidenav() {
+  const location = useLocation();
+
+  const navLinks = [
+    { to: "/dashboard", label: "Home", icon: <FaHome /> },
+    { to: "/resources", label: "Resource Corner", icon: <FaBook /> },
+    { to: "/profile", label: "Profile", icon: <FaUser /> },
+  ];
+
   return (
-    <>
-    <div className='w-64 bg-blue-600 text-white fixed h-full flex flex-col justify-start px-6 py-8 shadow-lg'>
-            <h2 className='text-3xl font-bold'>TechFluent</h2>
+    <aside className="w-64 bg-gradient-to-b from-blue-700 to-blue-800 text-white fixed h-full flex flex-col px-6 py-8 shadow-lg">
+      <div className="mb-10 flex items-center gap-3">
+        <div className="text-4xl font-extrabold tracking-wide">🚀</div>
+        <h2 className="text-3xl font-extrabold select-none">TechFluent</h2>
+      </div>
 
-            <div className='mt-6'>
-                <nav className="flex flex-col gap-6 text-lg font-medium">
-                <Link to={"/dashboard"} className="hover:text-blue-600 bg-white rounded-2xl transition text-black px-4 py-2">Home</Link>
-                <Link to={"/resources"} className="hover:text-blue-600 bg-white rounded-2xl transition text-black px-4 py-2">Resource Corner</Link>
-                <Link to={"/profile"} className="hover:text-blue-600 bg-white rounded-2xl transition text-black px-4 py-2">Profile</Link>
-                </nav>
-            </div>
-    </div>
-    </>
-  )
-
+      <nav className="flex flex-col gap-4 text-lg font-semibold">
+        {navLinks.map(({ to, label, icon }) => {
+          const isActive = location.pathname === to;
+          return (
+            <Link
+              key={to}
+              to={to}
+              className={`
+                flex items-center gap-3 px-4 py-3 rounded-lg transition
+                ${isActive ? "bg-white text-blue-800 font-bold shadow-md" : "hover:bg-white/20"}
+              `}
+            >
+              <span className="text-xl">{icon}</span>
+              <span>{label}</span>
+            </Link>
+          );
+        })}
+      </nav>
+    </aside>
+  );
 }
 
-export default Sidenav
-
+export default Sidenav;
 
 
