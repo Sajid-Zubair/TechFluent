@@ -243,12 +243,24 @@ const handleSaveAndProceed = async (action) => {
                 </div>
             )}
             {!transcription && !feedback && (
-                <button
-                    onClick={handleRecord}
-                    className="mt-10 px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition cursor-pointer"
-                >
-                    {recording ? '⏹️ Stop Recording' : '🎙️ Start Recording'}
-                </button>
+                <>
+                    {!recording && (
+                        <button
+                            onClick={handleRecord}
+                            className="mt-10 px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition cursor-pointer"
+                        >
+                            🎙️ Start Recording
+                        </button>
+                    )}
+                    {recording && (
+                        <button
+                            onClick={handleRecord}
+                            className="mt-10 px-6 py-3 bg-red-600 text-white rounded-xl hover:bg-red-700 transition cursor-pointer"
+                        >
+                            ⏹️ Stop Recording
+                        </button>
+                    )}
+                </>
             )}
 
             <p style={{color : statusColor}} className="mt-4 text-gray-600">{status}</p>
