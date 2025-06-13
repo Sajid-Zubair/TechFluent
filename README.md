@@ -41,7 +41,7 @@ To motivate consistent practice and healthy competition, the project incorporate
 - **College-specific Leaderboards:** Students are ranked based on their overall interview performance within their college, fostering a competitive yet collaborative environment.  
 - **Maximum Streak Tracking:** Encourages users to maintain consecutive days of practice, rewarding consistency and dedication.  
 - **Visual Performance Metrics:**  
-  - **Radar Charts** display detailed scoring across multiple interview skill dimensions (e.g., fluency, grammar, coherence).  
+  - **Radar Charts** display detailed scoring across multiple interview skill dimensions (e.g., fluency, grammar, coherence, content structure, vocabulary, relevance).  
   - **Line Charts** track interview skill progress over time, allowing users to visualize their improvement trajectory.  
 
 These elements combine to create an engaging and rewarding interview preparation experience.
