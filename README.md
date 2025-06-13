@@ -13,8 +13,6 @@ A React-based web component for generating realistic, concise, and domain-specif
 - [Technical Details](#technical-details)  
 - [Gamification](#gamification)  
 - [Prompt Design](#prompt-design)  
-- [Contributing](#contributing)  
-- [License](#license)  
 
 ---
 
@@ -33,21 +31,6 @@ This project helps candidates prepare for interviews by generating tailored tech
 - Clean, professional UI with subject selection and easy navigation.  
 
 ---
-
-## Gamification
-
-To motivate consistent practice and healthy competition, the project incorporates gamification elements including:
-
-- **College-specific Leaderboards:** Students are ranked based on their overall interview performance within their college, fostering a competitive yet collaborative environment.  
-- **Maximum Streak Tracking:** Encourages users to maintain consecutive days of practice, rewarding consistency and dedication.  
-- **Visual Performance Metrics:**  
-  - **Radar Charts** display detailed scoring across multiple interview skill dimensions (e.g., fluency, grammar, coherence, content structure, vocabulary, relevance).  
-  - **Line Charts** track interview skill progress over time, allowing users to visualize their improvement trajectory.  
-
-These elements combine to create an engaging and rewarding interview preparation experience.
-
----
-
 ## Installation
 
 1. Clone the repository:  
@@ -69,6 +52,8 @@ These elements combine to create an engaging and rewarding interview preparation
 4. Access the application:
     Open your browser and navigate to the frontend URL displayed by the npm run dev command (usually http://localhost:3000 or similar).
 
+---
+
 ## Usage
     Select a technical subject or behavioral interview type from the dropdown.
 
@@ -76,12 +61,32 @@ These elements combine to create an engaging and rewarding interview preparation
 
     Use the generated question to practice oral responses.
 
+---
+
 ## Technical Details
     Frontend: React.js with hooks for state management.
 
     Backend: (Optional) API to interact with AI services like Groq models.
 
     AI Prompt Engineering: Carefully crafted prompts ensure high-quality, realistic interview questions focused on oral answers.
+
+---
+
+## Gamification
+
+To motivate consistent practice and healthy competition, the project incorporates gamification elements including:
+
+- **College-specific Leaderboards:** Students are ranked based on their overall interview performance within their college, fostering a competitive yet collaborative environment.  
+- **Maximum Streak Tracking:** Encourages users to maintain consecutive days of practice, rewarding consistency and dedication.  
+- **Visual Performance Metrics:**  
+  - **Radar Charts** display detailed scoring across multiple interview skill dimensions (e.g., fluency, grammar, coherence, content structure, vocabulary, relevance).  
+  - **Line Charts** track interview skill progress over time, allowing users to visualize their improvement trajectory.  
+
+These elements combine to create an engaging and rewarding interview preparation experience.
+
+---
+
+
 
 ## Prompt Design
 
