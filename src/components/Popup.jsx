@@ -34,23 +34,52 @@ function Popup({ setShowPopup, onclose, handleDoneClick }) {
         {/* Dropdown */}
         <div className="mb-6">
           <select
-            value={selectedInterviewType}
-            onChange={handleSelectChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-          >
-            <option value="">Choose Subject</option>
-            <option value="DSA">Data Structures</option>
-            <option value="Operating Systems">Operating Systems</option>
-            <option value="Database and Management">DBMS</option>
-            <option value="Computer Networks">Computer Networks</option>
-            <option value="Machine Learning">Machine Learning</option>
-            <option value="Software Engineering">Software Engineering</option>
-            <option value="Object Oriented Programming">Object Oriented Programming</option>
-            <option value="Computer Organisation and Architecture">Computer Organisation and Architecture</option>
-            <option value="Compiler Design">Compiler Design</option>
-            <option value="Web Technologies">Web Technologies</option>
-            <option value="Cloud Computing">Cloud Computing</option>
-          </select>
+                value={selectedInterviewType}
+                onChange={handleSelectChange}
+                className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition'
+                >
+                <option value="">Choose Subject</option>
+
+                <optgroup label="Core CSE Subjects">
+                    <option value="Data Structures and Algorithms">Data Structures and Algorithms</option>
+                    <option value="Operating Systems">Operating Systems</option>
+                    <option value="Database Management Systems">Database Management Systems (DBMS)</option>
+                    <option value="Computer Networks">Computer Networks</option>
+                    <option value="Object Oriented Programming">Object Oriented Programming (OOP)</option>
+                    <option value="Computer Organization and Architecture">Computer Organization and Architecture (COA)</option>
+                    <option value="Compiler Design">Compiler Design</option>
+                    <option value="Software Engineering">Software Engineering</option>
+                    <option value="Theory of Computation">Theory of Computation (TOC)</option>
+                    <option value="Design and Analysis of Algorithms">Design and Analysis of Algorithms (DAA)</option>
+                    <option value="Programming in C/C++/Java">Programming in C/C++/Java</option>
+                </optgroup>
+
+                <optgroup label="Core AI/ML Subjects">
+                    <option value="Artificial Intelligence">Artificial Intelligence</option>
+                    <option value="Machine Learning">Machine Learning</option>
+                    <option value="Deep Learning">Deep Learning</option>
+                    <option value="Natural Language Processing">Natural Language Processing (NLP)</option>
+                    <option value="Reinforcement Learning">Reinforcement Learning</option>
+                    <option value="Computer Vision">Computer Vision</option>
+                    <option value="Robotics">Robotics</option>
+                    <option value="Knowledge Representation and Reasoning">Knowledge Representation and Reasoning</option>
+                    <option value="Ethics in AI">Ethics in AI</option>
+                    <option value="Human-Centered AI">Human-Centered AI</option>
+                </optgroup>
+
+                <optgroup label="Core Data Science Subjects">
+                    <option value="Probability and Statistics">Probability and Statistics</option>
+                    <option value="Data Visualization">Data Visualization</option>
+                    <option value="Big Data Analytics">Big Data Analytics</option>
+                    <option value="Data Mining">Data Mining</option>
+                    <option value="Statistical Inference">Statistical Inference</option>
+                    <option value="Data Wrangling and Preprocessing">Data Wrangling and Preprocessing</option>
+                    <option value="Time Series Analysis">Time Series Analysis</option>
+                    <option value="Applied Linear Algebra">Applied Linear Algebra</option>
+                    <option value="Data Ethics and Privacy">Data Ethics and Privacy</option>
+                    <option value="Cloud Computing for Data Science">Cloud Computing for Data Science</option>
+                </optgroup>
+            </select>
         </div>
 
         {/* Done Button */}
