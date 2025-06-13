@@ -42,10 +42,12 @@ This project helps candidates prepare for interviews by generating tailored tech
 
 2. Start the Frontend:
     In the TechFluent directory, run:
+    ```bash
     npm run dev
 
 3. Start the Backend
     Open a new terminal window/tab, then:
+    ```bash
     cd techbackend
     python manage.py runserver
 
