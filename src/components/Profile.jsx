@@ -19,8 +19,8 @@ function Profile() {
   const [behaviouralCount, setBehaviouralCount] = useState(0);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const initials = username ? username.charAt(0).toUpperCase() : "";
-
   const navigate = useNavigate();
+  const [maxStreak, setMaxStreak] = useState(0);
 
   useEffect(() => {
     const checkLogin = async () => {
@@ -45,6 +45,10 @@ function Profile() {
 
           const rankResponse = await axios.get('http://localhost:8000/api/user_rank/', config);
           setRankInfo(rankResponse.data);
+          
+          const streakResponse = await axios.get('http://localhost:8000/api/current_streak/', config);
+          setMaxStreak(streakResponse.data.max_streak || 0);
+
         } else {
           setIsLoggedIn(false);
           setUsername("");
@@ -128,21 +132,15 @@ function Profile() {
                   <span className="text-xl font-bold text-gray-500">Rank : Not Ranked Yet</span>
                 )}
               </div>
-              {/* <button
-                onClick={() => setEditP(true)}
-                className="px-6 py-3 bg-blue-600 text-white rounded-lg shadow-lg hover:bg-blue-700 transition-all"
-              >
-                Edit Profile
-              </button> */}
             </div>
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 text-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 text-center min-w-[300px]">
             <div className="p-4 rounded-lg bg-white shadow-md flex flex-col items-center">
               <span className="text-lg font-bold">Max Streak</span>
               <FaFire size={24} className="text-orange-500 my-2" />
-              <span className="text-2xl font-bold">7</span>
+              <span className="text-2xl font-bold">{maxStreak}</span>
             </div>
             <div className="p-4 rounded-lg bg-white shadow-md flex flex-col items-center">
               <span className="text-lg font-bold">Overall Rating</span>
@@ -159,7 +157,9 @@ function Profile() {
           {/* Charts */}
           <ProgressChart />
           {ratings ? (
-            <RadarP ratings={ratings} />
+            <div style={{ minHeight: '350px' }}>
+              {ratings ? <RadarP ratings={ratings} /> : <NoRatingsMessage />}
+            </div>
           ) : (
             <div className="text-center py-6 text-gray-600">
               <h2 className="text-xl font-bold">No Ratings Available</h2>
