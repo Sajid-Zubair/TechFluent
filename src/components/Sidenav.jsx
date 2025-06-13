@@ -1,13 +1,14 @@
-
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FaHome, FaBook, FaUser } from 'react-icons/fa';
+import { GiBrain } from 'react-icons/gi';
 
 function Sidenav() {
   const location = useLocation();
 
   const navLinks = [
     { to: "/dashboard", label: "Home", icon: <FaHome /> },
+    { to: "/custom_interview", label: "Custom Interview", icon: <GiBrain /> },
     { to: "/resources", label: "Resource Corner", icon: <FaBook /> },
     { to: "/profile", label: "Profile", icon: <FaUser /> },
   ];

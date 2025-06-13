@@ -9,6 +9,8 @@ import Resources from "./Resources";
 import Interview from "./Interview";
 import EditProfile from "./EditProfile";
 import ErrorPop from "./ErrorPop";
+import Custom_Interview from "./Custom_Interview";
+import Sidenav from "./Sidenav";
+import Popup from "./Popup";
 
-
-export { Navbar, Footer, LandingPage, Signup, Login, Dashboard, Profile, Resources, Interview, EditProfile, ErrorPop };
+export { Navbar, Footer, LandingPage, Signup, Login, Dashboard, Profile, Resources, Interview, EditProfile, ErrorPop, Custom_Interview, Sidenav, Popup };
