@@ -324,8 +324,8 @@ function Custom_Interview() {
               <button
                 type="submit"
                 disabled={loading}
-                className={`px-6 py-3 rounded-lg text-white font-semibold focus:outline-none focus:ring-2 focus:ring-blue-600 ${
-                  loading ? 'bg-blue-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'
+                className={`px-6 py-3 rounded-lg text-white font-semibold focus:outline-none focus:ring-2 focus:ring-green-600 ${
+                  loading ? 'bg-green-800 cursor-not-allowed' : 'bg-green-600 hover:bg-green-700'
                 }`}
               >
                 {loading ? 'Starting Interview...' : 'Start Mock Interview'}
