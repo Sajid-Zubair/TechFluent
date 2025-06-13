@@ -1,5 +1,5 @@
-import React from 'react'
 
+import React from 'react';
 import {
   Chart as ChartJS,
   RadialLinearScale,
@@ -21,7 +21,6 @@ ChartJS.register(
 );
 
 function RadarP({ ratings }) {
-  // ✅ Construct the radar chart data dynamically from props
   const data = {
     labels: ['Fluency', 'Content Structure', 'Accuracy', 'Grammar', 'Vocabulary', 'Coherence'],
     datasets: [
@@ -52,20 +51,30 @@ function RadarP({ ratings }) {
         },
         pointLabels: {
           font: {
-            size: 14
+            size: 12
           },
           color: '#000'
         }
+      }
+    },
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'bottom'
       }
     }
   };
 
   return (
-    <div className="flex flex-row justify-center items-center mt-10">
-      <div style={{ width: '450px', height: '450px' }} className="ml-64 flex flex-col justify-center items-center">
-        <Radar data={data} options={options} />
-      </div>
-    </div>
+      <section className="flex justify-center items-center mt-10 w-full z-10">
+        <div
+          className="w-full px-4 max-w-[90vw] sm:max-w-lg md:max-w-xl lg:max-w-2xl aspect-square"
+          style={{ maxHeight: '450px', margin: '0 auto' }}
+        >
+          <Radar data={data} options={options} />
+        </div>
+      </section>
   );
 }
 
