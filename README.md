@@ -1,6 +1,6 @@
 # Interview Question Generator
 
-A React-based web component for generating realistic, concise, and domain-specific **technical** and **behavioral** interview questions suitable for oral responses. This project leverages AI-generated prompts to provide users with high-quality, relevant interview practice questions.
+A dynamic React-powered web app designed to generate sharp, relevant, and domain-focused technical and behavioral interview questions — all crafted specifically for confident, oral responses. Harnessing the power of AI-driven prompts, this project delivers authentic interview practice that prepares you to impress recruiters with concise, real-world questions tailored to your field. Perfect for sharpening your speaking skills and boosting your interview readiness like never before!
 
 ---
 
