@@ -1,16 +1,25 @@
+
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-function ErrorPop({setshowError}) {
+function ErrorPop({ setshowError }) {
   return (
-    <div className='fixed inset-0 z-50 bg-white-300 bg-opacity-30 backdrop-blur-sm flex flex-col justify-center items-center gap-6'>
-        <div className='bg-red-300 m-4 p-6 rounded-lg flex flex-col justify-between items-center'>
-            <p className='text-xl p-4 text-bold'>Please select an Interview Type</p>
-            <Link onClick={() => setshowError(false)} className='px-6 py-3 bg-blue-500 text-white rounded-lg shadow-lg hover:bg-blue-600 transition-all cursor-pointer'>Ok</Link>
+    <div className="fixed inset-0 z-50 bg-white-300 bg-opacity-40 backdrop-blur-sm flex justify-center items-center">
+      <div className="bg-white rounded-2xl shadow-xl max-w-sm w-full mx-4 px-6 py-8 flex flex-col items-center space-y-6 animate-fade-in">
+        <div className="text-red-600 text-2xl font-semibold text-center">
+          ⚠️ Please select an Interview Type
         </div>
-            
+
+        <Link
+          onClick={() => setshowError(false)}
+          className="px-6 py-3 bg-emerald-600 text-white rounded-full shadow hover:bg-emerald-700 transition-all duration-200"
+        >
+          Ok
+        </Link>
+      </div>
     </div>
   )
 }
 
 export default ErrorPop
+
