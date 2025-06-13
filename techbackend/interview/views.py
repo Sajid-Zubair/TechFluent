@@ -32,10 +32,27 @@ def get_question(request):
             return Response({"question": "Fallback question: Tell me about yourself."})
         
         if qtype == 'Technical' and subject:
-            prompt = f"Generate one short and concise theoretical random technical interview question for the subject: {subject} which can be answered orally."
+            prompt = f"""
+            Generate one short and concise **technical interview question** from the subject: **{subject}**.  
+            The question must meet the following criteria:
+
+            1. It should be **fully answerable orally**, without the need for code, diagrams, or written steps.
+            2. It should test **conceptual understanding** that can be explained clearly within 1 minute.
+            3. Avoid numerical problems, coding exercises, or complex computations.
+            4. The question should reflect **real interview scenarios**, i.e., it should be something that is commonly asked or likely to be asked in technical interviews.
+            5. The language should be formal and clear.
+            """
         elif qtype == 'Behavioural':
-            prompt = "Generate one unique random behavioral interview question."
-        
+            prompt = """
+            Generate one concise behavioral interview question that is commonly asked or likely to be asked in interviews.  
+            The question should:
+
+            1. Encourage the candidate to share real experiences or examples.
+            2. Be answerable orally with a focused narrative (1-2 minutes).
+            3. Explore qualities like teamwork, problem-solving, communication, adaptability, or leadership.
+            4. Avoid yes/no or simple factual answers; instead, prompt storytelling or explanation.
+            5. Use clear, professional language suitable for formal interviews.
+            """
         print("Making API call to Groq...")
         response = client.chat.completions.create(
             model="llama3-8b-8192",
