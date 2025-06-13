@@ -20,35 +20,36 @@ function Dashboard() {
   const [technicalCount, setTechnicalCount] = useState(0)
   const [behaviouralCount, setBehaviouralCount] = useState(0)
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
+  const [currentStreak, setCurrentStreak] = useState(0)
 
   useEffect(() => {
-    const checkLogin = async () => {
-      try {
-        const token = localStorage.getItem('access_token')
-        if (token) {
-          const config = {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json"
-            },
-          }
-          const response = await axios.get('http://localhost:8000/api/user/', config)
-          setIsLoggedIn(true)
-          setUsername(response.data.username)
-          setTechnicalCount(response.data.technical_count || 0)
-          setBehaviouralCount(response.data.behavioural_count || 0)
-        } else {
-          setIsLoggedIn(false)
-          setUsername("")
-        }
-      } catch (error) {
-        console.error("API Error:", error.response?.data)
-        setIsLoggedIn(false)
-        setUsername("")
-      }
+  const fetchUserData = async () => {
+    try {
+      const token = localStorage.getItem('access_token');
+      const config = {
+        headers: { Authorization: `Bearer ${token}` }
+      };
+
+      const userRes = await axios.get('http://localhost:8000/api/user/', config);
+      console.log('User API response:', userRes.data);
+      setIsLoggedIn(true);
+      setUsername(userRes.data.username);
+      setTechnicalCount(userRes.data.technical_count || 0);
+      setBehaviouralCount(userRes.data.behavioural_count || 0);
+
+      const streakRes = await axios.get('http://localhost:8000/api/current_streak/', config);
+      console.log('Streak API response:', streakRes.data);
+      setCurrentStreak(streakRes.data.current_streak || 0);
+
+    } catch (err) {
+      console.error("Error fetching data:", err.response?.data || err.message);
+      setIsLoggedIn(false);
+      setUsername("");
     }
-    checkLogin()
-  }, [])
+  };
+
+  fetchUserData();
+}, []);
 
   const handleLogout = async () => {
     try {
@@ -149,7 +150,7 @@ function Dashboard() {
             <h1 className='text-2xl sm:text-3xl font-bold text-center sm:text-left'>Welcome {username}!</h1>
             <button
                 onClick={handleLogout}
-                className='mt-4 sm:mt-0 bg-blue-600 text-white rounded-2xl px-6 py-3 hover:bg-blue-700 transition shadow-lg shadow-blue-900/50 hover:translate-y-[-2px] duration-200 ease-in-out'
+                className='mt-4 sm:mt-0 bg-red-500 text-white rounded-2xl px-6 py-3 hover:bg-red-700 transition shadow-lg shadow-blue-900/50 hover:translate-y-[-2px] duration-200 ease-in-out'
             >
                 Logout
             </button>
@@ -158,7 +159,7 @@ function Dashboard() {
           <div className='space-y-6'>
             <div className='p-4 bg-gray-100 rounded-lg flex justify-between items-center'>
               <h2 className='text-lg font-semibold'>Current Streak:</h2>
-              <span className='text-3xl font-bold text-blue-600'>3 Days!</span>
+              <span className='text-3xl font-bold text-blue-600'>{currentStreak} {currentStreak === 1 ? 'Day' : 'Days'}!</span>
             </div>
 
             <div className='p-4 bg-gray-100 rounded-lg space-y-4 md:space-y-0 md:flex md:justify-between md:items-center'>
@@ -197,7 +198,7 @@ function Dashboard() {
             <div className='flex justify-center'>
               <button
                 onClick={handleStart}
-                className='bg-blue-600 text-white rounded-2xl px-6 py-3 hover:bg-blue-700 transition shadow-lg shadow-blue-900/50 hover:translate-y-[-2px] duration-200 ease-in-out mt-4'
+                className='bg-emerald-600 text-white rounded-2xl px-6 py-3 hover:bg-green-700 transition shadow-lg shadow-blue-900/50 hover:translate-y-[-2px] duration-200 ease-in-out mt-4'
               >
                 Start Interview
               </button>

@@ -67,7 +67,7 @@ function RadarP({ ratings }) {
   };
 
   return (
-      <section className="flex justify-center items-center mt-10 w-full z-10">
+      <section className="flex justify-center items-center w-full z-10">
         <div
           className="w-full px-4 max-w-[90vw] sm:max-w-lg md:max-w-xl lg:max-w-2xl aspect-square"
           style={{ maxHeight: '450px', margin: '0 auto' }}
