@@ -79,6 +79,19 @@ function Popup({ setShowPopup, onclose, handleDoneClick }) {
                     <option value="Data Ethics and Privacy">Data Ethics and Privacy</option>
                     <option value="Cloud Computing for Data Science">Cloud Computing for Data Science</option>
                 </optgroup>
+
+                <optgroup label="Core Computer Engineering Subjects">
+                    <option value="Digital Logic Design">Digital Logic Design</option>
+                    <option value="Microprocessors and Microcontrollers">Microprocessors and Microcontrollers</option>
+                    <option value="Embedded Systems">Embedded Systems</option>
+                    <option value="VLSI Design">VLSI Design</option>
+                    <option value="Analog and Digital Communication">Analog and Digital Communication</option>
+                    <option value="Signal Processing">Signal Processing</option>
+                    <option value="Control Systems">Control Systems</option>
+                    <option value="Electronics Circuits and Devices">Electronics Circuits and Devices</option>
+                    <option value="Computer Architecture">Computer Architecture</option>
+                    <option value="Hardware Description Languages (HDL)">Hardware Description Languages (HDL)</option>
+                </optgroup>
             </select>
         </div>
 
