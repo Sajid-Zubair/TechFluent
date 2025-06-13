@@ -206,7 +206,7 @@ function Dashboard() {
           </div>
 
           {showPopup && <Popup setShowPopup={setShowPopup} onclose={onclose} handleDoneClick={handleDoneClick} />}
-          {showError && <ErrorPop />}
+          {showError && <ErrorPop setshowError={setshowError} />}
         </div>
       </div>
     </div>
