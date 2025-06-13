@@ -11,6 +11,7 @@ A React-based web component for generating realistic, concise, and domain-specif
 - [Installation](#installation)  
 - [Usage](#usage)  
 - [Technical Details](#technical-details)  
+- [Gamification](#gamification)  
 - [Prompt Design](#prompt-design)  
 - [Contributing](#contributing)  
 - [License](#license)  
@@ -30,6 +31,20 @@ This project helps candidates prepare for interviews by generating tailored tech
 - Questions designed to be answered orally within 1-2 minutes.  
 - AI prompts ensure questions are relevant and likely to be asked in actual interviews.  
 - Clean, professional UI with subject selection and easy navigation.  
+
+---
+
+## Gamification
+
+To motivate consistent practice and healthy competition, the project incorporates gamification elements including:
+
+- **College-specific Leaderboards:** Students are ranked based on their overall interview performance within their college, fostering a competitive yet collaborative environment.  
+- **Maximum Streak Tracking:** Encourages users to maintain consecutive days of practice, rewarding consistency and dedication.  
+- **Visual Performance Metrics:**  
+  - **Radar Charts** display detailed scoring across multiple interview skill dimensions (e.g., fluency, grammar, coherence).  
+  - **Line Charts** track interview skill progress over time, allowing users to visualize their improvement trajectory.  
+
+These elements combine to create an engaging and rewarding interview preparation experience.
 
 ---
 
