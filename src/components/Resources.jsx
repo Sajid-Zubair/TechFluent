@@ -77,13 +77,18 @@ function Resources() {
 
           <div className="flex flex-col items-center justify-center w-full">
             <div className="flex flex-col sm:flex-row items-center gap-2 w-full">
-              <input
-                className="p-3 border-2 border-gray-500 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-200 w-full"
-                type="text"
-                placeholder="What do you want to learn?"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-              />
+            <input
+              className="p-3 border-2 border-gray-500 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-200 w-full"
+              type="text"
+              placeholder="What do you want to learn?"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  handleSearch();
+                }
+              }}
+            />
               <button
                 onClick={handleSearch}
                 className="flex items-center justify-center p-3 w-full sm:w-auto bg-blue-500 text-white rounded-lg shadow-lg hover:bg-blue-600 transition-all cursor-pointer"
