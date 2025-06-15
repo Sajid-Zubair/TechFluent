@@ -138,7 +138,7 @@ def process_audio(request):
 
                 1. First, provide the correct and complete answer to the question **if** the candidate's answer is incorrect or incomplete and **if** the question is a technical question.
                 2. Then, list all **positive** and **negative** aspects of the given answer.
-                3. Finally, rewrite the answer in a more refined, well-structured, and professional way, suitable for a spoken technical interview.
+                3. Finally, rewrite the answer in a more refined, well-structured, and professional way, suitable for a spoken technical interview. Use STAR (Situation, Task, Action, Result) format if applicable.
                 Provide the feedback in a detailed and pointwise manner.
                 Candidate's Answer:
                 {transcription}
