@@ -26,6 +26,10 @@ function Dashboard() {
   const fetchUserData = async () => {
     try {
       const token = localStorage.getItem('access_token');
+      if (!token) {
+      navigate('/'); // Not logged in, redirect to home/login
+      return;
+    }
       const config = {
         headers: { Authorization: `Bearer ${token}` }
       };
@@ -49,7 +53,7 @@ function Dashboard() {
   };
 
   fetchUserData();
-}, []);
+}, [navigate]);
 
   const handleLogout = async () => {
     try {
