@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Line } from "react-chartjs-2";
@@ -55,9 +54,9 @@ function ProgressChart() {
 
   if (data.length === 0) {
     return (
-            <div className="text-center py-6 text-gray-600">
-              <h2 className="text-xl font-bold">Progess Chart Not Available</h2>
-            </div>
+      <div className="text-center py-6 text-gray-600">
+        <h2 className="text-xl font-bold">Progress Chart Not Available</h2>
+      </div>
     );
   }
 
@@ -67,37 +66,37 @@ function ProgressChart() {
     datasets: [
       {
         label: "Fluency",
-        data: data.map((entry) => entry.fluency),
+        data: data.map((entry) => Number(entry.fluency)),
         borderColor: "rgba(255, 99, 132, 1)",
         fill: false,
       },
       {
         label: "Grammar",
-        data: data.map((entry) => entry.grammar),
+        data: data.map((entry) => Number(entry.grammar)),
         borderColor: "rgba(54, 162, 235, 1)",
         fill: false,
       },
       {
         label: "Content Structure",
-        data: data.map((entry) => entry.content_structure),
+        data: data.map((entry) => Number(entry.content_structure)),
         borderColor: "rgba(255, 206, 86, 1)",
         fill: false,
       },
       {
         label: "Accuracy",
-        data: data.map((entry) => entry.accuracy),
+        data: data.map((entry) => Number(entry.accuracy)),
         borderColor: "rgba(75, 192, 192, 1)",
         fill: false,
       },
       {
         label: "Vocabulary",
-        data: data.map((entry) => entry.vocabulary),
+        data: data.map((entry) => Number(entry.vocabulary)),
         borderColor: "rgba(153, 102, 255, 1)",
         fill: false,
       },
       {
         label: "Coherence",
-        data: data.map((entry) => entry.coherence),
+        data: data.map((entry) => Number(entry.coherence)),
         borderColor: "rgba(255, 159, 64, 1)",
         fill: false,
       },
@@ -115,7 +114,14 @@ function ProgressChart() {
     },
     plugins: {
       legend: {
-        position: 'bottom',
+        position: "bottom",
+      },
+      tooltip: {
+        callbacks: {
+          label: function (context) {
+            return `${context.dataset.label}: ${context.parsed.y.toFixed(1)}`;
+          },
+        },
       },
     },
   };
@@ -126,7 +132,6 @@ function ProgressChart() {
         Interview Skill Progress Over Time
       </h2>
 
-      {/* Responsive horizontal scroll on small screens */}
       <div className="w-full overflow-x-auto">
         <div className="min-w-[700px] max-w-6xl h-[400px] bg-white rounded-lg shadow-md p-4">
           <Line data={chartData} options={options} />
