@@ -223,50 +223,6 @@ def get_interview_progress(request):
     return Response(history)
 
 
-# @api_view(['GET'])
-# @permission_classes([IsAuthenticated])
-# def current_streak(request):
-#     user = request.user
-#     today = now().date()
-
-#     # assuming InterviewAttempt model with 'date' field (date or datetime)
-#     answer_dates = list(
-#         InterviewAttempt.objects
-#         .filter(user=user)
-#         .dates('date', 'day', order='DESC')
-#     )
-
-#     # Calculate current streak
-#     current_streak = 0
-#     for i, date in enumerate(answer_dates):
-#         if date == today - timedelta(days=current_streak):
-#             current_streak += 1
-#         else:
-#             break
-
-#     # Calculate max streak
-#     max_streak = 0
-#     temp_streak = 1
-
-#     for i in range(1, len(answer_dates)):
-#         if answer_dates[i] == answer_dates[i-1] - timedelta(days=1):
-#             temp_streak += 1
-#         else:
-#             max_streak = max(max_streak, temp_streak)
-#             temp_streak = 1
-#     max_streak = max(max_streak, temp_streak) if answer_dates else 0
-
-#     print(f"current_streak: {current_streak}, max_streak: {max_streak}")  # debug print
-
-#     # Make sure they are ints
-#     current_streak = int(current_streak)
-#     max_streak = int(max_streak)
-
-#     return Response({
-#         'current_streak': current_streak,
-#         'max_streak': max_streak,
-#     })
-
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def current_streak(request):
@@ -302,7 +258,7 @@ def current_streak(request):
     max_streak = max(max_streak, temp_streak) if answer_dates else 0
 
     # Now check if the latest attempt is older than 48 hours
-    if not latest_attempt or (now_dt - latest_attempt.date > timedelta(hours=48)):
+    if not latest_attempt or (now_dt - latest_attempt.date > timedelta(hours=24)):
         return Response({
             'current_streak': 0,
             'max_streak': max_streak,
