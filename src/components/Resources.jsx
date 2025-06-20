@@ -85,6 +85,7 @@ function Resources() {
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
+                  e.preventDefault();
                   handleSearch();
                 }
               }}
