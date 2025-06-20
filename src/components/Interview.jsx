@@ -242,7 +242,7 @@ function Interview() {
           className="mt-6 bg-white shadow-lg rounded-xl p-6 w-full max-w-2xl"
         >
           <h2 className="text-xl font-semibold text-purple-700 mb-4">📊 Ratings</h2>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
             {Object.entries(rating).map(([key, value]) => {
               const score = parseFloat(value);
               const getBadgeColor = () => {
