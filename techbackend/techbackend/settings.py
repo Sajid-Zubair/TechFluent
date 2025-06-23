@@ -26,7 +26,12 @@ SECRET_KEY = "django-insecure-n6(eqiu%%+-2gak749!v&%iw5+8x8#66(irtbh&h&m77ea2!pi
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['techfluent-f3xd.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = [
+    'techfluent-f3xd.onrender.com',
+    'techfluent4.onrender.com',
+    'localhost',
+    '127.0.0.1',
+]
 
 
 # Application definition
