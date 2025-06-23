@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { Upload } from 'lucide-react';
 
 function Custom_Interview() {
+  const navigate = useNavigate();
   // Form state
   const [jobDescription, setJobDescription] = useState('');
   const [experienceLevel, setExperienceLevel] = useState('');
@@ -49,18 +50,31 @@ function Custom_Interview() {
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!validate()) return;
-    setLoading(true);
+    const handleSubmit = (e) => {
+      e.preventDefault();
 
-    // Simulate form submission or call API here
-    setTimeout(() => {
-      setLoading(false);
-      alert('Mock interview started with your preferences!');
-      // Reset form or navigate to interview page as needed
-    }, 1500);
-  };
+      if (!validate()) return;
+      setLoading(true);
+
+      setTimeout(() => {
+        setLoading(false);
+        
+        // navigate to the AI Interview page with state
+        navigate('/start-custom-interview', {
+          state: {
+            formData: {
+              jobDescription,
+              experienceLevel,
+              interviewType,
+              interviewStyle,
+              interviewGoal,
+              interviewDuration
+            }
+          }
+        });
+
+      }, 1500);
+    };
 
   return (
     <div className="flex min-h-screen bg-gray-50">

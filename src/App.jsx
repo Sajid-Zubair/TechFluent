@@ -2,7 +2,7 @@ import Custom_Interview from './components/Custom_Interview.jsx'
 import {
   Navbar, Footer, LandingPage, Signup, Login,
   Dashboard, Profile, Resources, Interview,
-  EditProfile, ErrorPop
+  EditProfile, ErrorPop, StartCustomInterview
 } from './components/index.js'
 
 import ProtectedRoute from './components/ProtectedRoute.jsx' // ✅ Import this
@@ -49,6 +49,8 @@ function App() {
         <Route path="/custom_interview" element={
           <ProtectedRoute><Custom_Interview /></ProtectedRoute>
         } />
+
+        <Route path="/start-custom-interview" element={<StartCustomInterview />} />
       </Routes> 
     </div>
   )
