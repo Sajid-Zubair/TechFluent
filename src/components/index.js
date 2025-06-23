@@ -12,5 +12,5 @@ import ErrorPop from "./ErrorPop";
 import Custom_Interview from "./Custom_Interview";
 import Sidenav from "./Sidenav";
 import Popup from "./Popup";
-
-export { Navbar, Footer, LandingPage, Signup, Login, Dashboard, Profile, Resources, Interview, EditProfile, ErrorPop, Custom_Interview, Sidenav, Popup };
+import StartCustomInterview from "./StartCustomInterview";
+export { Navbar, Footer, LandingPage, Signup, Login, Dashboard, Profile, Resources, Interview, EditProfile, ErrorPop, Custom_Interview, Sidenav, Popup, StartCustomInterview };
