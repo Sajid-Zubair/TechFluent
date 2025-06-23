@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Sidenav from './Sidenav';
 import { FaBars } from 'react-icons/fa';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { Upload } from 'lucide-react';
 
 function Custom_Interview() {
   // Form state
@@ -294,33 +297,38 @@ function Custom_Interview() {
             </div>
 
             {/* Resume Upload */}
-            <div className="mb-6">
-              <label
-                htmlFor="resumeFile"
-                className="block mb-2 text-lg font-semibold text-gray-700"
-              >
-                Upload Resume <span className="text-red-600">*</span>
-              </label>
-              <input
-                id="resumeFile"
-                name="resumeFile"
-                type="file"
-                accept=".pdf,.doc,.docx"
-                onChange={handleFileChange}
-                className={`w-full border-2 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  errors.resumeFile ? 'border-red-500' : 'border-gray-300'
-                }`}
-                aria-describedby={errors.resumeFile ? 'resumeFile-error' : undefined}
-              />
-              {errors.resumeFile && (
-                <p id="resumeFile-error" className="mt-1 text-sm text-red-600">
-                  {errors.resumeFile}
-                </p>
-              )}
-            </div>
+              <div>
+                <label
+                  htmlFor="resumeFile"
+                  className="block mb-3 text-lg font-semibold text-gray-800"
+                >
+                  Upload Resume <span className="text-red-500">*</span>
+                </label>
+                <div className={`relative border-2 border-dashed rounded-xl p-6 transition-colors ${
+                  errors.resumeFile ? 'border-red-300 bg-red-50' : 'border-gray-300 hover:border-blue-400 hover:bg-blue-50'
+                }`}>
+                  <input
+                    id="resumeFile"
+                    type="file"
+                    accept=".pdf,.doc,.docx"
+                    onChange={handleFileChange}
+                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  />
+                  <div className="text-center">
+                    <Upload className="mx-auto h-12 w-12 text-gray-400 mb-4" />
+                    <p className="text-lg font-medium text-gray-700 mb-2">
+                      {resumeFile ? resumeFile.name : 'Click to upload or drag and drop'}
+                    </p>
+                    <p className="text-sm text-gray-500">PDF, DOC, or DOCX files (Max 10MB)</p>
+                  </div>
+                </div>
+                {errors.resumeFile && (
+                  <p className="mt-2 text-sm text-red-600">{errors.resumeFile}</p>
+                )}
+              </div>
 
             {/* Submit Button */}
-            <div className="text-center">
+            <div className="text-center mt-8">
               <button
                 type="submit"
                 disabled={loading}
