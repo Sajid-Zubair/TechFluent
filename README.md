@@ -4,7 +4,7 @@ A dynamic React-powered web app designed to generate sharp, relevant, and domain
 
 ---
 
-## Table of Contents
+## 📋 Table of Contents
 
 - [Project Overview](#project-overview)  
 - [Features](#features)  
@@ -16,21 +16,22 @@ A dynamic React-powered web app designed to generate sharp, relevant, and domain
 
 ---
 
-## Project Overview
+## 🚀 Project Overview
 
 This project helps candidates prepare for interviews by generating tailored technical and behavioral questions that simulate real interview scenarios. The focus is on questions that can be answered orally, promoting clear, confident verbal responses.
 
 ---
 
-## Features
+## ✨ Features
 
 - Generate concise, domain-specific technical interview questions (e.g., CSE, AI/ML, Data Science).  
 - Generate realistic behavioral interview questions encouraging storytelling and experience sharing.  
 - Questions designed to be answered orally within 1-2 minutes.  
 - AI prompts ensure questions are relevant and likely to be asked in actual interviews.  
-- Clean, professional UI with subject selection and easy navigation.  
+- Clean, professional UI with subject selection and easy navigation.
 
 ---
+
 ## Installation
 
 1. Clone the repository:  
@@ -54,7 +55,7 @@ This project helps candidates prepare for interviews by generating tailored tech
 
 ---
 
-## Usage
+## 🎯 Usage
     Select a technical subject or behavioral interview type from the dropdown.
 
     Click Generate Question to receive a relevant interview question.
@@ -63,7 +64,7 @@ This project helps candidates prepare for interviews by generating tailored tech
 
 ---
 
-## Technical Details
+## 🧑‍💻 Technical Details
     Frontend: React.js with hooks for state management.
 
     Backend: (Optional) API to interact with AI services like Groq models.
@@ -72,7 +73,7 @@ This project helps candidates prepare for interviews by generating tailored tech
 
 ---
 
-## Gamification
+## 🎮 Gamification
 
 To motivate consistent practice and healthy competition, the project incorporates gamification elements including:
 
@@ -88,7 +89,7 @@ These elements combine to create an engaging and rewarding interview preparation
 
 
 
-## Prompt Design
+## 📝 Prompt Design
 
     ### Technical Question Prompt Design
         Generate one short and concise theoretical random technical interview question for the subject: {subject}.  
