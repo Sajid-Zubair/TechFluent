@@ -39,7 +39,7 @@ This project helps candidates prepare for interviews by generating tailored tech
    git clone https://github.com/Sajid-Zubair/TechFluent.git
    cd TechFluent
    npm install
-   
+
 2. Start the Frontend:
     In the TechFluent directory, run:
     ```bash
@@ -92,13 +92,13 @@ These elements combine to create an engaging and rewarding interview preparation
 
 ## 📝 Prompt Design
 
-    ### Technical Question Prompt Design
-        Generate one short and concise theoretical random technical interview question for the subject: {subject}.  
-        The question should be answerable solely by speaking (oral answer), not by writing code or lengthy explanations.  
-        Include only questions that are commonly asked or might be asked in real interviews.
+- ## Technical Question Prompt Design
+    Generate one short and concise theoretical random technical interview question for the subject: {subject}.  
+    The question should be answerable solely by speaking (oral answer), not by writing code or lengthy explanations.  
+    Include only questions that are commonly asked or might be asked in real interviews.
 
-    ### Behavioural Question Prompt Design
-        Generate one concise behavioral interview question that is commonly asked or likely to be asked in interviews.  
-        The question should encourage the candidate to share real experiences or examples, be answerable orally with a focused narrative,  
-        and explore qualities like teamwork, problem-solving, communication, adaptability, or leadership.
+- ## Behavioural Question Prompt Design
+    Generate one concise behavioral interview question that is commonly asked or likely to be asked in interviews.  
+    The question should encourage the candidate to share real experiences or examples, be answerable orally with a focused narrative,  
+    and explore qualities like teamwork, problem-solving, communication, adaptability, or leadership.
 
