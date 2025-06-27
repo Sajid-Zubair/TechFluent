@@ -1,4 +1,4 @@
-# Interview Question Generator
+# Interview Prep Platform
 
 A dynamic React-powered web app designed to generate sharp, relevant, and domain-focused technical and behavioral interview questions — all crafted specifically for confident, oral responses. Harnessing the power of AI-driven prompts, this project delivers authentic interview practice that prepares you to impress recruiters with concise, real-world questions tailored to your field. Perfect for sharpening your speaking skills and boosting your interview readiness like never before!
 
