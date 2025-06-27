@@ -38,7 +38,8 @@ This project helps candidates prepare for interviews by generating tailored tech
    ```bash
    git clone https://github.com/Sajid-Zubair/TechFluent.git
    cd TechFluent
-
+   npm install
+   
 2. Start the Frontend:
     In the TechFluent directory, run:
     ```bash
