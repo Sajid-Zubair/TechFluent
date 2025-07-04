@@ -210,7 +210,6 @@ function Custom_Interview() {
                 }`}
               >
                 <option value="">Select Interview Type</option>
-                <option value="technical">💻 Technical (DSA / Coding)</option>
                 <option value="system_design">🏗️ System Design</option>
                 <option value="core_cs">📘 Core CS Fundamentals</option>
                 <option value="web_tech">🌐 Web Technologies</option>
