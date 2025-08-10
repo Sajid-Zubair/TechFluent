@@ -8,7 +8,7 @@ function Sidenav() {
 
   const navLinks = [
     { to: "/dashboard", label: "Home", icon: <FaHome /> },
-    { to: "/custom_interview", label: "Custom Interview", icon: <GiBrain /> },
+    { to: "/custom_interview", label: "Job Search", icon: <GiBrain /> },
     { to: "/resources", label: "Resource Corner", icon: <FaBook /> },
     { to: "/profile", label: "Profile", icon: <FaUser /> },
   ];

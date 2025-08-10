@@ -202,3 +202,46 @@ def get_answer(request):
             "error": str(e)
         }, status=500)
     
+
+
+
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from apify_client import ApifyClient
+
+@csrf_exempt
+def job_search(request):
+    job_role = request.GET.get("job_role", "")
+    location = request.GET.get("location", "")
+    limit = int(request.GET.get("limit", 20))  # Optional limit on number of jobs
+
+    if not job_role or not location:
+        return JsonResponse({"error": "job_role and location are required"}, status=400)
+
+    client = ApifyClient("REMOVED_SECRET")  # Use your actual Apify token here
+
+    run_input = {
+        "title": job_role,
+        "location": location,
+        "limit": limit,
+        # Add other inputs supported by your actor if needed
+    }
+
+    try:
+        # Replace this with your actual Actor ID on Apify platform
+        actor_id = "TrtlecxAsNRbKl1na"
+
+        # Call the actor and wait for the run to finish
+        run = client.actor(actor_id).call(run_input=run_input)
+
+        # Fetch results from the dataset
+        dataset = client.dataset(run["defaultDatasetId"])
+        jobs = list(dataset.iterate_items())
+
+        return JsonResponse({"jobs": jobs}, status=200)
+
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
+
+
