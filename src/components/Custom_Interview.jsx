@@ -30,44 +30,44 @@ function Custom_Interview() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  if (!validate()) return;
+    if (!validate()) return;
 
-  setLoading(true);
-  try {
-    const res = await axios.get("http://127.0.0.1:8000/api/jobs/", {
-      params: { job_role: jobRole, location, limit: 10 },
-    });
+    setLoading(true);
+    try {
+      const res = await axios.get("http://127.0.0.1:8000/api/jobs/", {
+        params: { job_role: jobRole, location, limit: 10 },
+      });
 
-    const jobsData = res.data.jobs || [];
+      const jobsData = res.data.jobs || [];
 
-    // Filter unique jobs by URL
-    const uniqueJobsMap = new Map();
+      // Filter unique jobs by URL
+      const uniqueJobsMap = new Map();
 
-    jobsData.forEach((job) => {
-      // Use job.jobUrl or job.url as unique key
-      const urlKey = job.jobUrl || job.url || job.title; // fallback if url missing
-      if (!uniqueJobsMap.has(urlKey)) {
-        uniqueJobsMap.set(urlKey, job);
+      jobsData.forEach((job) => {
+        // Use job.jobUrl or job.url as unique key
+        const urlKey = job.jobUrl || job.url || job.title; // fallback if url missing
+        if (!uniqueJobsMap.has(urlKey)) {
+          uniqueJobsMap.set(urlKey, job);
+        }
+      });
+
+      const uniqueJobs = Array.from(uniqueJobsMap.values());
+
+      setJobs(uniqueJobs);
+
+    } catch (error) {
+      if (error.response && error.response.data) {
+        alert("Error from server: " + error.response.data.error);
+        if (error.response.data.traceback) {
+          console.error("Backend traceback:", error.response.data.traceback);
+        }
+      } else {
+        alert("Error fetching jobs: " + (error.message || "Unknown error"));
+        console.error(error);
       }
-    });
-
-    const uniqueJobs = Array.from(uniqueJobsMap.values());
-
-    setJobs(uniqueJobs);
-
-  } catch (error) {
-    if (error.response && error.response.data) {
-      alert("Error from server: " + error.response.data.error);
-      if (error.response.data.traceback) {
-        console.error("Backend traceback:", error.response.data.traceback);
-      }
-    } else {
-      alert("Error fetching jobs: " + (error.message || "Unknown error"));
-      console.error(error);
     }
-  }
-  setLoading(false);
-  };
+    setLoading(false);
+};
 
   return (
     <div className="flex min-h-screen bg-gray-50">
