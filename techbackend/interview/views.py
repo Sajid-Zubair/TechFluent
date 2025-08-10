@@ -219,7 +219,8 @@ def job_search(request):
     if not job_role or not location:
         return JsonResponse({"error": "job_role and location are required"}, status=400)
 
-    client = ApifyClient("REMOVED_SECRET")  # Use your actual Apify token here
+    api_token = os.getenv("APIFY_TOKEN")
+    client = ApifyClient(api_token)  # Use your actual Apify token here
 
     run_input = {
         "title": job_role,
