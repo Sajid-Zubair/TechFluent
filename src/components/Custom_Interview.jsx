@@ -29,27 +29,6 @@ function Custom_Interview() {
   };
 
   const handleSubmit = async (e) => {
-    // e.preventDefault();
-    // if (!validate()) return;
-
-    // setLoading(true);
-    // try {
-    //   const res = await axios.get("http://127.0.0.1:8000/api/jobs/", {
-    //     params: { job_role: jobRole, location, limit: 10 },
-    //   });
-    //   setJobs(res.data.jobs || []);
-    // } catch (error) {
-    //   if (error.response && error.response.data) {
-    //     alert("Error from server: " + error.response.data.error);
-    //     if (error.response.data.traceback) {
-    //       console.error("Backend traceback:", error.response.data.traceback);
-    //     }
-    //   } else {
-    //     alert("Error fetching jobs: " + (error.message || "Unknown error"));
-    //     console.error(error);
-    //   }
-    // }
-    // setLoading(false);
     e.preventDefault();
   if (!validate()) return;
 
