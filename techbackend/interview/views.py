@@ -239,10 +239,34 @@ def job_search(request):
         # Fetch results from the dataset
         dataset = client.dataset(run["defaultDatasetId"])
         jobs = list(dataset.iterate_items())
+        processed_jobs = []
+        for job in jobs:
+            # Try multiple possible description fields from Apify result
+            raw_description = (
+                job.get("description")
+                or job.get("jobDescription")
+                or job.get("snippet")
+                or ""
+            )
 
-        return JsonResponse({"jobs": jobs}, status=200)
+            # Make sure it's a string
+            if not isinstance(raw_description, str):
+                raw_description = str(raw_description)
+
+            # Trim to first 25 words
+            words = raw_description.split()
+            short_description = " ".join(words[:25]) + (" ..." if len(words) > 25 else "")
+
+            # Add short_description and also keep original if needed
+            job["description"] = short_description
+            job["fullDescription"] = raw_description
+
+            processed_jobs.append(job)
+
+        return JsonResponse({"jobs": processed_jobs}, status=200)
 
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
+
 
 

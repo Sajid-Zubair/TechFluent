@@ -261,6 +261,15 @@ function Custom_Interview() {
                           ? `${job.location.city}, ${job.location.countryName}`
                           : "Location not available"}
                       </p>
+                      {job.description && (
+                        <p className="text-gray-700 mb-4 break-words">
+                          {job.description?.split
+                            ? `${job.description.split(/\s+/).slice(2, 25).join(" ")}${
+                                job.description.split(/\s+/).length > 25 ? " ..." : ""
+                              }`
+                            : "No description available"}
+                        </p>
+                      )}
                     </div>
 
                     {/* Apply Link */}
