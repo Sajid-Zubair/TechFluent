@@ -298,64 +298,6 @@ def extract_text_from_docx(file):
     text = "\n".join([para.text for para in document.paragraphs])
     return text
 
-# @api_view(['POST'])
-# def resume_analyzer(request):
-#     try:
-#         # 1. Check if file exists
-#         file = request.FILES.get("resume")
-#         if not file:
-#             return Response({"error": "No resume uploaded."}, status=400)
-
-#         # 2. Extract text
-#         ext = os.path.splitext(file.name)[1].lower()
-#         if ext == ".pdf":
-#             resume_text = extract_text_from_pdf(file)
-#         elif ext in [".docx", ".doc"]:
-#             resume_text = extract_text_from_docx(file)
-#         else:
-#             return Response({"error": "Unsupported file type. Please upload PDF or DOCX."}, status=400)
-
-#         if not resume_text.strip():
-#             return Response({"error": "Could not extract text from resume."}, status=400)
-
-#         # 3. Build prompt
-#         prompt = f"""
-#         You are an experienced hiring manager and resume reviewer. I will provide you with a candidate’s resume. Your task is to give detailed, constructive, and actionable feedback in the following format:
-
-#         Overall Impression: Brief summary of the resume’s strengths and weaknesses.
-
-#         Content & Skills: Evaluate if the skills, projects, and work experience are relevant and clearly described for the target role. Identify missing key skills.
-
-#         Clarity & Impact: Assess whether bullet points are specific, use strong action verbs, and include measurable achievements. Suggest improvements.
-
-#         Formatting & Readability: Comment on layout, section order, font size, and ease of scanning.
-
-#         ATS Compatibility: Suggest changes to improve Applicant Tracking System parsing (e.g., keywords, simple formatting).
-
-#         Final Score (out of 10): Give a score based on how ready this resume is for applying to jobs in the target role.
-
-#         The feedback should be specific, concise, and professional, without rewriting the entire resume unless necessary.
-
-#         Resume:
-#         {resume_text}
-#         """
-
-#         # 4. Call Groq API
-#         response = client.chat.completions.create(
-#             model="llama3-70b-8192",
-#             messages=[
-#                 {"role": "system", "content": "You are a professional resume reviewer."},
-#                 {"role": "user", "content": prompt}
-#             ]
-#         )
-
-#         analysis = response.choices[0].message.content.strip()
-
-#         # 5. Return result
-#         return Response({"analysis": analysis})
-
-#     except Exception as e:
-#         return Response({"error": str(e)}, status=500)
 @api_view(['POST'])
 def resume_analyzer(request):
     try:
@@ -377,15 +319,21 @@ def resume_analyzer(request):
 
         # Prompt
         prompt = f"""
-        You are an experienced hiring manager and resume reviewer. I will provide you with a candidate’s resume. 
-        Give detailed, constructive, and actionable feedback in the following format:
+         You are an experienced hiring manager and resume reviewer. I will provide you with a candidate’s resume. Your task is to give detailed, constructive, and actionable feedback in the following format:
 
-        Overall Impression: ...
-        Content & Skills: ...
-        Clarity & Impact: ...
-        Formatting & Readability: ...
-        ATS Compatibility: ...
-        Final Score (out of 10): ...
+         Overall Impression: Brief summary of the resume’s strengths and weaknesses.
+
+         Content & Skills: Evaluate if the skills, projects, and work experience are relevant and clearly described for the target role. Identify missing key skills.
+
+         Clarity & Impact: Assess whether bullet points are specific, use strong action verbs, and include measurable achievements. Suggest improvements.
+
+         Formatting & Readability: Comment on layout, section order, font size, and ease of scanning.
+
+         ATS Compatibility: Suggest changes to improve Applicant Tracking System parsing (e.g., keywords, simple formatting).
+
+         Final Score (out of 10): Give a score based on how ready this resume is for applying to jobs in the target role.
+
+         The feedback should be specific, concise, and professional, without rewriting the entire resume unless necessary.
 
         Resume:
         {resume_text}
