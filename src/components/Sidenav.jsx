@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FaHome, FaBook, FaUser, FaBriefcase } from 'react-icons/fa';
+import { FaHome, FaBook, FaUser, FaBriefcase, FaClipboardCheck } from 'react-icons/fa';
 
 
 function Sidenav() {
@@ -9,6 +9,7 @@ function Sidenav() {
   const navLinks = [
     { to: "/dashboard", label: "Home", icon: <FaHome /> },
     { to: "/custom_interview", label: "Job Search", icon: <FaBriefcase /> },
+    {to: "/resume", label: "Resume Review", icon: <FaClipboardCheck />},
     { to: "/resources", label: "Resource Corner", icon: <FaBook /> },
     { to: "/profile", label: "Profile", icon: <FaUser /> },
   ];

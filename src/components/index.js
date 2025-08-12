@@ -13,4 +13,5 @@ import Custom_Interview from "./Custom_Interview";
 import Sidenav from "./Sidenav";
 import Popup from "./Popup";
 import StartCustomInterview from "./StartCustomInterview";
-export { Navbar, Footer, LandingPage, Signup, Login, Dashboard, Profile, Resources, Interview, EditProfile, ErrorPop, Custom_Interview, Sidenav, Popup, StartCustomInterview };
+import ResumeReview from "./ResumeReview";
+export { Navbar, Footer, LandingPage, Signup, Login, Dashboard, Profile, Resources, Interview, EditProfile, ErrorPop, Custom_Interview, Sidenav, Popup, StartCustomInterview, ResumeReview };

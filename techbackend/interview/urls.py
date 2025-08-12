@@ -6,4 +6,5 @@ urlpatterns = [
     path('process_audio/', views.process_audio, name='process_audio'),
     path('get_answer/', views.get_answer, name='get_answer'),
     path('jobs/', views.job_search, name='jobs'),
+    path('resume_analyzer/', views.resume_analyzer, name='resume_analyzer'),
 ]
