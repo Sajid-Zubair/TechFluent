@@ -1,6 +1,7 @@
 # Interview Prep Platform
 
 TechFluent is an AI-powered web platform designed to help students and job seekers:
+
 1.Improve interview skills with technical and behavioral questions.
 
 2.Analyze and improve resumes with AI feedback.
