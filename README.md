@@ -2,9 +2,13 @@
 
 TechFluent is an AI-powered web platform designed to help students and job seekers:
 1.Improve interview skills with technical and behavioral questions.
+
 2.Analyze and improve resumes with AI feedback.
+
 3.Search for jobs with real-time listings from Indeed.
+
 4.Get instant help from a career-focused chatbot.
+
 5.Track progress and performance through gamification.
 
 The platform uses AI models for question generation, answer evaluation, and speech-to-text conversion, providing a complete, interactive, and personalized career preparation experience.
