@@ -1,6 +1,13 @@
 # Interview Prep Platform
 
-A dynamic React-powered web app designed to generate sharp, relevant, and domain-focused technical and behavioral interview questions — all crafted specifically for confident, oral responses. Harnessing the power of AI-driven prompts, this project delivers authentic interview practice that prepares you to impress recruiters with concise, real-world questions tailored to your field. Perfect for sharpening your speaking skills and boosting your interview readiness like never before!
+TechFluent is an AI-powered web platform designed to help students and job seekers:
+1.Improve interview skills with technical and behavioral questions.
+2.Analyze and improve resumes with AI feedback.
+3.Search for jobs with real-time listings from Indeed.
+4.Get instant help from a career-focused chatbot.
+5.Track progress and performance through gamification.
+
+The platform uses AI models for question generation, answer evaluation, and speech-to-text conversion, providing a complete, interactive, and personalized career preparation experience.
 
 ---
 
@@ -24,11 +31,32 @@ This project helps candidates prepare for interviews by generating tailored tech
 
 ## ✨ Features
 
-- Generate concise, domain-specific technical interview questions (e.g., CSE, AI/ML, Data Science).  
-- Generate realistic behavioral interview questions encouraging storytelling and experience sharing.  
-- Questions designed to be answered orally within 1-2 minutes.  
-- AI prompts ensure questions are relevant and likely to be asked in actual interviews.  
-- Clean, professional UI with subject selection and easy navigation.
+1. AI-Powered Interview Prep
+Generate domain-specific technical questions (CSE, AI/ML, Data Science).
+Generate realistic behavioral questions for storytelling and experience sharing.
+Questions are designed to be answered orally within 1–2 minutes.
+Real-time speech-to-text conversion using OpenAI’s Whisper model.
+AI evaluation on accuracy, coherence, grammar, fluency, and personalized feedback.
+Questions and feedback tailored for realistic interview scenarios.
+
+2. Job Search Portal
+Search jobs by role and location.
+Real-time job scraping from Indeed using Apify.
+Clean, user-friendly display of listings without leaving the platform.
+
+3. Resume Analyzer
+Upload resumes in PDF or DOCX format.
+Extract text using PyMuPDF and python-docx libraries.
+AI analyzes resume content and provides personalized suggestions to improve structure, phrasing, and impact.
+
+4. Intelligent Chatbot
+Ask career-related questions or interview doubts.
+AI-powered responses provide context-aware answers to help users prepare better.
+
+5. Profile Dashboard & Analytics
+Visualize overall rating and scores for accuracy, coherence, grammar, and fluency.
+Track interview streaks, total interviews completed, and peer rankings.
+Progress shown with radar charts (skill breakdown) and line charts (improvement over time).
 
 ---
 
