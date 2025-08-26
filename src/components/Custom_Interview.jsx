@@ -222,7 +222,7 @@ function Custom_Interview() {
               <h2 className="text-2xl font-bold mb-6 text-gray-900">
                 Job Results
               </h2>
-              <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 items-stretch">
                 {jobs.map((job, index) => (
                   <div
                     key={index}
@@ -236,7 +236,7 @@ function Custom_Interview() {
 
                       {/* Company Name */}
                       {job.employer?.name && (
-                        <p className="text-gray-800 font-medium mb-3 break-words">
+                        <p className="inline-block bg-blue-100 text-blue-800 font-semibold px-3 py-1 rounded-full shadow-sm mb-3">
                           {job.employer.name}
                         </p>
                       )}
@@ -263,11 +263,13 @@ function Custom_Interview() {
                       </p>
                       {job.description && (
                         <p className="text-gray-700 mb-4 break-words">
-                          {job.description?.split
-                            ? `${job.description.split(/\s+/).slice(2, 25).join(" ")}${
-                                job.description.split(/\s+/).length > 25 ? " ..." : ""
-                              }`
-                            : "No description available"}
+                            {job.description
+                              ? job.description
+                                  .slice(10) // skip first 10 characters
+                                  .replace(/\n+/g, " ")
+                                  .replace(/\s+/g, " ")
+                                  .trim()
+                              : "No description available"}
                         </p>
                       )}
                     </div>

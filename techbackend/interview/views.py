@@ -253,13 +253,23 @@ def job_search(request):
             if not isinstance(raw_description, str):
                 raw_description = str(raw_description)
 
+            clean_description = (
+                raw_description
+                .replace("\\n", " ")   # handle escaped \n
+                .replace("\n", " ")    # handle real newlines
+                .replace("\r", " ")    # handle carriage returns
+            )
+
+            clean_description = " ".join(clean_description.split())  # collapse multiple spaces
+
             # Trim to first 25 words
-            words = raw_description.split()
+            words = clean_description.split()
             short_description = " ".join(words[:25]) + (" ..." if len(words) > 25 else "")
 
-            # Add short_description and also keep original if needed
+
+
+            # Keep only the short description for frontend
             job["description"] = short_description
-            job["fullDescription"] = raw_description
 
             processed_jobs.append(job)
 
