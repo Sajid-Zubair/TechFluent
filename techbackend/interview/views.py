@@ -55,7 +55,7 @@ def get_question(request):
             """
         print("Making API call to Groq...")
         response = client.chat.completions.create(
-            model="llama3-8b-8192",
+            model="llama-3.3-70b-versatile",
             messages=[{"role": "user", "content": prompt}]
         )
         import re
@@ -111,7 +111,7 @@ def process_audio(request):
     {transcription}
     """
     response = client.chat.completions.create(
-        model="llama3-70b-8192",
+        model="llama-3.3-70b-versatile",
         messages=[{"role": "user", "content": prompt}]
     )
     rating = response.choices[0].message.content.strip()
@@ -156,7 +156,7 @@ def process_audio(request):
                 <refined version here>
                 """
     response = client.chat.completions.create(
-        model="llama3-70b-8192",
+        model="llama-3.3-70b-versatile",
         messages=[{"role": "user", "content": prompt}]
     )
     feedback = response.choices[0].message.content.strip()
@@ -185,7 +185,7 @@ def get_answer(request):
         prompt = f"You are a helpful assistant. Answer this: {query} and provide clickable links if needed"
 
         response = client.chat.completions.create(
-            model="llama3-70b-8192",
+            model="llama-3.3-70b-versatile",
             messages=[
                 {"role": "system", "content": "You are a helpful assistant."},
                 {"role": "user", "content": query}
@@ -289,6 +289,7 @@ from docx import Document  # python-docx for DOCX
 from groq import Groq
 from dotenv import load_dotenv
 import re
+import traceback as trackback
 
 load_dotenv()
 
@@ -350,7 +351,7 @@ def resume_analyzer(request):
         """
 
         response = client.chat.completions.create(
-            model="llama3-70b-8192",
+            model="llama-3.3-70b-versatile",
             messages=[
                 {"role": "system", "content": "You are a professional resume reviewer."},
                 {"role": "user", "content": prompt}
@@ -377,4 +378,5 @@ def resume_analyzer(request):
         return Response({"analysis": structured_analysis})
 
     except Exception as e:
+        trackback.print_exc()
         return Response({"error": str(e)}, status=500)
