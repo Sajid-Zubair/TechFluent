@@ -6,6 +6,7 @@ from groq import Groq
 import subprocess
 from dotenv import load_dotenv 
 import json
+import random, time
 
 load_dotenv()
 
@@ -31,6 +32,8 @@ def get_question(request):
             print("Warning: GROQ_API_KEY not set, returning fallback question")
             return Response({"question": "Fallback question: Tell me about yourself."})
         
+        rand_seed = f"UniqueID-{random.randint(1000,9999)}-{int(time.time())}"
+        
         if qtype == 'Technical' and subject:
             prompt = f"""
             Generate one short and concise **technical interview question** from the subject: **{subject}**.  
@@ -41,6 +44,10 @@ def get_question(request):
             3. Avoid numerical problems, coding exercises, or complex computations.
             4. The question should reflect **real interview scenarios**, i.e., it should be something that is commonly asked or likely to be asked in technical interviews.
             5. The language should be formal and clear.
+            6. Ask different types of questions each time (e.g., definition, explanation, comparison).
+
+            Ensure this question is **different from previously generated ones**.  
+            {rand_seed}
             """
         elif qtype == 'Behavioural':
             prompt = """
@@ -52,11 +59,20 @@ def get_question(request):
             3. Explore qualities like teamwork, problem-solving, communication, adaptability, or leadership.
             4. Avoid yes/no or simple factual answers; instead, prompt storytelling or explanation.
             5. Use clear, professional language suitable for formal interviews.
+            6.Always generate a different question than before. Do not repeat previous ones.
+              Vary the focus across teamwork, leadership, adaptability, communication, or problem-solving.
+
+              Ensure this question is **different from previously generated ones**.  
+            {rand_seed}
             """
         print("Making API call to Groq...")
         response = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
-            messages=[{"role": "user", "content": prompt}]
+            # model="llama-3.3-70b-versatile",
+            model = "moonshotai/kimi-k2-instruct",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.8,   # increase randomness (0 = deterministic, 1 = creative)
+            top_p=0.9,         # nucleus sampling
+            max_tokens=150
         )
         import re
         raw_question = response.choices[0].message.content.strip()
