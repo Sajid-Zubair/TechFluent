@@ -3,6 +3,11 @@ import Sidenav from "./Sidenav";
 import { FaBars } from "react-icons/fa";
 import axios from "axios";
 
+const BASE_URL = import.meta.env.MODE === "development"
+  ? "http://localhost:8000"
+  : "https://techfluent-backend.onrender.com";
+
+
 function Custom_Interview() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [jobRole, setJobRole] = useState("");
@@ -34,7 +39,7 @@ function Custom_Interview() {
 
     setLoading(true);
     try {
-      const res = await axios.get("http://127.0.0.1:8000/api/jobs/", {
+      const res = await axios.get(`${BASE_URL}/api/jobs/`, {
         params: { job_role: jobRole, location, limit: 10 },
       });
 

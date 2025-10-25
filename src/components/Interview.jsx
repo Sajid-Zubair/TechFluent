@@ -3,6 +3,12 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { motion } from 'framer-motion';
 
+
+const BASE_URL = import.meta.env.MODE === "development"
+  ? "http://localhost:8000"   // your local backend
+  : "https://techfluent-backend.onrender.com";  // deployed backend
+
+
 function Interview() {
   const { state } = useLocation();
   const { type, subject } = state || {};
@@ -23,7 +29,7 @@ function Interview() {
     setStatus('Fetching question...');
     setStatusColor('black');
     try {
-      let url = `http://localhost:8000/api/get_question?type=${type}`;
+      let url = `${BASE_URL}/api/get_question?type=${type}`;
       if (type === 'Technical') url += `&subject=${subject}`;
       const response = await fetch(url);
       const data = await response.json();
@@ -102,7 +108,7 @@ function Interview() {
         setStatus('Transcribing...');
         setStatusColor('black');
         try {
-          const res = await fetch('http://localhost:8000/api/process_audio/', {
+          const res = await fetch(`${BASE_URL}/api/process_audio/`, {
             method: 'POST',
             body: formData
           });
@@ -157,7 +163,7 @@ function Interview() {
           setStatus('You must be logged in to save ratings.');
           return;
         }
-        const res = await fetch('http://localhost:8000/api/save_rating/', {
+        const res = await fetch(`${BASE_URL}/api/save_rating/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

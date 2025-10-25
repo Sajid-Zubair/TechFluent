@@ -6,6 +6,10 @@ import ErrorPop from './ErrorPop'
 import axios from 'axios'
 import { FaBars } from 'react-icons/fa'
 
+const BASE_URL = import.meta.env.MODE === "development"
+  ? "http://localhost:8000"
+  : "https://techfluent-backend.onrender.com";
+
 function Dashboard() {
   const navigate = useNavigate()
   const [showPopup, setShowPopup] = useState(false)
@@ -33,14 +37,14 @@ function Dashboard() {
         headers: { Authorization: `Bearer ${token}` }
       };
 
-      const userRes = await axios.get('http://localhost:8000/api/user/', config);
+      const userRes = await axios.get(`${BASE_URL}/api/user/`, config);
       console.log('User API response:', userRes.data);
       setIsLoggedIn(true);
       setUsername(userRes.data.username);
       setTechnicalCount(userRes.data.technical_count || 0);
       setBehaviouralCount(userRes.data.behavioural_count || 0);
 
-      const streakRes = await axios.get('http://localhost:8000/api/current_streak/', config);
+      const streakRes = await axios.get(`${BASE_URL}/api/current_streak/`, config);
       console.log('Streak API response:', streakRes.data);
       setCurrentStreak(streakRes.data.current_streak || 0);
 
@@ -59,7 +63,7 @@ function Dashboard() {
       const refreshToken = localStorage.getItem("refresh_token")
       if (refreshToken && refreshToken !== "undefined" && refreshToken !== "null") {
         const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value
-        await axios.post('http://localhost:8000/api/logout/', { refresh: refreshToken }, {
+        await axios.post(`${BASE_URL}/api/logout/`, { refresh: refreshToken }, {
           headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${localStorage.getItem("access_token")}`,

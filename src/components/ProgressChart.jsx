@@ -20,6 +20,11 @@ ChartJS.register(
   Tooltip
 );
 
+const BASE_URL = import.meta.env.MODE === "development"
+  ? "http://localhost:8000"   // your local backend
+  : "https://techfluent-backend.onrender.com";  // deployed backend
+
+
 function ProgressChart() {
   const [data, setData] = useState([]);
   const [error, setError] = useState("");
@@ -32,7 +37,7 @@ function ProgressChart() {
     }
 
     axios
-      .get("http://localhost:8000/api/get_interview_progress/", {
+      .get(`${BASE_URL}/api/get_interview_progress/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

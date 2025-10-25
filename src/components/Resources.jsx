@@ -4,6 +4,11 @@ import Sidenav from './Sidenav';
 import { FaSearch, FaBars } from 'react-icons/fa';
 import ReactMarkdown from 'react-markdown';
 
+const BASE_URL = import.meta.env.MODE === "development"
+  ? "http://localhost:8000"   // your local backend
+  : "https://techfluent-backend.onrender.com";  // deployed backend
+
+
 function Resources() {
   const [query, setQuery] = useState('');
   const [answer, setAnswer] = useState('');
@@ -14,7 +19,7 @@ function Resources() {
     if (!query) return;
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:8000/api/get_answer/', {
+      const response = await fetch(`${BASE_URL}/api/get_answer/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query }),

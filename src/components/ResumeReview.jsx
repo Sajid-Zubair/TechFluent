@@ -4,6 +4,11 @@ import { FaBars, FaUpload, FaRegFileAlt, FaRegLightbulb, FaTools } from 'react-i
 import ReactMarkdown from 'react-markdown';
 import { motion } from "framer-motion";
 
+const BASE_URL = import.meta.env.MODE === "development"
+  ? "http://localhost:8000"   // your local backend
+  : "https://techfluent-backend.onrender.com";  // deployed backend
+
+
 function ResumeReview() {
   const [file, setFile] = useState(null);
   const [answer, setAnswer] = useState(null); // Can be string or object
@@ -22,7 +27,7 @@ function ResumeReview() {
       const formData = new FormData();
       formData.append('resume', file);
 
-      const response = await fetch('http://localhost:8000/api/resume_analyzer/', {
+      const response = await fetch(`${BASE_URL}/api/resume_analyzer/`, {
         method: 'POST',
         body: formData,
       });

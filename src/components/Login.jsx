@@ -3,6 +3,11 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import {useState} from 'react'
 
+const BASE_URL = import.meta.env.MODE === "development"
+  ? "http://localhost:8000"   // your local backend
+  : "https://techfluent-backend.onrender.com";  // deployed backend
+
+
 function Login() {
   const navigate = useNavigate()
 
@@ -37,7 +42,7 @@ function Login() {
         ...formData,
         year_of_joining: parseInt(formData.year_of_joining)
       };
-      const response = await axios.post('http://localhost:8000/api/login/', payload)
+      const response = await axios.post(`${BASE_URL}/api/login/`, payload)
       console.log("success",response.data)
       setSuccess("Login successful")
       localStorage.setItem('access_token',response.data.access_token)

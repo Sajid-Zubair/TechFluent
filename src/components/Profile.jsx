@@ -8,6 +8,12 @@ import axios from "axios";
 const RadarP = lazy(() => import("./RadarP"));
 const ProgressChart = lazy(() => import("./ProgressChart"));
 
+
+const BASE_URL = import.meta.env.MODE === "development"
+  ? "http://localhost:8000"   // your local backend
+  : "https://techfluent-backend.onrender.com";  // deployed backend
+
+
 function Profile() {
   const [editP, setEditP] = useState(false);
   const [username, setUsername] = useState('');
@@ -31,7 +37,7 @@ function Profile() {
 
       try {
         const config = { headers: { Authorization: `Bearer ${token}` } };
-        const { data } = await axios.get('http://localhost:8000/api/user/', config);
+        const { data } = await axios.get(`${BASE_URL}/api/user/`, config);
 
         setIsLoggedIn(true);
         setUsername(data.username);
@@ -57,9 +63,9 @@ function Profile() {
       try {
         const config = { headers: { Authorization: `Bearer ${token}` } };
         const [attemptRes, rankRes, streakRes] = await Promise.all([
-          axios.get('http://localhost:8000/api/latest_attempt/', config),
-          axios.get('http://localhost:8000/api/user_rank/', config),
-          axios.get('http://localhost:8000/api/current_streak/', config),
+          axios.get(`${BASE_URL}/api/latest_attempt/`, config),
+          axios.get(`${BASE_URL}/api/user_rank/`, config),
+          axios.get(`${BASE_URL}/api/current_streak/`, config),
         ]);
 
         setRatings(attemptRes.data);
