@@ -3,6 +3,10 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+const BASE_URL = import.meta.env.MODE === "development"
+  ? "http://localhost:8000"   // your local backend
+  : "https://techfluent-backend.onrender.com";  // deployed backend
+
 function Signup() {
   const [formData, setFormData] = useState({
     username: '',
@@ -39,7 +43,7 @@ function Signup() {
         ...formData,
         year_of_joining: parseInt(formData.year_of_joining)
       };
-      const response = await axios.post('https://techfluent-backend.onrender.com/api/register/', payload,{
+      const response = await axios.post(`${BASE_URL}/api/register/`, payload,{
         withCredentials: true,
       })
       console.log("success",response.data)
