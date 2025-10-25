@@ -37,7 +37,7 @@ function Login() {
         ...formData,
         year_of_joining: parseInt(formData.year_of_joining)
       };
-      const response = await axios.post('http://techfluent-backend.onrender.com/api/login/', payload)
+      const response = await axios.post('http://localhost:8000/api/login/', payload)
       console.log("success",response.data)
       setSuccess("Login successful")
       localStorage.setItem('access_token',response.data.access_token)
