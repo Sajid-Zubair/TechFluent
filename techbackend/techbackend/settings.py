@@ -155,6 +155,9 @@ CORS_ALLOWED_ORIGINS = [
     "https://techfluent.vercel.app",
     "https://techfluent.onrender.com",
 ]
+CSRF_TRUSTED_ORIGINS = [
+    "https://techfluent.onrender.com",
+]
 
 
 REST_FRAMEWORK = {
