@@ -39,7 +39,7 @@ function Signup() {
         ...formData,
         year_of_joining: parseInt(formData.year_of_joining)
       };
-      const response = await axios.post('http://localhost:8000/api/register/', payload)
+      const response = await axios.post('http://techfluent-backend.onrender.com/api/register/', payload)
       console.log("success",response.data)
       setSuccess("Registration successful")
       navigate('/login')
