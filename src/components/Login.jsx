@@ -42,7 +42,9 @@ function Login() {
         ...formData,
         year_of_joining: parseInt(formData.year_of_joining)
       };
-      const response = await axios.post(`${BASE_URL}/api/login/`, payload)
+      const response = await axios.post(`${BASE_URL}/api/login/`, payload,{
+        withCredentials: true,
+      })
       console.log("success",response.data)
       setSuccess("Login successful")
       localStorage.setItem('access_token',response.data.access_token)
