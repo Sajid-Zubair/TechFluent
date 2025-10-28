@@ -29,6 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'techfluent-f3xd.onrender.com',
     'techfluent4.onrender.com',
+    'techfluent.onrender.com',
     'localhost',
     '127.0.0.1',
 ]
@@ -152,7 +153,6 @@ CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "https://techfluent.vercel.app",
-    "https://techfluent.onrender.com",
 ]
 CSRF_TRUSTED_ORIGINS = [
     "https://techfluent.onrender.com",
