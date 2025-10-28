@@ -5,7 +5,7 @@ import axios from "axios";
 
 const BASE_URL = import.meta.env.MODE === "development"
   ? "http://localhost:8000"
-  : "https://techfluent-backend.onrender.com";
+  : "https://techfluent.onrender.com";
 
 
 function Custom_Interview() {

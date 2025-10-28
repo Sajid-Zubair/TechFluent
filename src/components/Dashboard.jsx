@@ -8,7 +8,7 @@ import { FaBars } from 'react-icons/fa'
 
 const BASE_URL = import.meta.env.MODE === "development"
   ? "http://localhost:8000"
-  : "https://techfluent-backend.onrender.com";
+  : "https://techfluent.onrender.com.com";
 
 function Dashboard() {
   const navigate = useNavigate()

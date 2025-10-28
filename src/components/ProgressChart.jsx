@@ -22,7 +22,7 @@ ChartJS.register(
 
 const BASE_URL = import.meta.env.MODE === "development"
   ? "http://localhost:8000"   // your local backend
-  : "https://techfluent-backend.onrender.com";  // deployed backend
+  : "https://techfluent.onrender.com.com";  // deployed backend
 
 
 function ProgressChart() {
