@@ -6,7 +6,7 @@ import ReactMarkdown from 'react-markdown';
 
 const BASE_URL = import.meta.env.MODE === "development"
   ? "http://localhost:8000"   // your local backend
-  : "https://techfluent.onrender.com.com";  // deployed backend
+  : "https://techfluent.onrender.com";  // deployed backend
 
 
 function Resources() {
