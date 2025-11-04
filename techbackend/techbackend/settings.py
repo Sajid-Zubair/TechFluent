@@ -27,6 +27,7 @@ SECRET_KEY = "django-insecure-n6(eqiu%%+-2gak749!v&%iw5+8x8#66(irtbh&h&m77ea2!pi
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    'final-techfluent.onrender.com',
     'techfluent-f3xd.onrender.com',
     'techfluent4.onrender.com',
     'techfluent.onrender.com',
