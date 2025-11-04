@@ -11,7 +11,7 @@ const ProgressChart = lazy(() => import("./ProgressChart"));
 
 const BASE_URL = import.meta.env.MODE === "development"
   ? "http://localhost:8000"   // your local backend
-  : "https://techfluent.onrender.com";  // deployed backend
+  : "https://final-techfluent.onrender.com";  // deployed backend
 
 
 function Profile() {
