@@ -1,7 +1,8 @@
 import React from 'react'
 import axios from 'axios';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Papa from 'papaparse';
 
 const BASE_URL = import.meta.env.MODE === "development"
   ? "http://localhost:8000"   // your local backend
@@ -66,6 +67,18 @@ function Signup() {
       setIsLoading(false)
     }
   }
+
+  const [colleges,setColleges]=useState([])
+  useEffect(() => {
+    fetch("Colleges.csv").then((res) => res.text()).then((data) => {
+      const parsed = Papa.parse(data, { header: true });
+      const unique = [...new Set(parsed.data.map(c => c["INSTITUTE NAME"]))].filter(Boolean);
+      setColleges(unique);
+    })
+    .catch((err) => console.error("Error loading colleges:", err));
+}, []);
+
+
   return (
     <div className="flex justify-center items-center min-h-screen px-4 py-8 bg-gray-100">
       <div className="w-full max-w-md md:max-w-xl lg:max-w-2xl bg-white border-2  border-black p-8 rounded-2xl shadow-xl">
@@ -88,15 +101,11 @@ function Signup() {
 
           <div className="flex flex-col mb-4">
             <label className="mb-1 font-medium text-gray-700">College</label>
-            <select name='college_name' value={formData.college_name} onChange={handleChange} className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <select name="college_name" value={formData.college_name} onChange={handleChange} className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
               <option value="">Select College</option>
-              <option value="Anurag University">Anurag University</option>
-              <option value="Chaitanya Bharathi Institute of Technology">Chaitanya Bharathi Institute of Technology</option>
-              <option value="Gokaraju Rangaraju Institute of Technology">Gokaraju Rangaraju Institute of Technology</option>
-              <option value="Keshav Memorial Institute of Technology">Keshav Memorial Institute of Technology</option>
-              <option value="Muffakham Jah College of Engineering & Technology">Muffakham Jah College of Engineering & Technology</option>
-              <option value="Vallurupalli Nageswara Rao Vignana Jyothi Institute of Engineering & Technology">Vallurupalli Nageswara Rao Vignana Jyothi Institute of Engineering & Technology</option>
-              <option value="Vasavi College of Engineering">Vasavi College of Engineering</option>
+              {colleges.map((college) => (
+                <option key={college} value={college}>{college}</option>
+              ))}
             </select>
           </div>
 
