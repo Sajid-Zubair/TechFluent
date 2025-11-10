@@ -148,7 +148,7 @@ function Interview() {
     const overall = Object.values(normalized).reduce((a, b) => a + b, 0) / Object.values(normalized).length;
     return { normalized, overall: Math.round(overall * 100) / 100 };
   };
-
+  
   const handleSaveAndProceed = async (action) => {
     if (rating) {
       const { normalized, overall } = normalizeRatings(rating, prevRating);
