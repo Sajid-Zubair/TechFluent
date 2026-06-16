@@ -68,7 +68,7 @@ def get_question(request):
         print("Making API call to Groq...")
         response = client.chat.completions.create(
             # model="llama-3.3-70b-versatile",
-            model = "moonshotai/kimi-k2-instruct",
+            model = "llama-3.1-8b-instant",
             messages=[{"role": "user", "content": prompt}],
             temperature=0.8,   # increase randomness (0 = deterministic, 1 = creative)
             top_p=0.9,         # nucleus sampling
@@ -127,7 +127,7 @@ def process_audio(request):
     {transcription}
     """
     response = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
+        model="llama-3.1-8b-instant",
         messages=[{"role": "user", "content": prompt}]
     )
     rating = response.choices[0].message.content.strip()
@@ -172,7 +172,7 @@ def process_audio(request):
                 <refined version here>
                 """
     response = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
+        model="llama-3.1-8b-instant",
         messages=[{"role": "user", "content": prompt}]
     )
     feedback = response.choices[0].message.content.strip()
@@ -201,7 +201,7 @@ def get_answer(request):
         prompt = f"You are a helpful assistant. Answer this: {query} and provide clickable links if needed"
 
         response = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
+            model="llama-3.1-8b-instant",
             messages=[
                 {"role": "system", "content": "You are a helpful assistant."},
                 {"role": "user", "content": query}
@@ -367,7 +367,7 @@ def resume_analyzer(request):
         """
 
         response = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
+            model="llama-3.1-8b-instant",
             messages=[
                 {"role": "system", "content": "You are a professional resume reviewer."},
                 {"role": "user", "content": prompt}
