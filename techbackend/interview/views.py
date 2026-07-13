@@ -131,7 +131,7 @@ def process_audio(request):
         messages=[{"role": "user", "content": prompt}]
     )
     rating = response.choices[0].message.content.strip()
-
+    print("RAW RATING STRING:\n", rating)
     
     import re
     pattern = r"(Fluency|Content Structure|Accuracy|Grammar|Vocabulary|Coherence)\s*[:\-–]\s*(\d{1,2}/10)"
