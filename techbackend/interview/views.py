@@ -13,88 +13,229 @@ load_dotenv()
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 model = whisper.load_model("base")
 
+# @api_view(['GET'])
+# def get_question(request):
+#     import traceback
+    
+#     try:
+#         print("get_question view called")
+#         print(f"API key present: {'Yes' if os.getenv('GROQ_API_KEY') else 'No'}")
+        
+#         qtype = request.GET.get('type')
+#         subject = None
+#         if qtype == 'Technical':
+#             subject = request.GET.get('subject', '')
+#         print(f"Request parameters - Type: {qtype}, Subject: {subject}")
+        
+#         # Temporary fallback for testing frontend connectivity
+#         if not os.getenv("GROQ_API_KEY"):
+#             print("Warning: GROQ_API_KEY not set, returning fallback question")
+#             return Response({"question": "Fallback question: Tell me about yourself."})
+        
+#         rand_seed = f"UniqueID-{random.randint(1000,9999)}-{int(time.time())}"
+        
+#         if qtype == 'Technical' and subject:
+#             prompt = f"""
+#             Generate one short and concise **technical interview question** from the subject: **{subject}**.  
+#             The question must meet the following criteria:
+
+#             1. It should be **fully answerable orally**, without the need for code, diagrams, or written steps.
+#             2. It should test **conceptual understanding** that can be explained clearly within 1 minute.
+#             3. Avoid numerical problems, coding exercises, or complex computations.
+#             4. The question should reflect **real interview scenarios**, i.e., it should be something that is commonly asked or likely to be asked in technical interviews.
+#             5. The language should be formal and clear.
+#             6. Ask different types of questions each time (e.g., definition, explanation, comparison).
+
+#             Ensure this question is **different from previously generated ones**.  
+#             {rand_seed}
+#             """
+#         elif qtype == 'Behavioural':
+#             prompt = """
+#             Generate one concise behavioral interview question that is commonly asked or likely to be asked in interviews.  
+#             The question should:
+
+#             1. Encourage the candidate to share real experiences or examples.
+#             2. Be answerable orally with a focused narrative (1-2 minutes).
+#             3. Explore qualities like teamwork, problem-solving, communication, adaptability, or leadership.
+#             4. Avoid yes/no or simple factual answers; instead, prompt storytelling or explanation.
+#             5. Use clear, professional language suitable for formal interviews.
+#             6.Always generate a different question than before. Do not repeat previous ones.
+#               Vary the focus across teamwork, leadership, adaptability, communication, or problem-solving.
+
+#               Ensure this question is **different from previously generated ones**.  
+#             {rand_seed}
+#             """
+#         print("Making API call to Groq...")
+#         response = client.chat.completions.create(
+#             # model="llama-3.3-70b-versatile",
+#             model = "openai/gpt-oss-20b",
+#             messages=[{"role": "user", "content": prompt}],
+#             temperature=0.8,   # increase randomness (0 = deterministic, 1 = creative)
+#             top_p=0.9,         # nucleus sampling
+#             max_tokens=150
+#         )
+#         import re
+#         raw_question = response.choices[0].message.content.strip()
+
+#         # Try to match **Question:** ...?
+#         match_question = re.search(r'\*\*Question:\*\*\s*(.*?\?)', raw_question)
+
+#         # If not found, try to match text inside double quotes
+#         if match_question:
+#             question = match_question.group(1).strip()
+#         else:
+#             match_quote = re.search(r'"(.*?)"', raw_question)
+#             question = match_quote.group(1).strip() if match_quote else raw_question
+        
+#         print(f"Generated question: {question[:50]}...")
+#         return Response({"question": question})
+#     except Exception as e:
+#         print(f"Error in get_question view: {str(e)}")
+#         print(traceback.format_exc())
+#         return Response({"question": "An error occurred, but here's a sample question: What are your greatest strengths?", 
+#                          "error": str(e)}, status=200)
+
+
 @api_view(['GET'])
 def get_question(request):
     import traceback
-    
+
     try:
         print("get_question view called")
         print(f"API key present: {'Yes' if os.getenv('GROQ_API_KEY') else 'No'}")
-        
+
         qtype = request.GET.get('type')
         subject = None
+
         if qtype == 'Technical':
             subject = request.GET.get('subject', '')
+
         print(f"Request parameters - Type: {qtype}, Subject: {subject}")
-        
-        # Temporary fallback for testing frontend connectivity
+
+        # Fallback if API key is missing
         if not os.getenv("GROQ_API_KEY"):
             print("Warning: GROQ_API_KEY not set, returning fallback question")
-            return Response({"question": "Fallback question: Tell me about yourself."})
-        
+            return Response({
+                "question": "Fallback question: Tell me about yourself."
+            })
+
+        # Random seed to encourage different questions
         rand_seed = f"UniqueID-{random.randint(1000,9999)}-{int(time.time())}"
-        
+
+        # ---------------------------------------
+        # TECHNICAL QUESTION
+        # ---------------------------------------
         if qtype == 'Technical' and subject:
+
             prompt = f"""
-            Generate one short and concise **technical interview question** from the subject: **{subject}**.  
-            The question must meet the following criteria:
+Generate exactly ONE technical interview question.
 
-            1. It should be **fully answerable orally**, without the need for code, diagrams, or written steps.
-            2. It should test **conceptual understanding** that can be explained clearly within 1 minute.
-            3. Avoid numerical problems, coding exercises, or complex computations.
-            4. The question should reflect **real interview scenarios**, i.e., it should be something that is commonly asked or likely to be asked in technical interviews.
-            5. The language should be formal and clear.
-            6. Ask different types of questions each time (e.g., definition, explanation, comparison).
+Subject: {subject}
 
-            Ensure this question is **different from previously generated ones**.  
-            {rand_seed}
-            """
+Requirements:
+1. The question must be fully answerable orally.
+2. It should test conceptual understanding.
+3. It should be answerable within approximately 1 minute.
+4. Do not ask for code, calculations, or numerical problems.
+5. Make it suitable for a real technical interview.
+6. Use clear and professional language.
+7. Do not provide the answer.
+8. Do not provide explanations.
+9. Return ONLY the question itself.
+10. Do not use labels such as "Question:".
+11. Do not use quotation marks.
+
+Generate a different question from previous requests.
+
+{rand_seed}
+"""
+
+        # ---------------------------------------
+        # BEHAVIOURAL QUESTION
+        # ---------------------------------------
         elif qtype == 'Behavioural':
-            prompt = """
-            Generate one concise behavioral interview question that is commonly asked or likely to be asked in interviews.  
-            The question should:
 
-            1. Encourage the candidate to share real experiences or examples.
-            2. Be answerable orally with a focused narrative (1-2 minutes).
-            3. Explore qualities like teamwork, problem-solving, communication, adaptability, or leadership.
-            4. Avoid yes/no or simple factual answers; instead, prompt storytelling or explanation.
-            5. Use clear, professional language suitable for formal interviews.
-            6.Always generate a different question than before. Do not repeat previous ones.
-              Vary the focus across teamwork, leadership, adaptability, communication, or problem-solving.
+            prompt = f"""
+Generate exactly ONE behavioral interview question.
 
-              Ensure this question is **different from previously generated ones**.  
-            {rand_seed}
-            """
+Requirements:
+1. It should encourage the candidate to describe a real experience.
+2. It should be answerable orally in approximately 1-2 minutes.
+3. It should evaluate qualities such as teamwork, leadership,
+   adaptability, communication, problem-solving, or conflict resolution.
+4. Do not ask a yes/no question.
+5. Use clear and professional language.
+6. Make it suitable for a real job interview.
+7. Do not provide the answer.
+8. Do not provide explanations.
+9. Return ONLY the question itself.
+10. Do not use labels such as "Question:".
+11. Do not use quotation marks.
+
+Vary the focus between teamwork, leadership, adaptability,
+communication, problem-solving, and conflict resolution.
+
+Generate a different question from previous requests.
+
+{rand_seed}
+"""
+
+        else:
+            return Response({
+                "error": "Invalid question type or missing subject."
+            }, status=400)
+
         print("Making API call to Groq...")
+
+        # ---------------------------------------
+        # GROQ API CALL
+        # ---------------------------------------
         response = client.chat.completions.create(
-            # model="llama-3.3-70b-versatile",
-            model = "llama-3.1-8b-instant",
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.8,   # increase randomness (0 = deterministic, 1 = creative)
-            top_p=0.9,         # nucleus sampling
-            max_tokens=150
+            model="openai/gpt-oss-20b",
+            messages=[
+                {
+                    "role": "system",
+                    "content": "You generate concise interview questions."
+                },
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ],
+            temperature=0.8,
+            top_p=0.9,
+            max_tokens=500
         )
-        import re
+
+        # ---------------------------------------
+        # GET RESPONSE
+        # ---------------------------------------
         raw_question = response.choices[0].message.content.strip()
 
-        # Try to match **Question:** ...?
-        match_question = re.search(r'\*\*Question:\*\*\s*(.*?\?)', raw_question)
+        print("RAW GROQ RESPONSE:")
+        print(repr(raw_question))
 
-        # If not found, try to match text inside double quotes
-        if match_question:
-            question = match_question.group(1).strip()
-        else:
-            match_quote = re.search(r'"(.*?)"', raw_question)
-            question = match_quote.group(1).strip() if match_quote else raw_question
-        
-        print(f"Generated question: {question[:50]}...")
-        return Response({"question": question})
+        # Clean accidental quotation marks
+        question = raw_question.strip().strip('"').strip("'").strip()
+
+        print(f"Generated question: {question}")
+
+        # ---------------------------------------
+        # RETURN JSON TO FRONTEND
+        # ---------------------------------------
+        return Response({
+            "question": question
+        })
+
     except Exception as e:
+
         print(f"Error in get_question view: {str(e)}")
         print(traceback.format_exc())
-        return Response({"question": "An error occurred, but here's a sample question: What are your greatest strengths?", 
-                         "error": str(e)}, status=200)
 
+        return Response({
+            "question": "An error occurred, but here's a sample question: What are your greatest strengths?",
+            "error": str(e)
+        }, status=200)
 
 @api_view(['POST'])
 def process_audio(request):
@@ -127,7 +268,7 @@ def process_audio(request):
     {transcription}
     """
     response = client.chat.completions.create(
-        model="llama-3.1-8b-instant",
+        model="openai/gpt-oss-20b",
         messages=[{"role": "user", "content": prompt}]
     )
     rating = response.choices[0].message.content.strip()
@@ -172,7 +313,7 @@ def process_audio(request):
                 <refined version here>
                 """
     response = client.chat.completions.create(
-        model="llama-3.1-8b-instant",
+        model="openai/gpt-oss-20b",
         messages=[{"role": "user", "content": prompt}]
     )
     feedback = response.choices[0].message.content.strip()
@@ -201,7 +342,7 @@ def get_answer(request):
         prompt = f"You are a helpful assistant. Answer this: {query} and provide clickable links if needed"
 
         response = client.chat.completions.create(
-            model="llama-3.1-8b-instant",
+            model="openai/gpt-oss-20b",
             messages=[
                 {"role": "system", "content": "You are a helpful assistant."},
                 {"role": "user", "content": query}
@@ -325,74 +466,285 @@ def extract_text_from_docx(file):
     text = "\n".join([para.text for para in document.paragraphs])
     return text
 
+# @api_view(['POST'])
+# def resume_analyzer(request):
+#     try:
+#         file = request.FILES.get("resume")
+#         if not file:
+#             return Response({"error": "No resume uploaded."}, status=400)
+
+#         # Extract text
+#         ext = os.path.splitext(file.name)[1].lower()
+#         if ext == ".pdf":
+#             resume_text = extract_text_from_pdf(file)
+#         elif ext in [".docx", ".doc"]:
+#             resume_text = extract_text_from_docx(file)
+#         else:
+#             return Response({"error": "Unsupported file type. Please upload PDF or DOCX."}, status=400)
+
+#         if not resume_text.strip():
+#             return Response({"error": "Could not extract text from resume."}, status=400)
+
+#         # Prompt
+#         prompt = f"""
+#          You are an experienced hiring manager and resume reviewer. I will provide you with a candidate’s resume. Your task is to give detailed, constructive, and actionable feedback in the following format:
+
+#          Overall Impression: Brief summary of the resume’s strengths and weaknesses.
+
+#          Content & Skills: Evaluate if the skills, projects, and work experience are relevant and clearly described for the target role. Identify missing key skills.
+
+#          Clarity & Impact: Assess whether bullet points are specific, use strong action verbs, and include measurable achievements. Suggest improvements.
+
+#          Formatting & Readability: Comment on layout, section order, font size, and ease of scanning.
+
+#          ATS Compatibility: Suggest changes to improve Applicant Tracking System parsing (e.g., keywords, simple formatting).
+
+#          Final Score (out of 10): Give a score based on how ready this resume is for applying to jobs in the target role.
+
+#          The feedback should be specific, concise, and professional, without rewriting the entire resume unless necessary.
+
+#         Resume:
+#         {resume_text}
+#         """
+
+#         response = client.chat.completions.create(
+#             model="openai/gpt-oss-20b",
+#             messages=[
+#                 {"role": "system", "content": "You are a professional resume reviewer."},
+#                 {"role": "user", "content": prompt}
+#             ]
+#         )
+
+#         raw_analysis = response.choices[0].message.content.strip()
+
+#         # Extract sections using regex
+#         def extract_section(title):
+#             pattern = rf"{title}:(.*?)(?=\n[A-Z][a-zA-Z &]+:|$)"
+#             match = re.search(pattern, raw_analysis, re.S)
+#             return match.group(1).strip() if match else ""
+
+#         structured_analysis = {
+#             "overall_impression": extract_section("Overall Impression"),
+#             "content_skills": extract_section("Content & Skills"),
+#             "clarity_impact": extract_section("Clarity & Impact"),
+#             "formatting_readability": extract_section("Formatting & Readability"),
+#             "ats_compatibility": extract_section("ATS Compatibility"),
+#             "final_score": extract_section("Final Score")
+#         }
+
+#         return Response({"analysis": structured_analysis})
+
+#     except Exception as e:
+#         trackback.print_exc()
+#         return Response({"error": str(e)}, status=500)
+
 @api_view(['POST'])
 def resume_analyzer(request):
     try:
         file = request.FILES.get("resume")
-        if not file:
-            return Response({"error": "No resume uploaded."}, status=400)
 
-        # Extract text
+        if not file:
+            return Response(
+                {"error": "No resume uploaded."},
+                status=400
+            )
+
+        # ---------------------------------------
+        # EXTRACT TEXT FROM RESUME
+        # ---------------------------------------
+
         ext = os.path.splitext(file.name)[1].lower()
+
         if ext == ".pdf":
             resume_text = extract_text_from_pdf(file)
-        elif ext in [".docx", ".doc"]:
+
+        elif ext == ".docx":
             resume_text = extract_text_from_docx(file)
+
         else:
-            return Response({"error": "Unsupported file type. Please upload PDF or DOCX."}, status=400)
+            return Response(
+                {
+                    "error": "Unsupported file type. Please upload PDF or DOCX."
+                },
+                status=400
+            )
 
-        if not resume_text.strip():
-            return Response({"error": "Could not extract text from resume."}, status=400)
+        if not resume_text or not resume_text.strip():
+            return Response(
+                {"error": "Could not extract text from resume."},
+                status=400
+            )
 
-        # Prompt
+        # ---------------------------------------
+        # LIMIT EXTREMELY LARGE RESUMES
+        # ---------------------------------------
+
+        resume_text = resume_text[:30000]
+
+        print("Resume text extracted successfully.")
+        print(f"Resume text length: {len(resume_text)} characters")
+
+        # ---------------------------------------
+        # PROMPT
+        # ---------------------------------------
+
         prompt = f"""
-         You are an experienced hiring manager and resume reviewer. I will provide you with a candidate’s resume. Your task is to give detailed, constructive, and actionable feedback in the following format:
+You are an experienced technical hiring manager and professional resume reviewer.
 
-         Overall Impression: Brief summary of the resume’s strengths and weaknesses.
+Analyze the following candidate resume carefully.
 
-         Content & Skills: Evaluate if the skills, projects, and work experience are relevant and clearly described for the target role. Identify missing key skills.
+Provide useful, specific and actionable feedback.
 
-         Clarity & Impact: Assess whether bullet points are specific, use strong action verbs, and include measurable achievements. Suggest improvements.
+Resume:
 
-         Formatting & Readability: Comment on layout, section order, font size, and ease of scanning.
+{resume_text}
 
-         ATS Compatibility: Suggest changes to improve Applicant Tracking System parsing (e.g., keywords, simple formatting).
+Evaluate the resume using these six categories:
 
-         Final Score (out of 10): Give a score based on how ready this resume is for applying to jobs in the target role.
+1. Overall Impression
+Give a brief summary of the resume's overall quality, strengths,
+weaknesses, and suitability for job applications.
 
-         The feedback should be specific, concise, and professional, without rewriting the entire resume unless necessary.
+2. Content & Skills
+Evaluate the candidate's technical skills, projects, education,
+work experience, and relevance to technical/software engineering roles.
+Mention important missing skills if appropriate.
 
-        Resume:
-        {resume_text}
-        """
+3. Clarity & Impact
+Evaluate whether the resume communicates achievements clearly.
+Check the use of action verbs, measurable results, and concise
+descriptions. Suggest specific improvements.
+
+4. Formatting & Readability
+Evaluate section organization, consistency, spacing, readability,
+and whether the resume is easy for a recruiter to scan.
+
+5. ATS Compatibility
+Evaluate whether the resume is likely to be parsed correctly by
+Applicant Tracking Systems. Identify formatting issues and missing
+keywords where appropriate.
+
+
+6. Final Score
+Give the resume a score from 1 to 10 based on how ready it is for
+applying to software/technical jobs.
+
+Be honest but constructive.
+
+Do not rewrite the entire resume.
+
+Keep each section concise but useful.
+"""
+
+        print("Sending resume to Groq...")
+
+        # ---------------------------------------
+        # GROQ API CALL
+        # ---------------------------------------
 
         response = client.chat.completions.create(
-            model="llama-3.1-8b-instant",
+            model="openai/gpt-oss-20b",
+
             messages=[
-                {"role": "system", "content": "You are a professional resume reviewer."},
-                {"role": "user", "content": prompt}
-            ]
+                {
+                    "role": "system",
+                    "content": (
+                        "You are a professional resume reviewer. "
+                        "Return accurate, structured resume feedback."
+                    )
+                },
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ],
+
+            response_format={
+                "type": "json_schema",
+                "json_schema": {
+                    "name": "resume_analysis",
+                    "strict": True,
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "overall_impression": {
+                                "type": "string"
+                            },
+                            "content_skills": {
+                                "type": "string"
+                            },
+                            "clarity_impact": {
+                                "type": "string"
+                            },
+                            "formatting_readability": {
+                                "type": "string"
+                            },
+                            "ats_compatibility": {
+                                "type": "string"
+                            },
+                            "final_score": {
+                                "type": "number"
+                            }
+                        },
+                        "required": [
+                            "overall_impression",
+                            "content_skills",
+                            "clarity_impact",
+                            "formatting_readability",
+                            "ats_compatibility",
+                            "final_score"
+                        ],
+                        "additionalProperties": False
+                    }
+                }
+            },
+
+            temperature=0.4,
+            max_tokens=5000
         )
+
+        # ---------------------------------------
+        # PARSE GROQ RESPONSE
+        # ---------------------------------------
 
         raw_analysis = response.choices[0].message.content.strip()
 
-        # Extract sections using regex
-        def extract_section(title):
-            pattern = rf"{title}:(.*?)(?=\n[A-Z][a-zA-Z &]+:|$)"
-            match = re.search(pattern, raw_analysis, re.S)
-            return match.group(1).strip() if match else ""
+        print("RAW RESUME ANALYSIS:")
+        print(raw_analysis)
 
-        structured_analysis = {
-            "overall_impression": extract_section("Overall Impression"),
-            "content_skills": extract_section("Content & Skills"),
-            "clarity_impact": extract_section("Clarity & Impact"),
-            "formatting_readability": extract_section("Formatting & Readability"),
-            "ats_compatibility": extract_section("ATS Compatibility"),
-            "final_score": extract_section("Final Score")
-        }
+        analysis = json.loads(raw_analysis)
 
-        return Response({"analysis": structured_analysis})
+        # ---------------------------------------
+        # RETURN RESPONSE
+        # ---------------------------------------
+
+        return Response({
+            "analysis": analysis
+        })
+
+    except json.JSONDecodeError as e:
+
+        print("JSON parsing error:")
+        print(str(e))
+
+        return Response(
+            {
+                "error": "Could not parse resume analysis.",
+                "details": str(e)
+            },
+            status=500
+        )
 
     except Exception as e:
+
+        print("Resume analyzer error:")
+        print(str(e))
         trackback.print_exc()
-        return Response({"error": str(e)}, status=500)
+
+        return Response(
+            {
+                "error": "An error occurred while analyzing the resume.",
+                "details": str(e)
+            },
+            status=500
+        )
