@@ -1,108 +1,168 @@
-import { Link as ScrollLink } from 'react-scroll';
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+
+
+import { Link as ScrollLink } from "react-scroll";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, ArrowRight } from "lucide-react";
+
+const SERIF = "font-['Instrument_Serif',Georgia,serif] font-normal";
+const MONO = "font-['JetBrains_Mono',ui-monospace,SFMono-Regular,monospace]";
+
+const sections = [
+  { to: "aboutSection", index: "01", label: "Method" },
+  { to: "resourcesSection", index: "03", label: "Workflow" },
+];
 
 function Navbar() {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const go = (path) => {
+    setIsOpen(false);
+    navigate(path);
+  };
 
   return (
-    <nav className='bg-blue-100/70 backdrop-blur-md shadow-md rounded-lg p-4 m-4'>
-      <div className='flex justify-between items-center relative'>
-
+    <nav
+      className={`sticky top-0 z-50 w-full border-b transition-colors duration-300 ${
+        scrolled || isOpen
+          ? "border-white/[0.08] bg-[#0a0a0a]/80 backdrop-blur-xl"
+          : "border-transparent bg-[#0a0a0a]"
+      }`}
+    >
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 md:px-10">
         {/* Logo */}
-        <div>
-          {/* <h1 className='text-3xl font-bold text-blue-500 cursor-pointer tracking-wide'>TechFluent</h1> */}
-          <h1 className="text-3xl font-extrabold text-blue-500 tracking-tight">
-            <span className="text-gray-800">Tech</span>
-            <span className="text-blue-600">Fluent</span>
-          </h1>
-        </div>
-
-        {/* Desktop Menu */}
-        <ul className='hidden md:flex items-center space-x-10 text-gray-800 text-md font-medium'>
-          <Link to='/' className='hover:text-blue-500 transition duration-200'>Home</Link>
-
-          <ScrollLink
-            to='aboutSection'
-            smooth={true}
-            duration={500}
-            offset={-70}
-            className='cursor-pointer hover:text-blue-500 transition duration-200'
-            activeClass='text-blue-600 font-semibold'
-            spy={true}
+        <Link to="/" onClick={() => setIsOpen(false)} className="group flex items-center gap-2.5">
+          <span
+            className={`${MONO} flex h-7 w-7 items-center justify-center rounded-md border border-white/15 text-[11px] font-semibold text-emerald-400 transition-colors group-hover:border-emerald-400/50`}
           >
-            About
-          </ScrollLink>
+            cf
+          </span>
+          <span className="text-[17px] font-medium tracking-tight text-neutral-100">
+            Career<em className={`${SERIF} text-[20px] text-neutral-400`}>Forge</em>
+          </span>
+        </Link>
 
-          <ScrollLink
-            to='resourcesSection'
-            smooth={true}
-            duration={500}
-            offset={-70}
-            className='cursor-pointer hover:text-blue-500 transition duration-200'
-            activeClass='text-blue-600 font-semibold'
-            spy={true}
-          >
-            Resources
-          </ScrollLink>
+        {/* Desktop links */}
+        <ul className="hidden items-center gap-1 md:flex">
+          <li>
+            <Link
+              to="/"
+              className="rounded-md px-3 py-2 text-sm text-neutral-400 transition-colors hover:text-white"
+            >
+              Home
+            </Link>
+          </li>
+          {sections.map((s) => (
+            <li key={s.to}>
+              <ScrollLink
+                to={s.to}
+                smooth
+                spy
+                duration={500}
+                offset={-64}
+                activeClass="!text-white"
+                className="group flex cursor-pointer items-center gap-1.5 rounded-md px-3 py-2 text-sm text-neutral-400 transition-colors hover:text-white"
+              >
+                <span className={`${MONO} text-[10px] text-neutral-600 transition-colors group-hover:text-emerald-400`}>
+                  {s.index}
+                </span>
+                {s.label}
+              </ScrollLink>
+            </li>
+          ))}
         </ul>
 
-        {/* Login Button */}
-        <button
-          onClick={() => navigate('/login')}
-          className='hidden md:block px-5 py-2 bg-blue-500 text-white rounded-xl font-medium shadow-md hover:bg-blue-600 transition duration-200'
-        >
-          Login
-        </button>
-
-        {/* Hamburger Icon */}
-        <div className='md:hidden'>
-          <button onClick={() => setIsOpen(!isOpen)} className='text-blue-500'>
-            {isOpen ? <X size={28} /> : <Menu size={28} />}
+        {/* Desktop actions */}
+        <div className="hidden items-center gap-2 md:flex">
+          <button
+            onClick={() => go("/login")}
+            className="rounded-md px-4 py-2 text-sm text-neutral-400 transition-colors hover:text-white"
+          >
+            Sign in
+          </button>
+          <button
+            onClick={() => go("/signup")}
+            className="group inline-flex items-center gap-1.5 rounded-md bg-white px-4 py-2 text-sm font-medium text-black transition-colors hover:bg-neutral-200"
+          >
+            Get started
+            <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
           </button>
         </div>
 
-        {/* Mobile Dropdown */}
-        {isOpen && (
-          <div className='absolute top-full left-0 w-full z-50 bg-blue-100 rounded-b-lg py-5 shadow-xl flex flex-col items-center space-y-4 transition-all duration-300 ease-in-out md:hidden'>
-            <Link to='/' onClick={() => setIsOpen(false)} className='text-gray-800 hover:text-blue-500 font-medium'>Home</Link>
-
-            <ScrollLink
-              to='aboutSection'
-              smooth={true}
-              duration={500}
-              offset={-70}
-              onClick={() => setIsOpen(false)}
-              className='cursor-pointer hover:text-blue-500 font-medium'
-            >
-              About
-            </ScrollLink>
-
-            <ScrollLink
-              to='resourcesSection'
-              smooth={true}
-              duration={500}
-              offset={-70}
-              onClick={() => setIsOpen(false)}
-              className='cursor-pointer hover:text-blue-500 font-medium'
-            >
-              Resources
-            </ScrollLink>
-
-            <button
-              onClick={() => {
-                setIsOpen(false);
-                navigate('/login');
-              }}
-              className='px-6 py-2 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600'
-            >
-              Login
-            </button>
-          </div>
-        )}
+        {/* Hamburger */}
+        <button
+          onClick={() => setIsOpen((o) => !o)}
+          aria-label={isOpen ? "Close menu" : "Open menu"}
+          aria-expanded={isOpen}
+          className="flex h-9 w-9 items-center justify-center rounded-md border border-white/10 text-neutral-300 transition-colors hover:border-white/25 hover:text-white md:hidden"
+        >
+          {isOpen ? <X size={18} /> : <Menu size={18} />}
+        </button>
       </div>
+
+      {/* Mobile menu */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden border-t border-white/[0.08] md:hidden"
+          >
+            <div className="px-6 pb-6 pt-2">
+              <Link
+                to="/"
+                onClick={() => setIsOpen(false)}
+                className="flex items-center justify-between border-b border-white/[0.06] py-4 text-neutral-200"
+              >
+                Home
+                <span className={`${MONO} text-[10px] text-neutral-600`}>00</span>
+              </Link>
+
+              {sections.map((s) => (
+                <ScrollLink
+                  key={s.to}
+                  to={s.to}
+                  smooth
+                  duration={500}
+                  offset={-64}
+                  onClick={() => setIsOpen(false)}
+                  className="flex cursor-pointer items-center justify-between border-b border-white/[0.06] py-4 text-neutral-200"
+                >
+                  {s.label}
+                  <span className={`${MONO} text-[10px] text-neutral-600`}>{s.index}</span>
+                </ScrollLink>
+              ))}
+
+              <div className="mt-6 grid grid-cols-2 gap-3">
+                <button
+                  onClick={() => go("/login")}
+                  className="rounded-md border border-white/15 py-2.5 text-sm text-neutral-300 transition-colors hover:border-white/30 hover:text-white"
+                >
+                  Sign in
+                </button>
+                <button
+                  onClick={() => go("/signup")}
+                  className="rounded-md bg-white py-2.5 text-sm font-medium text-black transition-colors hover:bg-neutral-200"
+                >
+                  Get started
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }

@@ -2,7 +2,7 @@ import Custom_Interview from './components/Custom_Interview.jsx'
 import {
   Navbar, Footer, LandingPage, Signup, Login,
   Dashboard, Profile, Resources, Interview,
-  EditProfile, ErrorPop, StartCustomInterview, ResumeReview
+  EditProfile, ErrorPop, StartCustomInterview, ResumeReview, ActivityHeatmap, CoachFeedback
 } from './components/index.js'
 
 import ProtectedRoute from './components/ProtectedRoute.jsx' // ✅ Import this
